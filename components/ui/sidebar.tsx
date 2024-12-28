@@ -207,9 +207,9 @@ const Sidebar = React.forwardRef<
                     >
                         <SheetHeader className="p-2 items-end">
                             <div className="w-full flex justify-between items-center min-w-52 space-x-2 md:hidden">
-                                <p className="md:hidden text-lg font-bold">MonoLayer</p>
+                                <p className="md:hidden text-lg font-semibold">MonoLayer</p>
                                 <SheetClose asChild>
-                                    <Button size="icon" className="size-5">
+                                    <Button size="icon" className="size-6 text-sm">
                                         X
                                     </Button>
                                 </SheetClose>
