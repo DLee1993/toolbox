@@ -4,19 +4,17 @@ import {
     SidebarContent,
     SidebarGroup,
     SidebarGroupContent,
+    SidebarGroupLabel,
     SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
+    SidebarSeparator,
     SidebarTrigger,
 } from "@/components/ui/sidebar";
+import Link from "next/link";
 
 const items = [
-    {
-        title: "Home",
-        url: "/",
-        icon: Home,
-    },
     {
         title: "Password generator",
         url: "/password-generator",
@@ -50,6 +48,24 @@ export function AppSidebar() {
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>
+                    <SidebarMenu>
+                        <SidebarMenuItem>
+                            <SidebarMenuButton
+                                asChild
+                                tooltip="Home"
+                                className="space-x-2 text-base"
+                            >
+                                <Link href="/">
+                                    <Home size={16} />
+                                    <p className="min-w-52">Home</p>
+                                </Link>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                    </SidebarMenu>
+                </SidebarGroup>
+                <SidebarSeparator />
+                <SidebarGroup>
+                    <SidebarGroupLabel>Tools</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {items.map((item) => (
