@@ -1,3 +1,5 @@
+"use client";
+
 import { Calendar, Home, Search, Settings, Key } from "lucide-react";
 import {
     Sidebar,
@@ -12,6 +14,7 @@ import {
     SidebarTrigger,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const items = [
     {
@@ -37,6 +40,7 @@ const items = [
 ];
 
 export function AppSidebar() {
+    const pathname = usePathname();
     return (
         <Sidebar collapsible="icon">
             <SidebarHeader className="overflow-hidden">
@@ -52,7 +56,9 @@ export function AppSidebar() {
                             <SidebarMenuButton
                                 asChild
                                 tooltip="Home"
-                                className="space-x-2 text-base"
+                                className={`space-x-2 text-base transition-colors ${
+                                    pathname === "/" ? "bg-neutral-200" : ""
+                                }`}
                             >
                                 <Link href="/">
                                     <Home size={16} />
@@ -71,7 +77,9 @@ export function AppSidebar() {
                                     <SidebarMenuButton
                                         asChild
                                         tooltip={item.title}
-                                        className="space-x-2 text-base"
+                                        className={`space-x-2 text-base transition-colors ${
+                                            pathname === item.url ? "bg-neutral-200" : ""
+                                        }`}
                                     >
                                         <a href={item.url}>
                                             <item.icon size={16} />
