@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
 
 const items = [
     {
@@ -29,8 +28,6 @@ const items = [
 export function AppSidebar() {
     const pathname = usePathname();
     const { open } = useSidebar();
-
-    useEffect(() => console.log(open), [open]);
 
     return (
         <Sidebar collapsible="icon">
