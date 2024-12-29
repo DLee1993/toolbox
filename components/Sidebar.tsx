@@ -12,9 +12,11 @@ import {
     SidebarMenuItem,
     SidebarSeparator,
     SidebarTrigger,
+    useSidebar,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 
 const items = [
     {
@@ -26,12 +28,22 @@ const items = [
 
 export function AppSidebar() {
     const pathname = usePathname();
+    const { open } = useSidebar();
+
+    useEffect(() => console.log(open), [open]);
+
     return (
         <Sidebar collapsible="icon">
             <SidebarHeader className="overflow-hidden">
-                <div className="hidden md:flex items-center min-w-52 space-x-2">
-                    <SidebarTrigger className="w-full max-w-8" />
-                    <p className="md:hidden">test</p>
+                <div className="relative hidden md:flex justify-end items-center space-x-2">
+                    <SidebarTrigger className="w-full max-w-8 z-10" />
+                    <p
+                        className={`absolute top-1/2 -translate-y-1/2 left-0 z-0 text-lg font-semibold transition-all ease-linear ${
+                            open ? "opacity-100 delay-100" : "opacity-0 translate-y-1"
+                        }`}
+                    >
+                        MonoLayer
+                    </p>
                 </div>
             </SidebarHeader>
             <SidebarContent>
