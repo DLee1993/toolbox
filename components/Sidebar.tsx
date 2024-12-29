@@ -4,7 +4,6 @@ import {
     SidebarContent,
     SidebarGroup,
     SidebarGroupContent,
-    SidebarGroupLabel,
     SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
@@ -64,8 +63,7 @@ export function AppSidebar() {
                     </SidebarMenu>
                 </SidebarGroup>
                 <SidebarSeparator />
-                <SidebarGroup>
-                    <SidebarGroupLabel>Tools</SidebarGroupLabel>
+                <SidebarGroup className="mt-0">
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {items.map((item) => (
