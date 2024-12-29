@@ -51,7 +51,7 @@ export function AppSidebar() {
                                 asChild
                                 tooltip="Home"
                                 className={`space-x-2 text-base transition-colors ${
-                                    pathname === "/" ? "bg-neutral-200" : ""
+                                    pathname === "/" ? "bg-neutral-200 dark:bg-neutral-700" : ""
                                 }`}
                             >
                                 <Link href="/">
@@ -72,7 +72,9 @@ export function AppSidebar() {
                                         asChild
                                         tooltip={item.title}
                                         className={`space-x-2 text-base transition-colors ${
-                                            pathname === item.url ? "bg-neutral-200" : ""
+                                            pathname === item.url
+                                                ? "bg-neutral-200 dark:bg-neutral-700"
+                                                : ""
                                         }`}
                                     >
                                         <a href={item.url}>
