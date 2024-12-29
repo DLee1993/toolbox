@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar, Home, Search, Settings, Key } from "lucide-react";
+import { Home, Key } from "lucide-react";
 import {
     Sidebar,
     SidebarContent,
@@ -21,21 +21,6 @@ const items = [
         title: "Password generator",
         url: "/password-generator",
         icon: Key,
-    },
-    {
-        title: "Calendar",
-        url: "#",
-        icon: Calendar,
-    },
-    {
-        title: "Search",
-        url: "#",
-        icon: Search,
-    },
-    {
-        title: "Settings",
-        url: "#",
-        icon: Settings,
     },
 ];
 
