@@ -16,7 +16,7 @@ export default async function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className="antialiased w-full">
+            <body className="antialiased w-full dark">
                 <SidebarProvider defaultOpen={false}>
                     <AppSidebar />
                     <main className="w-full">
