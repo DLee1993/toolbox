@@ -143,6 +143,15 @@
     * {
         @apply border-border;
     }
+    *::-webkit-scrollbar {
+        @apply w-1;
+    }
+    *::-webkit-scrollbar-track {
+        @apply bg-transparent;
+    }
+    *::-webkit-scrollbar-thumb {
+        @apply bg-foreground rounded;
+    }
     body {
         @apply bg-background text-foreground;
     }
@@ -155,5 +164,9 @@
     .minHeight {
         min-height: calc(100vh - var(--headerHeight));
         padding-top: 4rem;
+    }
+    .hiddenScrollbar {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
     }
 }
