@@ -168,7 +168,6 @@
 @layer components {
     .minHeight {
         min-height: calc(100vh - var(--headerHeight));
-        padding-top: 4rem;
     }
     .hiddenScrollbar {
         scrollbar-width: none;
