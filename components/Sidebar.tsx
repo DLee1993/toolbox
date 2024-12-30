@@ -52,7 +52,7 @@ export function AppSidebar() {
                                 asChild
                                 tooltip="Home"
                                 className={`space-x-2 text-base transition-colors ${
-                                    pathname === "/" ? "bg-neutral-200 dark:bg-neutral-700" : ""
+                                    pathname === "/" ? "bg-neutral-200 dark:bg-neutral-800" : ""
                                 }`}
                             >
                                 <Link href="/">
