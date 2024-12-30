@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Key, Moon } from "lucide-react";
+import { Home, Key } from "lucide-react";
 import {
     Sidebar,
     SidebarContent,
@@ -17,6 +17,7 @@ import {
     SidebarTrigger,
     useSidebar,
 } from "@/components/ui/sidebar";
+import ChangeTheme from "./ThemeToggle";
 
 const items = [
     {
@@ -36,7 +37,7 @@ export function AppSidebar() {
                 <div className="relative hidden md:flex justify-end items-center space-x-2">
                     <SidebarTrigger className="w-full max-w-8 z-10" />
                     <p
-                        className={`absolute top-1/2 -translate-y-1/2 left-0 z-0 text-lg font-semibold transition-all ease-linear ${
+                        className={`absolute top-1/2 -translate-y-1/2 left-0 z-0 text-lg font-semibold transition-transform ease-linear ${
                             open ? "opacity-100 delay-100" : "opacity-0 translate-y-1"
                         }`}
                     >
@@ -51,7 +52,7 @@ export function AppSidebar() {
                             <SidebarMenuButton
                                 asChild
                                 tooltip="Home"
-                                className={`space-x-2 text-base transition-colors ${
+                                className={`space-x-2 text-base ${
                                     pathname === "/" ? "bg-neutral-200 dark:bg-neutral-800" : ""
                                 }`}
                             >
@@ -75,7 +76,7 @@ export function AppSidebar() {
                                     <SidebarMenuButton
                                         asChild
                                         tooltip={item.title}
-                                        className={`space-x-2 text-base transition-colors ${
+                                        className={`space-x-2 text-base ${
                                             pathname === item.url
                                                 ? "bg-neutral-200 dark:bg-neutral-700"
                                                 : ""
@@ -96,16 +97,7 @@ export function AppSidebar() {
                     <SidebarGroupContent>
                         <SidebarMenu>
                             <SidebarMenuItem>
-                                <SidebarMenuButton
-                                    asChild
-                                    tooltip="Toggle theme"
-                                    className="space-x-2 text-base cursor-pointer"
-                                >
-                                    <p>
-                                        <Moon size={16} />
-                                        <span className="min-w-52">Dark mode</span>
-                                    </p>
-                                </SidebarMenuButton>
+                                <ChangeTheme />
                             </SidebarMenuItem>
                         </SidebarMenu>
                     </SidebarGroupContent>
