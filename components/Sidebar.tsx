@@ -52,9 +52,8 @@ export function AppSidebar() {
                             <SidebarMenuButton
                                 asChild
                                 tooltip="Home"
-                                className={`space-x-2 text-base ${
-                                    pathname === "/" ? "bg-neutral-200 dark:bg-neutral-800" : ""
-                                }`}
+                                className="space-x-2 text-base"
+                                isActive={pathname === "/" ? true : false}
                             >
                                 <Link href="/">
                                     <Home size={16} />
@@ -76,11 +75,8 @@ export function AppSidebar() {
                                     <SidebarMenuButton
                                         asChild
                                         tooltip={item.title}
-                                        className={`space-x-2 text-base ${
-                                            pathname === item.url
-                                                ? "bg-neutral-200 dark:bg-neutral-700"
-                                                : ""
-                                        }`}
+                                        className="space-x-2 text-base"
+                                        isActive={pathname === item.url ? true : false}
                                     >
                                         <a href={item.url}>
                                             <item.icon size={16} />
