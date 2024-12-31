@@ -3,6 +3,7 @@ import "./globals.css";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/Sidebar";
 import Header from "@/components/Header";
+import { ThemeProvider } from "next-themes";
 
 export const metadata: Metadata = {
     title: "MonoLayer",
@@ -15,15 +16,17 @@ export default async function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
-            <body className="antialiased w-full" data-theme="dark">
-                <SidebarProvider defaultOpen={false}>
-                    <AppSidebar />
-                    <main className="w-full">
-                        <Header />
-                        {children}
-                    </main>
-                </SidebarProvider>
+        <html lang="en" suppressHydrationWarning>
+            <body className="antialiased w-full">
+                <ThemeProvider>
+                    <SidebarProvider defaultOpen={false}>
+                        <AppSidebar />
+                        <main className="w-full">
+                            <Header />
+                            {children}
+                        </main>
+                    </SidebarProvider>
+                </ThemeProvider>
             </body>
         </html>
     );

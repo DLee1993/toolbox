@@ -1,32 +1,21 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { SidebarMenuButton } from "./ui/sidebar";
 import { Moon } from "lucide-react";
+import { useTheme } from "next-themes";
 
 const ChangeTheme = () => {
-    const [theme, setTheme] = useState("dark");
+    const { theme, setTheme } = useTheme();
+
+    console.log(theme)
 
     const toggleTheme = () => {
-        const currentTheme = document.body.getAttribute("data-theme");
-
-        if (currentTheme === "dark") {
-            document.body.setAttribute("data-theme", "light");
+        if (theme == "dark") {
+            setTheme("light");
         } else {
-            document.body.setAttribute("data-theme", "dark");
+            setTheme("dark");
         }
     };
-
-    useEffect(() => {
-        const htmlElement = document.body;
-
-        if (theme === "system") {
-            // Use system preference
-            const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
-            setTheme(prefersDarkMode ? "dark" : "light");
-        } else {
-            htmlElement.setAttribute("data-theme", theme);
-        }
-    }, [theme]);
 
     return (
         <SidebarMenuButton
