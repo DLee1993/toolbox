@@ -78,10 +78,10 @@ export function AppSidebar() {
                                         className="space-x-2 text-base"
                                         isActive={pathname === item.url ? true : false}
                                     >
-                                        <a href={item.url}>
+                                        <Link href={item.url}>
                                             <item.icon size={16} />
                                             <p className="min-w-52">{item.title}</p>
-                                        </a>
+                                        </Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
                             ))}
