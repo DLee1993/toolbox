@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Key } from "lucide-react";
+import { Home, Key, Combine, Square } from "lucide-react";
 import {
     Sidebar,
     SidebarContent,
@@ -21,9 +21,32 @@ import ChangeTheme from "./ThemeToggle";
 
 const items = [
     {
-        title: "Password generator",
-        url: "/password-generator",
-        icon: Key,
+        type: "Tools",
+        pages: [
+            {
+                title: "Password generator",
+                url: "/password-generator",
+                icon: Key,
+            },
+            {
+                title: "File converter",
+                url: "/file-converter",
+                icon: Combine,
+            },
+        ],
+    },
+    {
+        type: "Docs",
+        pages: [
+            {
+                title: "React Cheatsheet",
+                url: "/password-generator",
+            },
+            {
+                title: "Next.js Cheatsheet",
+                url: "/file-converter",
+            },
+        ],
     },
 ];
 
@@ -46,48 +69,56 @@ export function AppSidebar() {
                 </div>
             </SidebarHeader>
             <SidebarContent>
-                <SidebarGroup>
-                    <SidebarMenu>
-                        <SidebarMenuItem>
-                            <SidebarMenuButton
-                                asChild
-                                tooltip="Home"
-                                className="space-x-2 text-base"
-                                isActive={pathname === "/" ? true : false}
-                            >
-                                <Link href="/">
-                                    <Home size={16} />
-                                    <p className="min-w-52">Home</p>
-                                </Link>
-                            </SidebarMenuButton>
-                        </SidebarMenuItem>
-                    </SidebarMenu>
-                </SidebarGroup>
-                <SidebarSeparator />
-                <SidebarGroup
+                <SidebarGroupContent
                     className={open ? "overflow-y-auto" : "overflow-y-auto hiddenScrollbar"}
                 >
-                    <SidebarGroupLabel>Tools</SidebarGroupLabel>
-                    <SidebarGroupContent>
+                    <SidebarGroup>
                         <SidebarMenu>
-                            {items.map((item, index) => (
-                                <SidebarMenuItem key={index}>
-                                    <SidebarMenuButton
-                                        asChild
-                                        tooltip={item.title}
-                                        className="space-x-2 text-base"
-                                        isActive={pathname === item.url ? true : false}
-                                    >
-                                        <Link href={item.url}>
-                                            <item.icon size={16} />
-                                            <p className="min-w-52">{item.title}</p>
-                                        </Link>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                            ))}
+                            <SidebarMenuItem>
+                                <SidebarMenuButton
+                                    asChild
+                                    tooltip="Home"
+                                    className="space-x-2 text-base"
+                                    isActive={pathname === "/" ? true : false}
+                                >
+                                    <Link href="/">
+                                        <Home size={16} />
+                                        <p className="min-w-52">Home</p>
+                                    </Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
                         </SidebarMenu>
-                    </SidebarGroupContent>
-                </SidebarGroup>
+                    </SidebarGroup>
+
+                    {items.map((group, index) => (
+                        <SidebarGroup key={index}>
+                            <SidebarGroupLabel>{group.type}</SidebarGroupLabel>
+                            <SidebarGroupContent>
+                                <SidebarMenu>
+                                    {group.pages.map((item, index) => (
+                                        <SidebarMenuItem key={index}>
+                                            <SidebarMenuButton
+                                                asChild
+                                                tooltip={item.title}
+                                                className="space-x-2 text-base"
+                                                isActive={pathname === item.url ? true : false}
+                                            >
+                                                <Link href={item.url}>
+                                                    {"icon" in item ? (
+                                                        <item.icon size={16} />
+                                                    ) : (
+                                                        <Square size={16}/>
+                                                    )}
+                                                    <p className="min-w-52">{item.title}</p>
+                                                </Link>
+                                            </SidebarMenuButton>
+                                        </SidebarMenuItem>
+                                    ))}
+                                </SidebarMenu>
+                            </SidebarGroupContent>
+                        </SidebarGroup>
+                    ))}
+                </SidebarGroupContent>
                 <SidebarSeparator />
                 <SidebarGroup className="mt-auto">
                     <SidebarGroupContent>
