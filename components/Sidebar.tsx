@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Key, Combine, Square } from "lucide-react";
+import { Home, Key, Combine, Square } from "lucide-react"; //EllipsisIcon, ChevronDown
 import {
     Sidebar,
     SidebarContent,
@@ -61,7 +61,7 @@ export function AppSidebar() {
                     <SidebarTrigger className="w-full max-w-8 z-10" />
                     <p
                         className={`absolute top-1/2 -translate-y-1/2 left-0 z-0 text-lg font-semibold transition-transform ease-linear ${
-                            open ? "opacity-100 delay-100" : "opacity-0 translate-y-1"
+                            open ? "delay-75" : "-translate-y-12"
                         }`}
                     >
                         MonoLayer
@@ -82,7 +82,7 @@ export function AppSidebar() {
                                     isActive={pathname === "/" ? true : false}
                                 >
                                     <Link href="/">
-                                        <Home size={16} />
+                                        <Home />
                                         <p className="min-w-52">Home</p>
                                     </Link>
                                 </SidebarMenuButton>
@@ -91,7 +91,7 @@ export function AppSidebar() {
                     </SidebarGroup>
 
                     {items.map((group, index) => (
-                        <SidebarGroup key={index}>
+                        <SidebarGroup key={index} className="overflow-hidden">
                             <SidebarGroupLabel>{group.type}</SidebarGroupLabel>
                             <SidebarGroupContent>
                                 <SidebarMenu>
@@ -107,7 +107,7 @@ export function AppSidebar() {
                                                     {"icon" in item ? (
                                                         <item.icon size={16} />
                                                     ) : (
-                                                        <Square size={16}/>
+                                                        <Square size={16} />
                                                     )}
                                                     <p className="min-w-52">{item.title}</p>
                                                 </Link>
