@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Key, Combine, Square } from "lucide-react"; //EllipsisIcon, ChevronDown
+import { Home, Key, Combine, Library } from "lucide-react"; //EllipsisIcon, ChevronDown
 import {
     Sidebar,
     SidebarContent,
@@ -107,7 +107,7 @@ export function AppSidebar() {
                                                     {"icon" in item ? (
                                                         <item.icon size={16} />
                                                     ) : (
-                                                        <Square size={16} />
+                                                        <Library size={16} />
                                                     )}
                                                     <p className="min-w-52">{item.title}</p>
                                                 </Link>
