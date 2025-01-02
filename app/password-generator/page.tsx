@@ -15,7 +15,7 @@ export default function PasswordGenerator() {
 
     return (
         <section className="px-2 sm:px-5 md:px-7 lg:px-10 pb-5">
-            <h1 className="text-5xl lg:text-6xl font-semibold max-w-3xl mx-auto text-center">
+            <h1 className="text-5xl font-semibold max-w-xl mx-auto text-center">
                 <span className="text-red-500">Strengthen your security</span>, one password at a
                 time.
             </h1>
