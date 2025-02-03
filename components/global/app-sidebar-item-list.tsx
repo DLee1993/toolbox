@@ -1,11 +1,4 @@
-import {
-    Key,
-    Combine,
-    Clock,
-    Notebook,
-    Network,
-    Unlink,
-} from "lucide-react";
+import { Key, Combine, Clock, Notebook, Network, Unlink } from "lucide-react";
 
 export const items = [
     {
@@ -13,32 +6,32 @@ export const items = [
         pages: [
             {
                 title: "Password generator",
-                url: "/PasswordGenerator",
+                url: "/password-generator",
                 icon: Key,
             },
             {
                 title: "File converter",
-                url: "/FileConverter",
+                url: "/file-converter",
                 icon: Combine,
             },
             {
                 title: "Focus timer",
-                url: "/FocusTimer",
+                url: "/focus-timer",
                 icon: Clock,
             },
             {
                 title: "Notepad",
-                url: "/Notepad",
+                url: "/notepad",
                 icon: Notebook,
             },
             {
                 title: "Link in bio",
-                url: "/LinkInBio",
+                url: "/link-in-bio",
                 icon: Network,
             },
             {
                 title: "Link shortener",
-                url: "/URLShortener",
+                url: "/link-shortener",
                 icon: Unlink,
             },
         ],
