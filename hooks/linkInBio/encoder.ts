@@ -1,6 +1,6 @@
 import { encode, decode } from "js-base64";
 
-export const encodeData = (userData: UserValues) => {
+export const encodeData = (userData: LinkInBioValues) => {
     return encode(JSON.stringify(userData));
 };
 
