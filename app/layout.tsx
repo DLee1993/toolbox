@@ -5,6 +5,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { AppSidebar } from "@/components/global/app-sidebar";
 
 const ubuntu = Ubuntu({
     weight: ["300", "400", "500", "700"],
@@ -27,11 +28,8 @@ export default function RootLayout({
                 <ThemeProvider>
                     <SidebarProvider defaultOpen={false}>
                         <TooltipProvider>
-                            {/* <AppSidebar /> */}
-                            <main className="w-full">
-                                {/* <Header /> */}
-                                {children}
-                            </main>
+                            <AppSidebar />
+                            <main className="w-full">{children}</main>
                         </TooltipProvider>
                     </SidebarProvider>
                 </ThemeProvider>
