@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Ubuntu } from "next/font/google";
+import { Ubuntu } from "next/font/google";
 import "./globals.css";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { ThemeProvider } from "next-themes";
+import { Toaster } from "@/components/ui/toaster";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const ubuntu = Ubuntu({
     weight: ["300", "400", "500", "700"],
@@ -18,9 +22,20 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
             <body className={`${ubuntu.className} antialiased`}>
-                <main>{children}</main>
+                <ThemeProvider>
+                    <SidebarProvider defaultOpen={false}>
+                        <TooltipProvider>
+                            {/* <AppSidebar /> */}
+                            <main className="w-full">
+                                {/* <Header /> */}
+                                {children}
+                            </main>
+                        </TooltipProvider>
+                    </SidebarProvider>
+                </ThemeProvider>
+                <Toaster />
             </body>
         </html>
     );
