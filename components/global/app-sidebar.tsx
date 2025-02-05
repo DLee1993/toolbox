@@ -26,18 +26,19 @@ export function AppSidebar() {
 
     return (
         <Sidebar collapsible="icon">
-            <SidebarHeader className="overflow-hidden p-1">
+            <SidebarHeader className="overflow-hidden px-1 py-2">
                 <div className="relative hidden md:flex justify-end items-center space-x-2">
                     <SidebarTrigger
                         className="w-full max-w-10 h-10 z-10 hover:bg-sidebar-accent cursor-pointer"
                         type="button"
                     />
                     <p
-                        className={`absolute top-1/2 -translate-y-1/2 left-0 z-0 text-lg ml-2 font-semibold transition-transform ease-linear ${
+                        className={`flex flex-col min-w-52 absolute top-1/2 -translate-y-1/2 left-0 z-0 ml-2 font-semibold transition-transform ease-linear ${
                             !open && "opacity-0"
                         }`}
                     >
-                        MonoLayer
+                        Toolbox
+                        <span className="text-xs text-muted-foreground">A hub for essential tools.</span>
                     </p>
                 </div>
             </SidebarHeader>
