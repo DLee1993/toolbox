@@ -6,6 +6,7 @@ import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppSidebar } from "@/components/global/app-sidebar";
+import Header from "@/components/global/Header";
 
 const openSans = Open_Sans({
     weight: ["300", "400", "600", "700", "800"],
@@ -32,7 +33,10 @@ export default function RootLayout({
                     <SidebarProvider defaultOpen={false}>
                         <TooltipProvider>
                             <AppSidebar />
-                            <main className="w-full">{children}</main>
+                            <main className="w-full">
+                                <Header />
+                                {children}
+                            </main>
                         </TooltipProvider>
                     </SidebarProvider>
                 </ThemeProvider>
