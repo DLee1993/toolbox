@@ -6,11 +6,11 @@ import { MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 
 const ChangeTheme = () => {
-    const [hasMounted, setHasMounted] = useState(false); // <-- add this
+    const [hasMounted, setHasMounted] = useState(false);
     const { theme, setTheme } = useTheme();
 
     useEffect(() => {
-        setHasMounted(true); // <-- toggle on client-side, because useEffect doesn't run on server-side/during SSG build
+        setHasMounted(true);
     }, []);
 
     const toggleTheme = () => {
@@ -30,7 +30,7 @@ const ChangeTheme = () => {
         >
             {hasMounted ? (
                 <div>
-                    <div className="relative size-4 mr-5">
+                    <div className="relative size-4 mr-1 md:mr-5">
                         <MoonIcon
                             size={16}
                             className={`ml-1 absolute top-0 left-0 transition-transform duration-500 ${
