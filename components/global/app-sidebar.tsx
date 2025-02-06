@@ -31,6 +31,7 @@ export function AppSidebar() {
                     <SidebarTrigger
                         className="w-full max-w-10 h-10 z-10 hover:bg-sidebar-accent cursor-pointer"
                         type="button"
+                        variant="outline"
                     />
                     <p
                         className={`flex flex-col min-w-52 absolute top-1/2 -translate-y-1/2 left-0 z-0 ml-2 transition-transform ease-linear ${
