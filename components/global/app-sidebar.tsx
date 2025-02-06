@@ -33,12 +33,12 @@ export function AppSidebar() {
                         type="button"
                     />
                     <p
-                        className={`flex flex-col min-w-52 absolute top-1/2 -translate-y-1/2 left-0 z-0 ml-2 font-semibold transition-transform ease-linear ${
+                        className={`flex flex-col min-w-52 absolute top-1/2 -translate-y-1/2 left-0 z-0 ml-2 transition-transform ease-linear ${
                             !open && "opacity-0"
                         }`}
                     >
                         Toolbox
-                        <span className="text-xs text-muted-foreground">A hub for essential tools.</span>
+                        <span className="text-xs text-muted-foreground font-normal">A hub for essential tools.</span>
                     </p>
                 </div>
             </SidebarHeader>
