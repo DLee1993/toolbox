@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import ChangeTheme from "../theme/ThemeToggle";
 import { Home, Library, FolderGit2 } from "lucide-react";
+import { items } from "./app-sidebar-item-list";
 import {
     Sidebar,
     SidebarContent,
@@ -18,7 +18,6 @@ import {
     SidebarTrigger,
     useSidebar,
 } from "@/components/ui/sidebar";
-import { items } from "./app-sidebar-item-list";
 
 export function AppSidebar() {
     const pathname = usePathname();
@@ -29,7 +28,7 @@ export function AppSidebar() {
             <SidebarHeader className="overflow-hidden px-1 py-2">
                 <div className="relative hidden md:flex justify-end items-center space-x-2">
                     <SidebarTrigger
-                        className="w-full max-w-10 h-10 z-10 hover:bg-sidebar-accent cursor-pointer"
+                        className="w-full max-w-10 h-10 z-10 hover:bg-secondary hover:text-foreground cursor-pointer"
                         type="button"
                         variant="outline"
                     />
@@ -73,9 +72,6 @@ export function AppSidebar() {
                                         <p className="min-w-52">Request a tool</p>
                                     </Link>
                                 </SidebarMenuButton>
-                            </SidebarMenuItem>
-                            <SidebarMenuItem>
-                                <ChangeTheme />
                             </SidebarMenuItem>
                         </SidebarMenu>
                     </SidebarGroup>
