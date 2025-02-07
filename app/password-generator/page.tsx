@@ -47,7 +47,7 @@ export default function PasswordGenerator() {
                 <div className="flex gap-1 text-center">
                     <Button
                         onClick={() => GenPass({ input })}
-                        className="h-12 w-full rounded-md bg-sidebar-accent/50 hover:bg-sidebar-accent text-sidebar-accent-foreground px-3.5 py-2.5 text-sm font-semibold shadow-xs transition-all cursor-pointer"
+                        className="h-12 w-full rounded-md bg-accent hover:bg-sidebar-accent text-sidebar-accent-foreground px-3.5 py-2.5 text-sm font-semibold shadow-xs transition-all cursor-pointer"
                         aria-label="click to generate password"
                     >
                         New password
@@ -55,7 +55,7 @@ export default function PasswordGenerator() {
                     </Button>
                     <Button
                         onClick={() => wrapperFunction({ input })}
-                        className="h-12 w-full rounded-md bg-sidebar-accent/50 hover:bg-sidebar-accent text-sidebar-accent-foreground px-3.5 py-2.5 text-sm font-semibold shadow-xs transition-all cursor-pointer"
+                        className="h-12 w-full rounded-md bg-accent hover:bg-sidebar-accent text-sidebar-accent-foreground px-3.5 py-2.5 text-sm font-semibold shadow-xs transition-all cursor-pointer"
                         aria-label="click to copy password"
                     >
                         Copy to clipboard
