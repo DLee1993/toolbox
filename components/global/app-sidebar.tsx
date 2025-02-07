@@ -25,7 +25,7 @@ export function AppSidebar() {
     const { open } = useSidebar();
 
     return (
-        <Sidebar collapsible="icon" variant="floating">
+        <Sidebar collapsible="icon">
             <SidebarHeader className="overflow-hidden px-1 py-2">
                 <div className="relative hidden md:flex justify-end items-center space-x-2">
                     <SidebarTrigger
