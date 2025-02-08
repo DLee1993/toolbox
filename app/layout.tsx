@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
+import { Lexend } from "next/font/google";
 import "./globals.css";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { ThemeProvider } from "next-themes";
@@ -8,7 +8,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppSidebar } from "@/components/global/app-sidebar";
 import Header from "@/components/global/Header";
 
-const openSans = Open_Sans({
+const lexend = Lexend({
     weight: ["300", "400", "600", "700", "800"],
     subsets: ["latin"],
 });
@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className={`${openSans.className} antialiased`}>
+            <body className={`${lexend.className} antialiased`}>
                 <ThemeProvider>
                     <SidebarProvider defaultOpen={false}>
                         <TooltipProvider>
