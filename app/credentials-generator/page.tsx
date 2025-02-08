@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { GenPass, CodePass } from "@/hooks/passwordGenerator/generate-password";
+import { GenPass, CodePass } from "@/hooks/credentialsGenerator/generate-credentials";
 import { useToast } from "@/hooks/global/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
