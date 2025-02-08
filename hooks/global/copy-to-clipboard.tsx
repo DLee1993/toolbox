@@ -1,10 +1,6 @@
-export const WriteToClipboard = async ({
-    input,
-}: {
-    input: React.RefObject<HTMLInputElement | null>;
-}) => {
+export const WriteToClipboard = async ({ input }: { input: string }) => {
     try {
-        await navigator.clipboard.writeText(input.current!.value);
+        await navigator.clipboard.writeText(input);
         return true;
     } catch (error) {
         console.log(error);
