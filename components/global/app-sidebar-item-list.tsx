@@ -5,8 +5,8 @@ export const items = [
         type: "Tools",
         pages: [
             {
-                title: "Password generator",
-                url: "/password-generator",
+                title: "Credentials",
+                url: "/credentials-generator",
                 icon: Key,
             },
             {
