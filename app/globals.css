@@ -73,7 +73,7 @@
     }
 
     .customPadding {
-        @apply px-2 sm:px-5 md:px-7 lg:px-10 pb-5;
+        @apply px-2 sm:px-5 md:px-7 lg:px-10 py-2 sm:py-5 md:py-7 lg:py-10;
     }
 
     .socialLink {
