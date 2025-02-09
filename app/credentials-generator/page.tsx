@@ -60,7 +60,8 @@ export default function CredentialsGenerator() {
                     <h2>Generate a password</h2>
                     <Input
                         ref={passwordInput}
-                        className="h-12 text-foreground text-center border border-foreground/25!"
+                        placeholder="194kfscmcaadDP$£%T$%Rlcdlsc"
+                        className="h-12 text-foreground placeholder:opacity-50 font-medium tracking-[0.2rem] border-none"
                     ></Input>
                     <div className="flex gap-1 text-center">
                         <Button
@@ -98,7 +99,8 @@ export default function CredentialsGenerator() {
                     </Select>
                     <Input
                         ref={pinInput}
-                        className="h-12 text-foreground text-center border border-foreground/25!"
+                        placeholder="1403"
+                        className="h-12 text-foreground placeholder:opacity-50 font-medium tracking-[0.2rem] border-none"
                     ></Input>
                     <div className="flex gap-1 text-center">
                         <Button
