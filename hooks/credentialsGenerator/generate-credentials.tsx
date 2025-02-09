@@ -3,7 +3,7 @@ import { generate } from "generate-password";
 
 export const GenPass = ({ input }: { input: React.RefObject<HTMLInputElement | null> }) => {
     const password = generate({
-        length: 4,
+        length: 10,
         numbers: true,
         symbols: true,
         strict: true,
