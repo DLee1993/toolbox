@@ -3,7 +3,7 @@ import { generate } from "generate-password";
 
 export const GenPass = ({ input }: { input: React.RefObject<HTMLInputElement | null> }) => {
     const password = generate({
-        length: 10,
+        length: 4,
         numbers: true,
         symbols: true,
         strict: true,
@@ -16,7 +16,7 @@ export const GenPass = ({ input }: { input: React.RefObject<HTMLInputElement | n
                 input.current!.innerText = err.message;
                 return;
             }
-            input.current!.value = hash;
+            input.current!.value = hash.slice(7, -1);
         });
     });
 };
@@ -28,12 +28,11 @@ export const CodePass = ({
     input: React.RefObject<HTMLInputElement | null>;
     length: string;
 }) => {
-    console.log(length);
-
     let pin = "";
 
-    for (let i = 0; i < Number(length); i++) {
-        pin += Math.floor(Math.random() * 10);
+    while (pin.length < parseInt(length)) {
+        const randomNumber = Math.floor(Math.random() * 10);
+        pin += randomNumber;
     }
 
     input.current!.value = pin.toString();
