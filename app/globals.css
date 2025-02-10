@@ -77,11 +77,11 @@
     }
 
     .socialLink {
-        @apply w-fit h-11 mx-auto block border border-muted-foreground/15 rounded-[4px] hover:bg-muted-foreground/15 transition-colors duration-300;
+        @apply size-12 mx-auto border border-muted rounded-[8px] hover:bg-muted transition-colors duration-300 grid place-content-center;
     }
 
     .socialLink-content {
-        @apply h-full flex space-x-3 items-center px-3;
+        @apply h-full flex space-x-3 items-center;
     }
 }
 
