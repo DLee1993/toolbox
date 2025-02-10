@@ -14,12 +14,12 @@ export const PublishedLink = ({
     return (
         <Tooltip>
             <TooltipTrigger asChild>
-                <li className="socialLink">
-                    <Link href={href} target="_blank" className="socialLink-content">
+                <Link href={href} target="_blank" className="socialLink-content">
+                    <li className="socialLink">
                         <Icon size={18} />
                         <span className="sr-only">{label}</span>
-                    </Link>
-                </li>
+                    </li>
+                </Link>
             </TooltipTrigger>
             <TooltipContent>
                 <p>{label}</p>
