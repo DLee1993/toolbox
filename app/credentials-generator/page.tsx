@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { GenPass, CodePass } from "@/hooks/credentialsGenerator/generate-credentials";
 import { useToast } from "@/hooks/global/use-toast";
 import { Button } from "@/components/ui/button";
@@ -21,9 +21,9 @@ export default function CredentialsGenerator() {
     const pinInput = useRef<HTMLInputElement>(null);
     const { toast } = useToast();
     const [pinLength, setPinLength] = useState<string>("4");
-    const pinLengthOptions = ["5", "6", "7", "8", "9", "10", "11", "12"];
+    const pinLengthOptions = ["4","5", "6", "7", "8", "9", "10", "11", "12"];
 
-    async function NotifyUser(input: string) {
+    const NotifyUser = async (input: string) => {
         try {
             const result = await WriteToClipboard({ input });
             if (!result) {
@@ -38,11 +38,6 @@ export default function CredentialsGenerator() {
             });
         }
     }
-
-    useEffect(() => {
-        GenPass({ input: passwordInput });
-        CodePass({ input: pinInput, length: pinLength });
-    });
 
     return (
         <section className="minHeight customPadding space-y-10">
@@ -63,7 +58,7 @@ export default function CredentialsGenerator() {
                     <Input
                         readOnly
                         ref={passwordInput}
-                        placeholder="194kfscmcaadDP$£%T$%Rlcdlsc"
+                        placeholder="e.g. 194kfscmcaadDP$£%T$%Rlcdlsc"
                         className="h-12 text-foreground placeholder:opacity-50 font-medium tracking-[0.2rem]"
                     ></Input>
                     <div className="flex gap-1 text-center">
@@ -102,8 +97,8 @@ export default function CredentialsGenerator() {
                     <Input
                         readOnly
                         ref={pinInput}
-                        placeholder="1403"
-                        className="h-12 text-foreground placeholder:opacity-50 font-medium tracking-[0.2rem]"
+                        placeholder="e.g. 1403"
+                        className="h-12 w-[160px] text-foreground placeholder:opacity-50 font-medium tracking-[0.2rem]"
                     ></Input>
                     <div className="flex gap-1 text-center">
                         <Button
