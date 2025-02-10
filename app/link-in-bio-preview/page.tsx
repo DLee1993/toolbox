@@ -30,7 +30,7 @@ function LinkPreview() {
                     alt="profile picture"
                     width={50}
                     height={50}
-                    className="rounded-full size-20 border-2 border-muted-foreground"
+                    className="rounded-full size-20 border-2 border-muted"
                 />
             )}
             <article className="flex flex-col justify-center items-center gap-10">
@@ -45,7 +45,7 @@ function LinkPreview() {
                     <Link
                         href={decoded_data.portfolio}
                         target="_blank"
-                        className="block py-3 px-8 border border-muted-foreground/15 rounded-[4px] hover:bg-muted-foreground/15 transition-colors duration-300"
+                        className="block py-3 px-8 border border-muted rounded-[8px] hover:bg-muted transition-colors duration-300"
                     >
                         {decoded_data.portfolio}
                     </Link>

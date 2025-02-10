@@ -81,7 +81,7 @@ export default function LinkInBio() {
     };
 
     return (
-        <section className="w-full flex flex-col lg:flex-row justify-between items-start gap-14 p-8 md:p-10 lg:p-12">
+        <section className="w-full flex flex-col lg:flex-row justify-between items-start gap-14 p-8 md:p-10">
             <section className="lg:sticky top-12 space-y-10 lg:w-1/2">
                 <h1 className="text-2xl font-semibold max-w-sm">
                     Keep all your digital connections in one place.
@@ -104,7 +104,7 @@ export default function LinkInBio() {
                     </p>
                 </article>
                 <Button
-                    className="px-2 py-4 text-sm rounded-[4px] w-full max-w-[200px] cursor-copy bg-transparent text-foreground border border-foreground"
+                    className="px-2 py-6 text-sm rounded-[4px] w-full max-w-[200px] cursor-copy bg-transparent text-foreground border border-muted"
                     onClick={publish}
                     disabled={
                         formValues.name.length < 1 ||
@@ -117,11 +117,11 @@ export default function LinkInBio() {
             </section>
             <section className="w-full lg:w-1/2">
                 <Tabs defaultValue="PersonalInformation">
-                    <TabsList className="grid grid-cols-2 w-11/12 max-w-xl bg-foreground/5">
-                        <TabsTrigger value="PersonalInformation" className="cursor-pointer">
+                    <TabsList className="grid grid-cols-2 gap-2 w-11/12 h-12 max-w-xl text-secondary-foreground bg-secondary">
+                        <TabsTrigger value="PersonalInformation" className="cursor-pointer h-9 hover:bg-slate-200/15">
                             Personal Information
                         </TabsTrigger>
-                        <TabsTrigger value="Preview" className="cursor-pointer">
+                        <TabsTrigger value="Preview" className="cursor-pointer h-9 hover:bg-slate-200/15">
                             Preview
                         </TabsTrigger>
                     </TabsList>
@@ -183,7 +183,7 @@ export default function LinkInBio() {
                                             alt="profile picture"
                                             width={50}
                                             height={50}
-                                            className="rounded-full size-20 border-2 border-muted-foreground"
+                                            className="rounded-full size-20 border-2 border-muted"
                                         />
                                     )}
                                     <article className="flex flex-col justify-center items-center gap-10">
@@ -200,7 +200,7 @@ export default function LinkInBio() {
                                             <Link
                                                 href={formValues.portfolio}
                                                 target="_blank"
-                                                className="block py-2 px-4 border border-muted-foreground/15 rounded-[8px] hover:bg-muted-foreground/15 transition-colors duration-300"
+                                                className="block py-2 px-4 border border-muted rounded-[8px] hover:bg-muted transition-colors duration-300"
                                             >
                                                 {formValues.portfolio}
                                             </Link>
