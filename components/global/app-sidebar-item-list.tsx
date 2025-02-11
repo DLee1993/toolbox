@@ -1,14 +1,19 @@
 import { Key, Combine, Clock, Notebook, Network, Unlink } from "lucide-react";
 
-export const items = [
+export const sidebarItems = [
     {
-        type: "Tools",
-        pages: [
+        category: "Security",
+        tools: [
             {
                 title: "Credentials",
                 url: "/credentials-generator",
                 icon: Key,
             },
+        ],
+    },
+    {
+        category: "Productivity",
+        tools: [
             {
                 title: "File converter",
                 url: "/file-converter",
@@ -24,6 +29,11 @@ export const items = [
                 url: "/notepad",
                 icon: Notebook,
             },
+        ],
+    },
+    {
+        category: "Networking",
+        tools: [
             {
                 title: "Link in bio",
                 url: "/link-in-bio",
