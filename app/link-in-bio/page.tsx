@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { encodeData } from "@/hooks/linkInBio/encoder";
+import { encodeData } from "@/hooks/link-in-bio/encoder";
 import { useToast } from "@/hooks/global/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -118,10 +118,16 @@ export default function LinkInBio() {
             <section className="w-full lg:w-1/2">
                 <Tabs defaultValue="PersonalInformation">
                     <TabsList className="grid grid-cols-2 gap-2 w-11/12 h-12 max-w-xl text-secondary-foreground bg-secondary">
-                        <TabsTrigger value="PersonalInformation" className="cursor-pointer h-9 hover:bg-slate-200/15">
+                        <TabsTrigger
+                            value="PersonalInformation"
+                            className="cursor-pointer h-9 hover:bg-slate-200/15"
+                        >
                             Personal Information
                         </TabsTrigger>
-                        <TabsTrigger value="Preview" className="cursor-pointer h-9 hover:bg-slate-200/15">
+                        <TabsTrigger
+                            value="Preview"
+                            className="cursor-pointer h-9 hover:bg-slate-200/15"
+                        >
                             Preview
                         </TabsTrigger>
                     </TabsList>
