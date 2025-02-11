@@ -3,7 +3,7 @@
 
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { decodeData } from "@/hooks/linkInBio/encoder";
+import { decodeData } from "@/hooks/link-in-bio/encoder";
 import { PublishedLink } from "@/components/PublishedLink";
 import {
     FaInstagram,
