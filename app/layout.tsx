@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppSidebar } from "@/components/global/app-sidebar";
 import Header from "@/components/global/Header";
+import BreadCrumbNav from "@/components/global/BreadCrumbNav";
 
 const lexend = Lexend({
     weight: ["300", "400", "600", "700", "800"],
@@ -35,6 +36,9 @@ export default function RootLayout({
                             <AppSidebar />
                             <main className="w-full">
                                 <Header />
+                                <div className="block min-[600px]:hidden p-2">
+                                    <BreadCrumbNav />
+                                </div>
                                 {children}
                             </main>
                         </TooltipProvider>
