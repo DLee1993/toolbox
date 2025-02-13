@@ -14,20 +14,20 @@ export default function BreadCrumbNav() {
     const path = usePathname();
 
     return (
-        <Breadcrumb className="hidden min-[600px]:block">
-            <BreadcrumbList>
-                <BreadcrumbItem>
-                    <BreadcrumbLink href="/">Home</BreadcrumbLink>
-                </BreadcrumbItem>
-                {path != "/" && (
+        <Breadcrumb>
+            {path != "/" && (
+                <BreadcrumbList>
+                    <BreadcrumbItem>
+                        <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                    </BreadcrumbItem>
                     <>
                         <BreadcrumbSeparator />
                         <BreadcrumbItem>
                             <BreadcrumbPage>{path.slice(1)}</BreadcrumbPage>
                         </BreadcrumbItem>
                     </>
-                )}
-            </BreadcrumbList>
+                </BreadcrumbList>
+            )}
         </Breadcrumb>
     );
 }
