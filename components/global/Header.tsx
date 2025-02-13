@@ -13,12 +13,12 @@ export default function Header() {
                 <BreadCrumbNav />
             </div>
             <div className="flex gap-4 w-fit">
-                <Link href="https://github.com/DLee1993" target="_blank">
+                <Link href="https://github.com/DLee1993" target="_blank" className="hidden min-[600px]:block">
                     <Button variant="outline">
                         <StarIcon /> support us
                     </Button>
                 </Link>
-                <Link href="https://github.com/DLee1993" target="_blank">
+                <Link href="https://github.com/DLee1993" target="_blank" className="hidden min-[600px]:block">
                     <Button variant="outline">Request a tool</Button>
                 </Link>
                 <ChangeTheme />
