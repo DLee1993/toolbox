@@ -34,7 +34,7 @@ export function AppSidebar() {
                         variant="ghost"
                     />
                     <p
-                        className={`flex flex-col min-w-52 transition-opacity duration-300 ease-linear ${
+                        className={`flex flex-col min-w-52 transition-opacity duration-300 ease-linear text-sm ${
                             !open && "opacity-0"
                         }`}
                     >
@@ -45,7 +45,7 @@ export function AppSidebar() {
                     </p>
                 </div>
             </SidebarHeader>
-            <SidebarContent>
+            <SidebarContent className="mt-2">
                 <SidebarGroup>
                     <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
                     <SidebarGroupContent
