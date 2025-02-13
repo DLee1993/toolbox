@@ -25,15 +25,11 @@ export function AppSidebar() {
     const { open } = useSidebar();
 
     return (
-        <Sidebar
-            variant="inset"
-            collapsible="icon"
-            className="border-r border-muted z-50 px-0"
-        >
+        <Sidebar variant="inset" collapsible="icon" className="border-r-2 border-muted z-50 px-0">
             <SidebarHeader className="overflow-hidden px-0">
                 <div className="relative hidden md:flex justify-end items-center space-x-2 px-0">
                     <SidebarTrigger
-                        className="absolute top-1/2 -translate-y-1/2 right-1.5 w-full max-w-10 h-10 z-10 cursor-pointer hover:bg-muted"
+                        className="absolute top-1/2 -translate-y-1/2 right-1 w-full max-w-10 h-10 z-10 cursor-pointer hover:bg-muted"
                         type="button"
                         variant="ghost"
                     />
@@ -50,7 +46,7 @@ export function AppSidebar() {
                 </div>
             </SidebarHeader>
             <SidebarContent>
-                <SidebarGroup className="mt-2.5">
+                <SidebarGroup>
                     <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
                     <SidebarGroupContent
                         className={open ? "overflow-y-auto" : "overflow-y-auto hiddenScrollbar"}
@@ -85,7 +81,7 @@ export function AppSidebar() {
                     </SidebarGroupContent>
                     {sidebarItems.map((group, index) => (
                         <section key={`Items-group: ${index}`}>
-                            <SidebarSeparator className="mt-2.5"/>
+                            <SidebarSeparator className="mt-2.5" />
                             <SidebarGroup className="overflow-hidden px-0">
                                 <SidebarGroupContent key={index}>
                                     <SidebarGroupLabel className="z-0">
