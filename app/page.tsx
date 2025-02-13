@@ -1,100 +1,87 @@
-import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import Link from "next/link";
-import { StarIcon } from "lucide-react";
+import { DollarSign, Lock, ServerIcon, StarIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import screenshot from "@/public/screenshot.webp";
+
+const features = [
+    {
+        name: "Free for everyone.",
+        description:
+            "Our aim is to provide tools for free to users and small businesses. We can't do this without a sustainable revenue, so we decided to go with advertisments. These are shown on a seperate page as to not interfere with you or your productivity. Check them out, you may find something you like...",
+        icon: DollarSign,
+    },
+    {
+        name: "Security and Privacy.",
+        description:
+            "It's simple, we don't need nor do we want your personal data. We don't need to know who you are for you to use our services.",
+        icon: Lock,
+    },
+    {
+        name: "The tools.",
+        description:
+            "The platform offers a diverse range of tools, catering to different needs. If you have a tool you believe could be of use to everyone, get in touch with us.",
+        icon: ServerIcon,
+    },
+];
 
 export default function Home() {
     return (
-        <section className="h-screen space-y-10 mx-auto text-center py-20">
-            <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-                <article className="space-y-6">
-                    <p className="mx-auto max-w-lg text-center text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
-                        Everything you need in one place.
-                    </p>
-                    <p>
-                        Toolbox is a hub for essential tools that everbody needs.{" "}
-                        <span className="underline">For Free</span>
-                    </p>
-                </article>
-                <div className="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
-                    <div className="relative lg:row-span-2">
-                        <div className="absolute inset-px rounded-lg lg:rounded-l-[2rem]"></div>
-                        <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] lg:rounded-l-[calc(2rem+1px)] bg-white/5">
-                            <div className="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
-                                <p className="mt-2 text-lg font-medium tracking-tight max-lg:text-center">
-                                    A hub for everyone
-                                </p>
-                                <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                                    The aim of this project is to bring as many tools that an
-                                    individual needs together.
-                                </p>
-                            </div>
-                            <div className="@container relative min-h-[30rem] w-full grow max-lg:mx-auto max-lg:max-w-sm">
-                                <div className="absolute inset-x-10 top-10 bottom-0 overflow-hidden">
-                                    image here
+        <section className="py-14">
+            <div className="overflow-hidden">
+                <div className="mx-auto w-11/12 max-w-7xl">
+                    <div className="mx-auto grid grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+                        <section>
+                            <article className="w-11/12 max-w-xl mx-auto space-y-10 text-center lg:text-left">
+                                <div>
+                                    <p className="font-semibold text-indigo-600">
+                                        Welcome to
+                                    </p>
+                                    <h1 className="text-4xl font-semibold tracking-tight text-pretty mt-6">
+                                        Your digital Toolbox.
+                                    </h1>
+                                    <p className="mt-4">
+                                        A platform offering free tools that empower people to
+                                        navigate the digital world with ease, efficiency, and
+                                        security.
+                                    </p>
                                 </div>
-                            </div>
-                        </div>
-                        <div className="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 lg:rounded-l-[2rem]"></div>
-                    </div>
-                    <div className="relative max-lg:row-start-1">
-                        <div className="absolute inset-px rounded-lg max-lg:rounded-t-[2rem]"></div>
-                        <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)] bg-white/5">
-                            <div className="px-8 pt-8 sm:px-10 sm:pt-10">
-                                <p className="mt-2 text-lg font-medium tracking-tight max-lg:text-center">
-                                    Free forever
-                                </p>
-                                <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                                    As we advance technology, it has become increasingly difficult
-                                    to stay safe online and know who to trust. With Toolbox, you can
-                                    be assured that all tools provided are{" "}
-                                    <span className="text-foreground">secure</span>,{" "}
-                                    <span className="text-foreground">trustworthy</span> and{" "}
-                                    <span className="text-foreground">free</span>
-                                </p>
-                            </div>
-                            <div className="flex flex-1 items-center justify-center px-8 max-lg:pt-10 max-lg:pb-12 sm:px-10 lg:pb-2">
-                                Image here
-                            </div>
-                        </div>
-                    </div>
-                    <div className="relative max-lg:row-start-3 lg:col-start-2 lg:row-start-2">
-                        <div className="absolute inset-px rounded-lg"></div>
-                        <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] bg-white/5">
-                            <div className="px-8 pt-8 sm:px-10 sm:pt-10">
-                                <p className="mt-2 text-lg font-medium tracking-tight max-lg:text-center">
-                                    Security
-                                </p>
-                                <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                                    Morbi viverra dui mi arcu sed. Tellus semper adipiscing
-                                    suspendisse semper morbi.
-                                </p>
-                            </div>
-                            <div className="@container flex flex-1 items-center max-lg:py-6 lg:pb-2">
-                                image here
-                            </div>
-                        </div>
-                    </div>
-                    <div className="relative lg:row-span-2">
-                        <div className="absolute inset-px rounded-lg max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]"></div>
-                        <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)] bg-white/5">
-                            <div className="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
-                                <p className="mt-2 text-lg font-medium tracking-tight max-lg:text-center">
-                                    Help the cause
-                                </p>
-                                <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                                    If your using the tools that toolbox provides for you, why not
-                                    help keep it running with a small donation. With your help, we
-                                    can start giving people better tools for free.
-                                </p>
-                            </div>
-                            <div className="relative min-h-[30rem] w-full grow">
-                                <div className="absolute top-10 right-0 bottom-0 left-10 overflow-hidden rounded-tl-xl">
-                                    <div className="@container flex flex-1 items-center max-lg:py-6 lg:pb-2">
-                                        image here
+                                <div className="flex gap-4 w-fit mx-auto lg:mx-0">
+                                    <Link href="https://github.com/DLee1993" target="_blank">
+                                        <Button>
+                                            <StarIcon /> star on github
+                                        </Button>
+                                    </Link>
+                                    <Link href="https://github.com/DLee1993" target="_blank">
+                                        <Button variant="link">Get in touch</Button>
+                                    </Link>
+                                </div>
+                            </article>
+                            <dl className="mt-20 max-w-xl mx-auto space-y-8 text-base/7 text-secondary-foreground lg:max-w-none">
+                                {features.map((feature) => (
+                                    <div key={feature.name} className="relative pl-9">
+                                        <dt className="inline font-semibold text-card-foreground">
+                                            <feature.icon
+                                                aria-hidden="true"
+                                                className="absolute top-1 left-1 size-5 text-indigo-600"
+                                            />
+                                            {feature.name}
+                                        </dt>{" "}
+                                        <dd className="inline">{feature.description}</dd>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
+                                ))}
+                            </dl>
+                        </section>
+                        <figure>
+                            <Image
+                                priority
+                                alt="Product screenshot"
+                                src={screenshot}
+                                width={2000}
+                                height={1000}
+                                className="max-w-[50rem] mx-auto rounded-xl ring-1 shadow-xl ring-gray-400/10 sm:w-[57rem] scale-75"
+                            />
+                        </figure>
                     </div>
                 </div>
             </div>
