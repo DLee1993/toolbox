@@ -15,6 +15,9 @@ export default function Header() {
                 </div>
             </div>
             <div className="flex gap-4 w-fit">
+                <Link href="/advertisements" className="hidden min-[600px]:block">
+                    <Button variant="link">Advertisements</Button>
+                </Link>
                 <Link
                     href="https://github.com/DLee1993"
                     target="_blank"

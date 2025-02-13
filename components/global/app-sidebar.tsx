@@ -17,7 +17,7 @@ import {
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Home, Library, FolderGit2, StarIcon } from "lucide-react";
+import { Home, Library, FolderGit2, StarIcon, MegaphoneIcon } from "lucide-react";
 import { sidebarItems } from "./app-sidebar-item-list";
 
 export function AppSidebar() {
@@ -65,28 +65,44 @@ export function AppSidebar() {
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
-                            <SidebarMenuItem>
-                                <SidebarMenuButton
-                                    asChild
-                                    tooltip="Request a tool"
-                                    className="space-x-2 min-h-10 min-w-10 text-muted-foreground hover:text-foreground"
-                                >
-                                    <Link href="https://github.com/DLee1993" target="_blank">
-                                        <FolderGit2 className="ml-1" />
-                                        <p className="min-w-52">Request a tool</p>
-                                    </Link>
-                                </SidebarMenuButton>
-                                <SidebarMenuButton
-                                    asChild
-                                    tooltip="Support us"
-                                    className="space-x-2 min-h-10 min-w-10 text-muted-foreground hover:text-foreground"
-                                >
-                                    <Link href="https://github.com/DLee1993" target="_blank">
-                                        <StarIcon className="ml-1" />
-                                        <p className="min-w-52">Support us</p>
-                                    </Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
+                            <div className="block  min-[600px]:hidden">
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton
+                                        asChild
+                                        tooltip="Request a tool"
+                                        className="space-x-2 min-h-10 min-w-10 text-muted-foreground hover:text-foreground"
+                                    >
+                                        <Link href="https://github.com/DLee1993" target="_blank">
+                                            <FolderGit2 className="ml-1" />
+                                            <p className="min-w-52">Request a tool</p>
+                                        </Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton
+                                        asChild
+                                        tooltip="Support us"
+                                        className="space-x-2 min-h-10 min-w-10 text-muted-foreground hover:text-foreground"
+                                    >
+                                        <Link href="https://github.com/DLee1993" target="_blank">
+                                            <StarIcon className="ml-1" />
+                                            <p className="min-w-52">Support us</p>
+                                        </Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton
+                                        asChild
+                                        tooltip="Advertisements"
+                                        className="space-x-2 min-h-10 min-w-10 text-muted-foreground hover:text-foreground"
+                                    >
+                                        <Link href="/advertisements">
+                                            <MegaphoneIcon className="ml-1" />
+                                            <p className="min-w-52">Advertisements</p>
+                                        </Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            </div>
                         </SidebarMenu>
                     </SidebarGroupContent>
                     {sidebarItems.map((group, index) => (
