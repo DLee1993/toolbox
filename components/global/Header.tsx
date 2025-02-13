@@ -1,6 +1,9 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import BreadCrumbNav from "./BreadCrumbNav";
 import ChangeTheme from "./ThemeToggle";
+import { Button } from "../ui/button";
+import Link from "next/link";
+import { StarIcon } from "lucide-react";
 
 export default function Header() {
     return (
@@ -9,7 +12,17 @@ export default function Header() {
                 <SidebarTrigger variant="ghost" className="md:hidden w-10 h-10" />
                 <BreadCrumbNav />
             </div>
-            <ChangeTheme />
+            <div className="flex gap-4 w-fit">
+                <Link href="https://github.com/DLee1993" target="_blank">
+                    <Button variant="outline">
+                        <StarIcon /> support us
+                    </Button>
+                </Link>
+                <Link href="https://github.com/DLee1993" target="_blank">
+                    <Button variant="outline">Request a tool</Button>
+                </Link>
+                <ChangeTheme />
+            </div>
         </header>
     );
 }

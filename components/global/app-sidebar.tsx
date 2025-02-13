@@ -17,7 +17,7 @@ import {
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Home, Library, FolderGit2 } from "lucide-react";
+import { Home, Library, FolderGit2, StarIcon } from "lucide-react";
 import { sidebarItems } from "./app-sidebar-item-list";
 
 export function AppSidebar() {
@@ -74,6 +74,16 @@ export function AppSidebar() {
                                     <Link href="https://github.com/DLee1993" target="_blank">
                                         <FolderGit2 className="ml-1" />
                                         <p className="min-w-52">Request a tool</p>
+                                    </Link>
+                                </SidebarMenuButton>
+                                <SidebarMenuButton
+                                    asChild
+                                    tooltip="Support us"
+                                    className="space-x-2 min-h-10 min-w-10 text-muted-foreground hover:text-foreground"
+                                >
+                                    <Link href="https://github.com/DLee1993" target="_blank">
+                                        <StarIcon className="ml-1" />
+                                        <p className="min-w-52">Support us</p>
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
