@@ -23,7 +23,7 @@ const ChangeTheme = () => {
 
     return (
         <Button
-            className="space-x-2 h-8 w-8 cursor-pointer rounded-full grid place-content-center"
+            className="space-x-2 h-8 w-8 cursor-pointer grid place-content-center"
             onClick={toggleTheme}
             variant="outline"
         >
