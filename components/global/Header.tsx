@@ -9,7 +9,7 @@ export default function Header() {
         <header className="sticky top-0 z-10 min-h-14 flex justify-between items-center bg-background border-b-2 border-muted px-2 sm:px-5 md:px-7">
             <div className="flex items-center gap-2">
                 <SidebarTrigger variant="ghost" className="md:hidden w-10 h-10" />
-                <div className="hidden min-[600px]:block">
+                <div className="hidden min-[850px]:block">
                     <BreadCrumbNav />
                 </div>
             </div>
