@@ -14,6 +14,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 export default function CredentialsGenerator() {
     const { toast } = useToast();
@@ -30,12 +31,13 @@ export default function CredentialsGenerator() {
             if (!result) {
                 throw new Error("Unable to copy to clipboard");
             }
-            toast({ title: "Success", description: "Copied to clipboard" });
+            toast({ title: "Success", description: "Copied to clipboard", duration: 1350 });
         } catch (error) {
             console.error(error);
             toast({
                 title: "Error",
                 description: "Unable to copy to clipboard, please try again later",
+                duration: 1350
             });
         }
     };
@@ -52,12 +54,12 @@ export default function CredentialsGenerator() {
                     <br /> <br /> Our pin codes are randomly generated everytime.
                 </p>
             </article>
-            <section className="grid grid-cols-1 md:grid-cols-2 max-w-6xl mx-auto gap-10 mt-20">
-                <section className="flex-1 w-full max-w-lg space-y-5">
-                    <div className="flex justify-between items-start">
+            <section className="grid grid-cols-1 md:grid-cols-2 w-11/12 max-w-6xl mx-auto gap-20 md:gap-10 mt-20">
+                <section className="flex-1 w-full max-w-md mx-auto space-y-10">
+                    <aside className="flex justify-between items-start">
                         <h2>Generate a password</h2>
                         <Select onValueChange={setPasswordLength}>
-                            <SelectTrigger className="w-[150px] h-6 border-none">
+                            <SelectTrigger className="w-40 h-6 border-none">
                                 <SelectValue placeholder="Password length" />
                             </SelectTrigger>
                             <SelectContent className="max-h-48">
@@ -68,37 +70,50 @@ export default function CredentialsGenerator() {
                                 ))}
                             </SelectContent>
                         </Select>
-                    </div>
-                    <Input
-                        readOnly
-                        ref={passwordInput}
-                        placeholder="e.g. 194kfscmcaadDP$£%T$%Rlcdlsc"
-                        className="h-12 text-foreground placeholder:opacity-50 font-medium tracking-[0.2rem]"
-                    ></Input>
-                    <div className="flex gap-1 text-center">
-                        <Button
-                            onClick={() =>
-                                GeneratePassword({ input: passwordInput, length: passwordLength })
-                            }
-                            aria-label="click to generate password"
-                        >
-                            Refresh
-                            <RefreshCcwIcon />
-                        </Button>
-                        <Button
-                            onClick={() => NotifyUser(passwordInput.current?.value || "")}
-                            aria-label="click to copy password"
-                        >
-                            Copy to clipboard
-                            <CopyIcon size={16} />
-                        </Button>
-                    </div>
+                    </aside>
+                    <section className="h-10 flex gap-1 text-center">
+                        <Input
+                            readOnly
+                            ref={passwordInput}
+                            placeholder="e.g. ]-[vPW}~'1=>"
+                            className="h-full text-foreground placeholder:opacity-50 font-medium tracking-[0.2rem]"
+                        ></Input>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button
+                                    className="h-full"
+                                    onClick={() =>
+                                        GeneratePassword({
+                                            input: passwordInput,
+                                            length: passwordLength,
+                                        })
+                                    }
+                                    aria-label="click to generate password"
+                                >
+                                    <RefreshCcwIcon />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>Create password</TooltipContent>
+                        </Tooltip>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button
+                                    className="h-full"
+                                    onClick={() => NotifyUser(passwordInput.current?.value || "")}
+                                    aria-label="click to copy password"
+                                >
+                                    <CopyIcon size={16} />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>Copy password</TooltipContent>
+                        </Tooltip>
+                    </section>
                 </section>
-                <section className="flex-1 w-full max-w-lg space-y-5">
-                    <div className="flex justify-between items-start">
+                <section className="flex-1 w-full max-w-md mx-auto space-y-10">
+                    <aside className="flex justify-between items-start">
                         <h2>Generate a pin code</h2>
                         <Select onValueChange={setPinLength}>
-                            <SelectTrigger className="w-[150px] h-6 border-none">
+                            <SelectTrigger className="w-40 h-6 border-none">
                                 <SelectValue placeholder="Code length" />
                             </SelectTrigger>
                             <SelectContent className="max-h-48">
@@ -109,29 +124,41 @@ export default function CredentialsGenerator() {
                                 ))}
                             </SelectContent>
                         </Select>
-                    </div>
-                    <Input
-                        readOnly
-                        ref={pinInput}
-                        placeholder="e.g. 1403"
-                        className="h-12 w-[160px] text-foreground placeholder:opacity-50 font-medium tracking-[0.2rem]"
-                    ></Input>
-                    <div className="flex gap-1 text-center">
-                        <Button
-                            onClick={() => GenerateCode({ input: pinInput, length: pinLength })}
-                            aria-label="click to generate password"
-                        >
-                            Refresh
-                            <RefreshCcwIcon />
-                        </Button>
-                        <Button
-                            onClick={() => NotifyUser(pinInput.current?.value || "")}
-                            aria-label="click to copy password"
-                        >
-                            Copy to clipboard
-                            <CopyIcon size={16} />
-                        </Button>
-                    </div>
+                    </aside>
+                    <section className="h-10 flex gap-1 text-center">
+                        <Input
+                            readOnly
+                            ref={pinInput}
+                            placeholder="e.g. 1403"
+                            className="h-full text-foreground placeholder:opacity-50 font-medium tracking-[0.2rem]"
+                        ></Input>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button
+                                    className="h-full"
+                                    onClick={() =>
+                                        GenerateCode({ input: pinInput, length: pinLength })
+                                    }
+                                    aria-label="click to generate pin code"
+                                >
+                                    <RefreshCcwIcon />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>Create pin</TooltipContent>
+                        </Tooltip>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button
+                                    className="h-full"
+                                    onClick={() => NotifyUser(pinInput.current?.value || "")}
+                                    aria-label="click to copy pin"
+                                >
+                                    <CopyIcon size={16} />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>Copy pin</TooltipContent>
+                        </Tooltip>
+                    </section>
                 </section>
             </section>
         </section>
