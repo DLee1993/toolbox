@@ -22,14 +22,14 @@ export default function Header() {
                     target="_blank"
                     className="hidden min-[600px]:block"
                 >
-                    <Button>Buy us a coffee</Button>
+                    <Button variant="secondary" className="border border-muted hover:text-foreground">Buy us a coffee</Button>
                 </Link>
                 <Link
                     href="https://github.com/DLee1993"
                     target="_blank"
                     className="hidden min-[600px]:block"
                 >
-                    <Button variant="outline">Request a tool</Button>
+                    <Button variant="secondary" className="border border-muted hover:text-foreground">Request a tool</Button>
                 </Link>
                 <ChangeTheme />
             </div>

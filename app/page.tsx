@@ -69,7 +69,10 @@ export default function Home() {
                                     className="flex gap-4 w-fit mx-auto lg:mx-0"
                                 >
                                     <Link href="https://github.com/DLee1993" target="_blank">
-                                        <Button>
+                                        <Button
+                                            variant="secondary"
+                                            className="border border-muted hover:text-foreground"
+                                        >
                                             <StarIcon /> star on github
                                         </Button>
                                     </Link>
