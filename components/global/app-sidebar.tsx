@@ -17,7 +17,7 @@ import {
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Home, Library, FolderGit2, StarIcon, MegaphoneIcon } from "lucide-react";
+import { Home, Library, FolderGit2, CoffeeIcon, MegaphoneIcon } from "lucide-react";
 import { sidebarItems } from "./app-sidebar-item-list";
 
 export function AppSidebar() {
@@ -85,8 +85,8 @@ export function AppSidebar() {
                                         className="space-x-2 min-h-10 min-w-10 text-muted-foreground hover:text-foreground"
                                     >
                                         <Link href="https://github.com/DLee1993" target="_blank">
-                                            <StarIcon className="ml-1" />
-                                            <p className="min-w-52">Support us</p>
+                                            <CoffeeIcon className="ml-1" />
+                                            <p className="min-w-52">Buy us a coffee</p>
                                         </Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
