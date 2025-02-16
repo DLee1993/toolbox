@@ -37,7 +37,7 @@ export default function RootLayout({
                             <AppSidebar />
                             <main className="w-full">
                                 <Header />
-                                <div className="block min-[600px]:hidden p-2">
+                                <div className="block min-[600px]:hidden p-4">
                                     <BreadCrumbNav />
                                 </div>
                                 {children}
