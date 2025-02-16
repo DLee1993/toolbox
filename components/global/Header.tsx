@@ -22,9 +22,7 @@ export default function Header() {
                     target="_blank"
                     className="hidden min-[600px]:block"
                 >
-                    <Button variant="outline">
-                        Buy us a coffee
-                    </Button>
+                    <Button>Buy us a coffee</Button>
                 </Link>
                 <Link
                     href="https://github.com/DLee1993"
