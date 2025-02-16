@@ -3,7 +3,6 @@ import BreadCrumbNav from "./BreadCrumbNav";
 import ChangeTheme from "./ThemeToggle";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { StarIcon } from "lucide-react";
 
 export default function Header() {
     return (
@@ -24,7 +23,7 @@ export default function Header() {
                     className="hidden min-[600px]:block"
                 >
                     <Button variant="outline">
-                        <StarIcon /> support us
+                        Buy us a coffee
                     </Button>
                 </Link>
                 <Link
