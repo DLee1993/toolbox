@@ -1,27 +1,36 @@
-import bcrypt from "bcryptjs";
-import { generate } from "generate-password";
+export const GeneratePassword = ({
+    input,
+    length,
+}: {
+    input: React.RefObject<HTMLInputElement | null>;
+    length: string;
+}) => {
+    let password = "";
+    console.log(length)
 
-export const GenPass = ({ input }: { input: React.RefObject<HTMLInputElement | null> }) => {
-    const password = generate({
-        length: 10,
-        numbers: true,
-        symbols: true,
-        strict: true,
-    });
-
-    bcrypt.genSalt(function (err: Error | null, salt: string) {
-        if (err) return;
-        bcrypt.hash(password, salt, function (err: Error | null, hash: string) {
-            if (err) {
-                input.current!.innerText = err.message;
-                return;
-            }
-            input.current!.value = hash.slice(7, -1);
-        });
-    });
+    for (let i = 0; i < Number(length); i++) {
+        const charCode = getCharCode();
+        password += String.fromCharCode(charCode);
+    }
+    input.current!.value = password;
 };
 
-export const CodePass = ({
+function getCharCode() {
+    const ranges = [
+        { min: 48, max: 57 }, // Numbers 0-9
+        { min: 65, max: 90 }, // Uppercase A-Z
+        { min: 97, max: 122 }, // Lowercase a-z
+        { min: 33, max: 47 }, // Special characters !"#$%&'()*+,-./
+        { min: 58, max: 64 }, // Special characters :;<=>?@
+        { min: 91, max: 96 }, // Special characters [\]^_`
+        { min: 123, max: 126 }, // Special characters {|}~
+    ];
+    const range = ranges[Math.floor(Math.random() * ranges.length)];
+    return Math.floor(Math.random() * (range.max - range.min + 1)) + range.min;
+}
+
+
+export const GenerateCode = ({
     input,
     length,
 }: {
@@ -30,7 +39,7 @@ export const CodePass = ({
 }) => {
     let pin = "";
 
-    while (pin.length < parseInt(length)) {
+    while (pin.length < Number(length)) {
         const randomNumber = Math.floor(Math.random() * 10);
         pin += randomNumber;
     }
