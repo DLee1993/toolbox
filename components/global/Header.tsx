@@ -17,20 +17,6 @@ export default function Header() {
                 <Link href="/advertisements" className="hidden min-[600px]:block">
                     <Button variant="link">Advertisements</Button>
                 </Link>
-                <Link
-                    href="https://github.com/DLee1993"
-                    target="_blank"
-                    className="hidden min-[600px]:block"
-                >
-                    <Button variant="secondary" className="border border-muted hover:text-foreground">Buy us a coffee</Button>
-                </Link>
-                <Link
-                    href="https://github.com/DLee1993"
-                    target="_blank"
-                    className="hidden min-[600px]:block"
-                >
-                    <Button variant="secondary" className="border border-muted hover:text-foreground">Request a tool</Button>
-                </Link>
                 <ChangeTheme />
             </div>
         </header>
