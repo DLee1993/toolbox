@@ -1,9 +1,42 @@
-import { Key, Combine, Clock, Notebook, Network, Unlink } from "lucide-react";
+import {
+    Key,
+    Combine,
+    Clock,
+    Notebook,
+    Network,
+    Unlink,
+    Home,
+    FolderGit2,
+    CoffeeIcon,
+} from "lucide-react";
 
 export const sidebarItems = [
     {
+        category: "Dashboard",
+        items: [
+            {
+                title: "Home",
+                url: "/",
+                icon: Home,
+                target: false,
+            },
+            {
+                title: "Request a tool",
+                url: "https://github.com/DLee1993",
+                icon: FolderGit2,
+                target: true,
+            },
+            {
+                title: "Buy us a coffee",
+                url: "https://github.com/DLee1993",
+                icon: CoffeeIcon,
+                target: true,
+            },
+        ],
+    },
+    {
         category: "Tools",
-        tools: [
+        items: [
             {
                 title: "Credentials",
                 url: "/credentials-generator",
