@@ -22,7 +22,12 @@ import { sidebarItems } from "./app-sidebar-item-list";
 
 export function AppSidebar() {
     const pathname = usePathname();
-    const { open } = useSidebar();
+    const { open, setOpen } = useSidebar();
+
+    const closeSidebar = () => {
+        if (!open) return;
+        setOpen(!open);
+    };
 
     return (
         <Sidebar variant="inset" collapsible="icon" className="border-r-2 border-muted z-50 px-0">
@@ -58,6 +63,7 @@ export function AppSidebar() {
                                     tooltip="Home"
                                     className="space-x-2 min-h-10 min-w-10 text-muted-foreground hover:text-foreground"
                                     isActive={pathname === "/" ? true : false}
+                                    onClick={closeSidebar}
                                 >
                                     <Link href="/">
                                         <Home className="ml-1" />
@@ -70,6 +76,7 @@ export function AppSidebar() {
                                     asChild
                                     tooltip="Request a tool"
                                     className="space-x-2 min-h-10 min-w-10 text-muted-foreground hover:text-foreground"
+                                    onClick={closeSidebar}
                                 >
                                     <Link href="https://github.com/DLee1993" target="_blank">
                                         <FolderGit2 className="ml-1" />
@@ -82,6 +89,7 @@ export function AppSidebar() {
                                     asChild
                                     tooltip="Support us"
                                     className="space-x-2 min-h-10 min-w-10 text-muted-foreground hover:text-foreground"
+                                    onClick={closeSidebar}
                                 >
                                     <Link href="https://github.com/DLee1993" target="_blank">
                                         <CoffeeIcon className="ml-1" />
@@ -107,6 +115,7 @@ export function AppSidebar() {
                                                     tooltip={tool.title}
                                                     className="space-x-2 min-h-10 min-w-10 text-muted-foreground hover:text-foreground"
                                                     isActive={pathname === tool.url ? true : false}
+                                                    onClick={closeSidebar}
                                                 >
                                                     <Link href={tool.url}>
                                                         {"icon" in tool ? (
