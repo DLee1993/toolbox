@@ -37,7 +37,7 @@ export default function CredentialsGenerator() {
             toast({
                 title: "Error",
                 description: "Unable to copy to clipboard, please try again later",
-                duration: 1350
+                duration: 1350,
             });
         }
     };
