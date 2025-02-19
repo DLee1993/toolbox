@@ -33,7 +33,7 @@ export function AppSidebar() {
             <SidebarHeader className="overflow-hidden px-0">
                 <div className="relative hidden md:block px-4">
                     <SidebarTrigger
-                        className="absolute top-1/2 -translate-y-1/2 right-2.5 w-full max-w-10 h-10 z-10 cursor-pointer hover:bg-muted"
+                        className="absolute top-1/2 -translate-y-1/2 right-2.5 w-full max-w-10 h-10 z-10 cursor-pointer hover:bg-sidebar-accent"
                         type="button"
                         variant="ghost"
                     />
@@ -58,7 +58,9 @@ export function AppSidebar() {
                     <React.Fragment key={`SidebarGroup-${index}`}>
                         {index !== 0 && <SidebarSeparator className="hidden md:block" />}
                         <SidebarGroup>
-                            <SidebarGroupLabel className="pointer-events-none">{item.category}</SidebarGroupLabel>
+                            <SidebarGroupLabel className="pointer-events-none">
+                                {item.category}
+                            </SidebarGroupLabel>
                             <SidebarGroupContent>
                                 <SidebarMenu>
                                     {item.items.map((sidebarItem, index) => (
@@ -66,7 +68,7 @@ export function AppSidebar() {
                                             <SidebarMenuButton
                                                 asChild
                                                 tooltip={sidebarItem.title}
-                                                className="space-x-2 min-h-10 min-w-10 text-muted-foreground hover:text-foreground"
+                                                className="ml-[0.0655rem] space-x-2 min-h-10 min-w-10 text-muted-foreground hover:text-foreground"
                                                 isActive={
                                                     pathname === sidebarItem.url ? true : false
                                                 }
