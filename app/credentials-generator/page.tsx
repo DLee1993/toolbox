@@ -14,15 +14,14 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 export default function CredentialsGenerator() {
     const { toast } = useToast();
     const passwordInput = useRef<HTMLInputElement>(null);
-    const pinInput = useRef<HTMLInputElement>(null);
     const [passwordLength, setPasswordLength] = useState<string>("12");
-    const [pinLength, setPinLength] = useState<string>("5");
     const passwordLengthOptions = new Array(13).fill(0).map((_, idx) => idx + 12);
+    const pinInput = useRef<HTMLInputElement>(null);
+    const [pinLength, setPinLength] = useState<string>("5");
     const pinLengthOptions = ["5", "6", "7", "8", "9", "10", "11", "12"];
 
     const NotifyUser = async (input: string) => {
@@ -44,122 +43,128 @@ export default function CredentialsGenerator() {
 
     return (
         <section className="minHeight customYPadding">
-            <article className="w-full flex flex-col justify-center items-center space-y-6">
-                <h1 className="text-4xl">Manage your privacy.</h1>
-                <p className="max-w-xl text-center">
-                    To ensure your accounts are secure, our passwords use a combination of{" "}
-                    <span className="text-primary">numbers</span>,{" "}
-                    <span className="text-primary">uppercase / lowercase</span> letters and{" "}
-                    <span className="text-primary">special characters</span>.
-                    <br /> <br /> Our pin codes are randomly generated everytime.
-                </p>
-            </article>
-            <section className="grid grid-cols-1 md:grid-cols-2 w-11/12 max-w-6xl mx-auto gap-20 md:gap-10 mt-20">
-                <section className="flex-1 w-full max-w-md mx-auto space-y-10">
-                    <aside className="flex justify-between items-start">
-                        <h2>Generate a password</h2>
-                        <Select onValueChange={setPasswordLength}>
-                            <SelectTrigger className="w-40 h-6 border-none">
-                                <SelectValue placeholder="Password length" />
-                            </SelectTrigger>
-                            <SelectContent className="max-h-48">
-                                {passwordLengthOptions.map((option, index) => (
-                                    <SelectItem key={index} value={option.toString()}>
-                                        {option}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                    </aside>
-                    <section className="h-10 flex gap-1 text-center">
-                        <Input
-                            readOnly
-                            ref={passwordInput}
-                            placeholder="e.g. ]-[vPW}~'1=>"
-                            className="h-full text-foreground placeholder:opacity-50 font-medium tracking-[0.2rem]"
-                        ></Input>
-                        <Tooltip>
-                            <TooltipTrigger asChild>
-                                <Button
-                                    className="h-full"
-                                    onClick={() =>
-                                        GeneratePassword({
-                                            input: passwordInput,
-                                            length: passwordLength,
-                                        })
-                                    }
-                                    aria-label="click to generate password"
-                                >
-                                    <RefreshCcwIcon />
-                                </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>Create password</TooltipContent>
-                        </Tooltip>
-                        <Tooltip>
-                            <TooltipTrigger asChild>
-                                <Button
-                                    className="h-full"
-                                    onClick={() => NotifyUser(passwordInput.current?.value || "")}
-                                    aria-label="click to copy password"
-                                >
-                                    <CopyIcon size={16} />
-                                </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>Copy password</TooltipContent>
-                        </Tooltip>
-                    </section>
-                </section>
-                <section className="flex-1 w-full max-w-md mx-auto space-y-10">
-                    <aside className="flex justify-between items-start">
-                        <h2>Generate a pin code</h2>
-                        <Select onValueChange={setPinLength}>
-                            <SelectTrigger className="w-40 h-6 border-none">
-                                <SelectValue placeholder="Code length" />
-                            </SelectTrigger>
-                            <SelectContent className="max-h-48">
-                                {pinLengthOptions.map((option, index) => (
-                                    <SelectItem key={index} value={option}>
-                                        {option}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                    </aside>
-                    <section className="h-10 flex gap-1 text-center">
+            <section
+                id="grid-container"
+                className="w-11/12 max-w-6xl mx-auto grid lg:grid-cols-2 lg:grid-rows-2 gap-6"
+            >
+                <div className="p-4 rounded-2xl">
+                    <article className="space-y-4 text-sm">
+                        <h1 className="text-3xl">Manage your privacy.</h1>
+                        <p>
+                            Safeguard your online presence with unbreakable passwords and protect
+                            your valuable data.
+                        </p>
+                        <p>
+                            Here you can generate both{" "}
+                            <span className="text-primary">passwords</span> and{" "}
+                            <span className="text-primary">pin codes</span>
+                        </p>
+                        <p className="text-sm">
+                            <span className="font-bold">**</span> Don&apos;t rely on PIN codes for
+                            primary protection of your valuable data; use strong, unique passwords
+                            instead. <span className="font-bold">**</span>
+                        </p>
+                    </article>
+                </div>
+                <div className="p-4 rounded-2xl bg-accent">
+                    <section className="space-y-10">
+                        <aside className="flex flex-col sm:flex-row justify-between items-start gap-5">
+                            <div className="space-y-2">
+                                <h2 className="text-xl">Pin code generator</h2>
+                                <p className="text-sm max-w-xs">
+                                    Generate a random pin code, use the selector to change the
+                                    length of the pin if needed.
+                                </p>
+                            </div>
+                            <Select onValueChange={setPinLength}>
+                                <SelectTrigger className="w-40 h-10 border border-foreground shadow-none">
+                                    <SelectValue placeholder="Code length" />
+                                </SelectTrigger>
+                                <SelectContent className="max-h-48">
+                                    {pinLengthOptions.map((option, index) => (
+                                        <SelectItem key={index} value={option}>
+                                            {option}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </aside>
                         <Input
                             readOnly
                             ref={pinInput}
                             placeholder="e.g. 1403"
-                            className="h-full text-foreground placeholder:opacity-50 font-medium tracking-[0.2rem]"
+                            className="h-full !text-xl text-foreground placeholder:text-foreground font-medium tracking-[0.2rem] border-none shadow-none"
                         ></Input>
-                        <Tooltip>
-                            <TooltipTrigger asChild>
-                                <Button
-                                    className="h-full"
-                                    onClick={() =>
-                                        GenerateCode({ input: pinInput, length: pinLength })
-                                    }
-                                    aria-label="click to generate pin code"
-                                >
-                                    <RefreshCcwIcon />
-                                </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>Create pin</TooltipContent>
-                        </Tooltip>
-                        <Tooltip>
-                            <TooltipTrigger asChild>
-                                <Button
-                                    className="h-full"
-                                    onClick={() => NotifyUser(pinInput.current?.value || "")}
-                                    aria-label="click to copy pin"
-                                >
-                                    <CopyIcon size={16} />
-                                </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>Copy pin</TooltipContent>
-                        </Tooltip>
+                        <div className="flex flex-wrap space-x-4">
+                            <Button
+                                variant="secondary"
+                                onClick={() => GenerateCode({ input: pinInput, length: pinLength })}
+                                aria-label="click to generate pin code"
+                            >
+                                Generate pin <RefreshCcwIcon />
+                            </Button>
+                            <Button
+                                variant="secondary"
+                                onClick={() => NotifyUser(pinInput.current?.value || "")}
+                                aria-label="click to copy pin"
+                            >
+                                Copy to clipboard <CopyIcon size={16} />
+                            </Button>
+                        </div>
                     </section>
-                </section>
+                </div>
+                <div className="p-4 rounded-2xl bg-primary text-background lg:col-span-2">
+                    <section className="space-y-10">
+                        <aside className="flex flex-col sm:flex-row justify-between items-start gap-5">
+                            <div className="space-y-2">
+                                <h2 className="text-xl">Password generator</h2>
+                                <p className="text-sm max-w-xs">
+                                    Generate a secure password, use the selector to change the
+                                    length of password if needed.
+                                </p>
+                            </div>
+                            <Select onValueChange={setPasswordLength}>
+                                <SelectTrigger className="w-40 h-10 border shadow-none">
+                                    <SelectValue placeholder="Password length" />
+                                </SelectTrigger>
+                                <SelectContent className="max-h-48">
+                                    {passwordLengthOptions.map((option, index) => (
+                                        <SelectItem key={index} value={option.toString()}>
+                                            {option}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </aside>
+                        <Input
+                            readOnly
+                            ref={passwordInput}
+                            placeholder="e.g. ]-[vPW}~'1=>"
+                            className="h-full !text-xl text-foreground placeholder:text-foreground font-medium tracking-[0.2rem] border-none shadow-none"
+                        ></Input>
+                        <div className="flex flex-wrap space-x-4">
+                            <Button
+                                variant="secondary"
+                                onClick={() =>
+                                    GeneratePassword({
+                                        input: passwordInput,
+                                        length: passwordLength,
+                                    })
+                                }
+                                aria-label="click to generate password"
+                            >
+                                Generate password <RefreshCcwIcon />
+                            </Button>
+                            <Button
+                                variant="secondary"
+                                onClick={() => NotifyUser(passwordInput.current?.value || "")}
+                                aria-label="click to copy password"
+                            >
+                                Copy to clipboard <CopyIcon size={16} />
+                            </Button>
+                        </div>
+                    </section>
+                </div>
             </section>
         </section>
     );
