@@ -118,7 +118,7 @@
     }
 
     .customYPadding {
-        @apply py-10 md:py-14;
+        @apply py-7 sm:py-10 md:py-14;
     }
 
     .socialLink {
