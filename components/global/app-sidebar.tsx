@@ -29,7 +29,7 @@ export function AppSidebar() {
     };
 
     return (
-        <Sidebar variant="inset" collapsible="icon" className="border-r-2 border-muted z-50 px-0">
+        <Sidebar variant="inset" collapsible="icon" className="border-r-2 border-sidebar-border/50 z-50 px-0">
             <SidebarHeader className="overflow-hidden px-0">
                 <div className="relative hidden md:block px-4">
                     <SidebarTrigger
