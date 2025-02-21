@@ -202,7 +202,7 @@ const Sidebar = React.forwardRef<
                         }
                         side={side}
                     >
-                        <SheetHeader className="pt-2">
+                        <SheetHeader className="pt-2 sm:px-4">
                             <SheetTitle>Toolbox</SheetTitle>
                             <SheetDescription className="text-xs text-muted-foreground font-normal">
                                 A hub for essential tools.
