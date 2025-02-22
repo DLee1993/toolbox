@@ -24,31 +24,16 @@ export default function CredentialsGenerator() {
 
     return (
         <section className="minHeight customYPadding">
-            <section
-                id="grid-container"
-                className="w-11/12 max-w-6xl mx-auto grid lg:grid-cols-2 lg:grid-rows-2 gap-6"
-            >
-                <div className="p-4 rounded-2xl">
-                    <article className="space-y-4 text-sm">
-                        <h1 className="text-3xl">Manage your privacy.</h1>
-                        <p>
-                            Safeguard your online presence with unbreakable passwords and protect
-                            your valuable data.
-                        </p>
-                        <p>
-                            Here you can generate both{" "}
-                            <span className="underline">passwords</span> and{" "}
-                            <span className="underline">pin codes</span>
-                        </p>
-                        <p className="text-sm">
-                            <span className="font-bold">**</span> Don&apos;t rely on PIN codes for
-                            primary protection of your valuable data; use strong, unique passwords
-                            instead. <span className="font-bold">**</span>
-                        </p>
-                    </article>
-                </div>
-                <div className="p-4 rounded-2xl bg-muted/50">
-                    <section className="space-y-10">
+            <section className="w-11/12 max-w-6xl mx-auto space-y-10">
+                <article className="space-y-4 text-center">
+                    <h1 className="text-4xl tracking-tight text-pretty">Manage your privacy.</h1>
+                    <p className="max-w-md mx-auto">
+                        Safeguard your online presence with unbreakable passwords and protect your
+                        valuable data.
+                    </p>
+                </article>
+                <section id="grid-container" className="grid lg:grid-cols-2 gap-6">
+                    <section className="space-y-10 p-4 rounded-2xl bg-muted/50">
                         <aside className="flex flex-col sm:flex-row justify-between items-start gap-5">
                             <div className="space-y-2">
                                 <h2 className="text-xl">Pin code generator</h2>
@@ -58,7 +43,10 @@ export default function CredentialsGenerator() {
                                 </p>
                             </div>
                             <Select onValueChange={setPinLength}>
-                                <SelectTrigger className="w-40 h-10 border border-foreground shadow-none" aria-label="select pin code length">
+                                <SelectTrigger
+                                    className="w-40 h-10 border shadow-none"
+                                    aria-label="select pin code length"
+                                >
                                     <SelectValue placeholder="Code length" />
                                 </SelectTrigger>
                                 <SelectContent className="max-h-48">
@@ -74,7 +62,7 @@ export default function CredentialsGenerator() {
                             readOnly
                             ref={pinInput}
                             placeholder="140312"
-                            className="h-full !text-xl text-foreground font-medium tracking-[0.2rem] border-none shadow-none"
+                            className="!text-xl text-foreground font-medium tracking-[0.2rem] border-none shadow-none"
                         ></Input>
                         <div className="flex flex-wrap space-x-4">
                             <Button
@@ -93,9 +81,7 @@ export default function CredentialsGenerator() {
                             </Button>
                         </div>
                     </section>
-                </div>
-                <div className="p-4 rounded-2xl lg:col-span-2 bg-muted/50">
-                    <section className="space-y-10">
+                    <section className="space-y-10 p-4 rounded-2xl bg-muted/50">
                         <aside className="flex flex-col sm:flex-row justify-between items-start gap-5">
                             <div className="space-y-2">
                                 <h2 className="text-xl">Password generator</h2>
@@ -105,7 +91,10 @@ export default function CredentialsGenerator() {
                                 </p>
                             </div>
                             <Select onValueChange={setPasswordLength}>
-                                <SelectTrigger className="w-40 h-10 border shadow-none" aria-label="select password length">
+                                <SelectTrigger
+                                    className="w-40 h-10 border shadow-none"
+                                    aria-label="select password length"
+                                >
                                     <SelectValue placeholder="Password length" />
                                 </SelectTrigger>
                                 <SelectContent className="max-h-48">
@@ -121,7 +110,7 @@ export default function CredentialsGenerator() {
                             readOnly
                             ref={passwordInput}
                             placeholder="]-[vPW}~'1=>"
-                            className="h-full !text-xl text-foreground font-medium tracking-[0.2rem] border-none shadow-none"
+                            className="!text-xl text-foreground font-medium tracking-[0.2rem] border-none shadow-none"
                         ></Input>
                         <div className="flex flex-wrap space-x-4">
                             <Button
@@ -145,7 +134,7 @@ export default function CredentialsGenerator() {
                             </Button>
                         </div>
                     </section>
-                </div>
+                </section>
             </section>
         </section>
     );
