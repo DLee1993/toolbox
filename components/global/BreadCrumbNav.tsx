@@ -40,8 +40,8 @@ export default function BreadCrumbNav() {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="start">
                                 {tools.map((item, i) => (
-                                    <DropdownMenuItem key={i}>
-                                        <BreadcrumbLink href={item.url}>
+                                    <DropdownMenuItem key={i} className="p-0">
+                                        <BreadcrumbLink href={item.url} className="inline-block w-full h-full px-2 py-1.5">
                                             {item.title}
                                         </BreadcrumbLink>
                                     </DropdownMenuItem>
