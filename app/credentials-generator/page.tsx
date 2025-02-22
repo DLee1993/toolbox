@@ -37,8 +37,8 @@ export default function CredentialsGenerator() {
                         </p>
                         <p>
                             Here you can generate both{" "}
-                            <span className="text-primary">passwords</span> and{" "}
-                            <span className="text-primary">pin codes</span>
+                            <span className="underline">passwords</span> and{" "}
+                            <span className="underline">pin codes</span>
                         </p>
                         <p className="text-sm">
                             <span className="font-bold">**</span> Don&apos;t rely on PIN codes for
@@ -58,7 +58,7 @@ export default function CredentialsGenerator() {
                                 </p>
                             </div>
                             <Select onValueChange={setPinLength}>
-                                <SelectTrigger className="w-40 h-10 border border-foreground shadow-none">
+                                <SelectTrigger className="w-40 h-10 border border-foreground shadow-none" aria-label="select pin code length">
                                     <SelectValue placeholder="Code length" />
                                 </SelectTrigger>
                                 <SelectContent className="max-h-48">
@@ -74,7 +74,7 @@ export default function CredentialsGenerator() {
                             readOnly
                             ref={pinInput}
                             placeholder="140312"
-                            className="h-full !text-xl text-foreground placeholder:text-muted-foreground font-medium tracking-[0.2rem] border-none shadow-none"
+                            className="h-full !text-xl text-foreground font-medium tracking-[0.2rem] border-none shadow-none"
                         ></Input>
                         <div className="flex flex-wrap space-x-4">
                             <Button
@@ -94,7 +94,7 @@ export default function CredentialsGenerator() {
                         </div>
                     </section>
                 </div>
-                <div className="p-4 rounded-2xl bg-primary text-background lg:col-span-2">
+                <div className="p-4 rounded-2xl lg:col-span-2 bg-accent">
                     <section className="space-y-10">
                         <aside className="flex flex-col sm:flex-row justify-between items-start gap-5">
                             <div className="space-y-2">
@@ -105,7 +105,7 @@ export default function CredentialsGenerator() {
                                 </p>
                             </div>
                             <Select onValueChange={setPasswordLength}>
-                                <SelectTrigger className="w-40 h-10 border shadow-none">
+                                <SelectTrigger className="w-40 h-10 border shadow-none" aria-label="select password length">
                                     <SelectValue placeholder="Password length" />
                                 </SelectTrigger>
                                 <SelectContent className="max-h-48">
@@ -121,7 +121,7 @@ export default function CredentialsGenerator() {
                             readOnly
                             ref={passwordInput}
                             placeholder="]-[vPW}~'1=>"
-                            className="h-full !text-xl text-foreground placeholder:text-muted-foreground font-medium tracking-[0.2rem] border-none shadow-none"
+                            className="h-full !text-xl text-foreground font-medium tracking-[0.2rem] border-none shadow-none"
                         ></Input>
                         <div className="flex flex-wrap space-x-4">
                             <Button

@@ -47,7 +47,7 @@ export default function Home() {
                         <section>
                             <article className="w-11/12 max-w-xl mx-auto space-y-10 text-center lg:text-left">
                                 <div>
-                                    <p className="font-semibold text-primary">Welcome to</p>
+                                    <p className="font-semibold">Welcome to</p>
                                     <h1 className="text-4xl font-semibold tracking-tight text-pretty mt-2">
                                         Your digital Toolbox.
                                     </h1>
@@ -77,7 +77,7 @@ export default function Home() {
                                         </Button>
                                     </Link>
                                     <Link href="https://github.com/DLee1993" target="_blank">
-                                        <Button variant="link">Get in touch</Button>
+                                        <Button variant="ghost">Get in touch</Button>
                                     </Link>
                                 </motion.div>
                             </article>
@@ -94,7 +94,7 @@ export default function Home() {
                                         <dt className="inline font-semibold text-card-foreground">
                                             <feature.icon
                                                 aria-hidden="true"
-                                                className="absolute top-1 left-1 size-5 text-primary"
+                                                className="absolute top-1 left-1 size-5"
                                             />
                                             {feature.name}
                                         </dt>{" "}
