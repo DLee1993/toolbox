@@ -32,13 +32,13 @@ const ChangeTheme = () => {
                     <div className="relative size-4">
                         <MoonIcon
                             size={16}
-                            className={`text-primary absolute top-0 left-1/2 -translate-x-1/2 transition-transform duration-500 ${
+                            className={`absolute top-0 left-1/2 -translate-x-1/2 transition-transform duration-500 ${
                                 theme === "dark" || theme === "system" ? "scale-100" : "scale-0"
                             }`}
                         />
                         <SunIcon
                             size={16}
-                            className={`text-primary absolute top-0 left-1/2 -translate-x-1/2 transition-transform duration-500 ${
+                            className={`absolute top-0 left-1/2 -translate-x-1/2 transition-transform duration-500 ${
                                 theme === "light" ? "scale-100" : "scale-0"
                             }`}
                         />

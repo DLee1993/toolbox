@@ -47,7 +47,7 @@ export default function CredentialsGenerator() {
                         </p>
                     </article>
                 </div>
-                <div className="p-4 rounded-2xl bg-accent">
+                <div className="p-4 rounded-2xl bg-muted/50">
                     <section className="space-y-10">
                         <aside className="flex flex-col sm:flex-row justify-between items-start gap-5">
                             <div className="space-y-2">
@@ -85,7 +85,7 @@ export default function CredentialsGenerator() {
                                 Generate pin <RefreshCcwIcon />
                             </Button>
                             <Button
-                                variant="secondary"
+                                variant="ghost"
                                 onClick={() => Copy({ input: pinInput.current?.value || "" })}
                                 aria-label="click to copy pin"
                             >
@@ -94,7 +94,7 @@ export default function CredentialsGenerator() {
                         </div>
                     </section>
                 </div>
-                <div className="p-4 rounded-2xl lg:col-span-2 bg-accent">
+                <div className="p-4 rounded-2xl lg:col-span-2 bg-muted/50">
                     <section className="space-y-10">
                         <aside className="flex flex-col sm:flex-row justify-between items-start gap-5">
                             <div className="space-y-2">
@@ -137,7 +137,7 @@ export default function CredentialsGenerator() {
                                 Generate password <RefreshCcwIcon />
                             </Button>
                             <Button
-                                variant="secondary"
+                                variant="ghost"
                                 onClick={() => Copy({ input: passwordInput.current?.value || "" })}
                                 aria-label="click to copy password"
                             >
