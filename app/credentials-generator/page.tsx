@@ -2,11 +2,10 @@
 
 import { useRef, useState } from "react";
 import { GeneratePassword, GenerateCode } from "@/hooks/credentials-generator/generate-credentials";
-import { useToast } from "@/hooks/global/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CopyIcon, RefreshCcwIcon } from "lucide-react";
-import { WriteToClipboard } from "@/hooks/global/copy-to-clipboard";
+import { Copy } from "@/hooks/global/copy-to-clipboard";
 import {
     Select,
     SelectContent,
@@ -16,30 +15,12 @@ import {
 } from "@/components/ui/select";
 
 export default function CredentialsGenerator() {
-    const { toast } = useToast();
     const passwordInput = useRef<HTMLInputElement>(null);
     const [passwordLength, setPasswordLength] = useState<string>("12");
     const passwordLengthOptions = new Array(13).fill(0).map((_, idx) => idx + 12);
     const pinInput = useRef<HTMLInputElement>(null);
     const [pinLength, setPinLength] = useState<string>("5");
     const pinLengthOptions = ["5", "6", "7", "8", "9", "10", "11", "12"];
-
-    const NotifyUser = async (input: string) => {
-        try {
-            const result = await WriteToClipboard({ input });
-            if (!result) {
-                throw new Error("Unable to copy to clipboard");
-            }
-            toast({ title: "Success", description: "Copied to clipboard", duration: 1350 });
-        } catch (error) {
-            console.error(error);
-            toast({
-                title: "Error",
-                description: "Unable to copy to clipboard, please try again later",
-                duration: 1350,
-            });
-        }
-    };
 
     return (
         <section className="minHeight customYPadding">
@@ -92,8 +73,8 @@ export default function CredentialsGenerator() {
                         <Input
                             readOnly
                             ref={pinInput}
-                            placeholder="e.g. 1403"
-                            className="h-full !text-xl text-foreground placeholder:text-foreground font-medium tracking-[0.2rem] border-none shadow-none"
+                            placeholder="140312"
+                            className="h-full !text-xl text-foreground placeholder:text-muted-foreground font-medium tracking-[0.2rem] border-none shadow-none"
                         ></Input>
                         <div className="flex flex-wrap space-x-4">
                             <Button
@@ -105,7 +86,7 @@ export default function CredentialsGenerator() {
                             </Button>
                             <Button
                                 variant="secondary"
-                                onClick={() => NotifyUser(pinInput.current?.value || "")}
+                                onClick={() => Copy({ input: pinInput.current?.value || "" })}
                                 aria-label="click to copy pin"
                             >
                                 Copy to clipboard <CopyIcon size={16} />
@@ -139,8 +120,8 @@ export default function CredentialsGenerator() {
                         <Input
                             readOnly
                             ref={passwordInput}
-                            placeholder="e.g. ]-[vPW}~'1=>"
-                            className="h-full !text-xl text-foreground placeholder:text-foreground font-medium tracking-[0.2rem] border-none shadow-none"
+                            placeholder="]-[vPW}~'1=>"
+                            className="h-full !text-xl text-foreground placeholder:text-muted-foreground font-medium tracking-[0.2rem] border-none shadow-none"
                         ></Input>
                         <div className="flex flex-wrap space-x-4">
                             <Button
@@ -157,7 +138,7 @@ export default function CredentialsGenerator() {
                             </Button>
                             <Button
                                 variant="secondary"
-                                onClick={() => NotifyUser(passwordInput.current?.value || "")}
+                                onClick={() => Copy({ input: passwordInput.current?.value || "" })}
                                 aria-label="click to copy password"
                             >
                                 Copy to clipboard <CopyIcon size={16} />
