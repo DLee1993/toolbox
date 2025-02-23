@@ -25,8 +25,8 @@ export default function CredentialsGenerator() {
     return (
         <section>
             <section className="space-y-10">
-                <article className="space-y-4 text-center">
-                    <h1 className="text-4xl tracking-tight text-pretty">Manage your privacy.</h1>
+                <article className="space-y-2 text-center">
+                    <h1 className="text-xl tracking-tight text-pretty">Manage your privacy.</h1>
                     <p className="max-w-md mx-auto">
                         Safeguard your online presence with unbreakable passwords and protect your
                         valuable data.
@@ -36,7 +36,7 @@ export default function CredentialsGenerator() {
                     <section className="space-y-10 p-4 rounded-2xl bg-muted/50">
                         <aside className="flex flex-col sm:flex-row justify-between items-start gap-5">
                             <div className="space-y-2">
-                                <h2 className="text-xl">Pin code generator</h2>
+                                <h2 className="text-md">Pin code generator</h2>
                                 <p className="text-sm max-w-xs">
                                     Generate a random pin code, use the selector to change the
                                     length of the pin if needed.
@@ -62,7 +62,7 @@ export default function CredentialsGenerator() {
                             readOnly
                             ref={pinInput}
                             placeholder="140312"
-                            className="!text-xl text-foreground font-medium tracking-[0.2rem] border-none shadow-none"
+                            className="!text-lg text-foreground font-medium tracking-[0.2rem] border-none shadow-none"
                         ></Input>
                         <div className="flex flex-wrap space-x-4">
                             <Button
@@ -84,7 +84,7 @@ export default function CredentialsGenerator() {
                     <section className="space-y-10 p-4 rounded-2xl bg-muted/50">
                         <aside className="flex flex-col sm:flex-row justify-between items-start gap-5">
                             <div className="space-y-2">
-                                <h2 className="text-xl">Password generator</h2>
+                                <h2 className="text-md">Password generator</h2>
                                 <p className="text-sm max-w-xs">
                                     Generate a secure password, use the selector to change the
                                     length of password if needed.
@@ -110,7 +110,7 @@ export default function CredentialsGenerator() {
                             readOnly
                             ref={passwordInput}
                             placeholder="]-[vPW}~'1=>"
-                            className="!text-xl text-foreground font-medium tracking-[0.2rem] border-none shadow-none"
+                            className="!text-lg text-foreground font-medium tracking-[0.2rem] border-none shadow-none"
                         ></Input>
                         <div className="flex flex-wrap space-x-4">
                             <Button

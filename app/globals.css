@@ -2,63 +2,94 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-    @layer base {
-        :root {
-            --background: 210 15% 98%;
-            --foreground: 210 15% 10%;
-            --card: 210 15% 99%;
-            --card-foreground: 210 15% 10%;
-            --popover: 210 15% 99%;
-            --popover-foreground: 210 15% 10%;
-            --primary: 200 20% 45%;
-            --primary-foreground: 200 20% 98%;
-            --secondary: 180 10% 75%;
-            --secondary-foreground: 180 10% 10%;
-            --muted: 210 15% 90%;
-            --muted-foreground: 210 15% 40%;
-            --accent: 240 15% 55%;
-            --accent-foreground: 240 15% 98%;
-            --destructive: 0 60% 50%;
-            --destructive-foreground: 0 60% 98%;
-            --border: 210 15% 85%;
-            --input: 210 15% 85%;
-            --ring: 200 20% 45%;
-            --radius: 0.5rem;
-            --chart-1: 200 20% 45%;
-            --chart-2: 180 10% 75%;
-            --chart-3: 240 15% 55%;
-            --chart-4: 160 20% 50%;
-            --chart-5: 30 15% 60%;
-        }
 
-        [data-theme='dark'] {
-            --background: 210 20% 10%;
-            --foreground: 210 15% 98%;
-            --card: 210 20% 12%;
-            --card-foreground: 210 15% 98%;
-            --popover: 210 20% 12%;
-            --popover-foreground: 210 15% 98%;
-            --primary: 200 20% 55%;
-            --primary-foreground: 200 20% 10%;
-            --secondary: 180 10% 35%;
-            --secondary-foreground: 180 10% 98%;
-            --muted: 210 20% 20%;
-            --muted-foreground: 210 15% 70%;
-            --accent: 240 15% 65%;
-            --accent-foreground: 240 15% 10%;
-            --destructive: 0 60% 40%;
-            --destructive-foreground: 0 60% 98%;
-            --border: 210 20% 25%;
-            --input: 210 20% 25%;
-            --ring: 200 20% 55%;
-            --radius: 0.5rem;
-            --chart-1: 200 20% 55%;
-            --chart-2: 180 10% 35%;
-            --chart-3: 240 15% 65%;
-            --chart-4: 160 20% 60%;
-            --chart-5: 30 15% 50%;
+/* TYPOGRAPHY */
+/* For browsers that support clamp  */
+@supports (font-size: clamp(1rem, 1vi, 1rem)) {
+    :root {
+        --fs-sm: clamp(0.8rem, 0.08vi + 0.78rem, 0.84rem);
+        --fs-base: clamp(1rem, 0.23vi + 0.94rem, 1.13rem);
+        --fs-md: clamp(1.25rem, 0.45vi + 1.14rem, 1.5rem);
+        --fs-lg: clamp(1.56rem, 0.79vi + 1.36rem, 2rem);
+        --fs-xl: clamp(1.95rem, 1.29vi + 1.63rem, 2.66rem);
+    }
+}
+/* For browsers that don't support clamp */
+@supports not (font-size: clamp(1rem, 1vi, 1rem)) {
+    :root {
+        --fs-sm: 0.8rem;
+        --fs-base: 1rem;
+        --fs-md: 1.25rem;
+        --fs-lg: 1.56rem;
+        --fs-xl: 1.95rem;
+    }
+    @media screen and (min-width: 1280px) {
+        :root {
+            --fs-sm: 0.84rem;
+            --fs-base: 1.13rem;
+            --fs-md: 1.5rem;
+            --fs-lg: 2rem;
+            --fs-xl: 2.66rem;
         }
+    }
+}
+
+/* THEMES */
+@layer base {
+    :root {
+        --background: 210 15% 98%;
+        --foreground: 210 15% 10%;
+        --card: 210 15% 99%;
+        --card-foreground: 210 15% 10%;
+        --popover: 210 15% 99%;
+        --popover-foreground: 210 15% 10%;
+        --primary: 200 20% 45%;
+        --primary-foreground: 200 20% 98%;
+        --secondary: 180 10% 75%;
+        --secondary-foreground: 180 10% 10%;
+        --muted: 210 15% 90%;
+        --muted-foreground: 210 15% 40%;
+        --accent: 240 15% 55%;
+        --accent-foreground: 240 15% 98%;
+        --destructive: 0 60% 50%;
+        --destructive-foreground: 0 60% 98%;
+        --border: 210 15% 85%;
+        --input: 210 15% 85%;
+        --ring: 200 20% 45%;
+        --radius: 0.5rem;
+        --chart-1: 200 20% 45%;
+        --chart-2: 180 10% 75%;
+        --chart-3: 240 15% 55%;
+        --chart-4: 160 20% 50%;
+        --chart-5: 30 15% 60%;
+    }
+
+    [data-theme="dark"] {
+        --background: 210 20% 10%;
+        --foreground: 210 15% 98%;
+        --card: 210 20% 12%;
+        --card-foreground: 210 15% 98%;
+        --popover: 210 20% 12%;
+        --popover-foreground: 210 15% 98%;
+        --primary: 200 20% 55%;
+        --primary-foreground: 200 20% 10%;
+        --secondary: 180 10% 35%;
+        --secondary-foreground: 180 10% 98%;
+        --muted: 210 20% 20%;
+        --muted-foreground: 210 15% 70%;
+        --accent: 240 15% 65%;
+        --accent-foreground: 240 15% 10%;
+        --destructive: 0 60% 40%;
+        --destructive-foreground: 0 60% 98%;
+        --border: 210 20% 25%;
+        --input: 210 20% 25%;
+        --ring: 200 20% 55%;
+        --radius: 0.5rem;
+        --chart-1: 200 20% 55%;
+        --chart-2: 180 10% 35%;
+        --chart-3: 240 15% 65%;
+        --chart-4: 160 20% 60%;
+        --chart-5: 30 15% 50%;
     }
 }
 
