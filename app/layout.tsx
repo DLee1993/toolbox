@@ -40,7 +40,7 @@ export default function RootLayout({
                                 <div className="block min-[850px]:hidden p-4">
                                     <BreadCrumbNav />
                                 </div>
-                                <div className="minHeight customYPadding">{children}</div>
+                                <div className="minHeight customYPadding w-11/12 max-w-6xl mx-auto">{children}</div>
                                 <Footer />
                             </main>
                         </TooltipProvider>

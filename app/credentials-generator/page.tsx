@@ -24,7 +24,7 @@ export default function CredentialsGenerator() {
 
     return (
         <section>
-            <section className="w-11/12 max-w-6xl mx-auto space-y-10">
+            <section className="space-y-10">
                 <article className="space-y-4 text-center">
                     <h1 className="text-4xl tracking-tight text-pretty">Manage your privacy.</h1>
                     <p className="max-w-md mx-auto">
