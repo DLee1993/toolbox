@@ -1,6 +1,6 @@
 export default function LinkInBio() {
     return (
-        <section className="minHeight customYPadding">
+        <section>
             <h1>link in bio</h1>
         </section>
     );

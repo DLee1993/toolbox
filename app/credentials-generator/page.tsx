@@ -23,7 +23,7 @@ export default function CredentialsGenerator() {
     const pinLengthOptions = ["5", "6", "7", "8", "9", "10", "11", "12"];
 
     return (
-        <section className="minHeight customYPadding">
+        <section>
             <section className="w-11/12 max-w-6xl mx-auto space-y-10">
                 <article className="space-y-4 text-center">
                     <h1 className="text-4xl tracking-tight text-pretty">Manage your privacy.</h1>
