@@ -21,7 +21,7 @@ export const PublishedLink = ({
                     </li>
                 </Link>
             </TooltipTrigger>
-            <TooltipContent>
+            <TooltipContent side="bottom">
                 <p>{label}</p>
             </TooltipContent>
         </Tooltip>
