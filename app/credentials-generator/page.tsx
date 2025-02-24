@@ -35,7 +35,7 @@ export default function CredentialsGenerator() {
                     <section className="min-h-72 w-full px-2 pt-10 flex flex-col justify-between items-start">
                         <article>
                             <h2 className="text-base">Create a Password</h2>
-                            <p className="text-sm max-w-xs text-secondary">
+                            <p className="text-sm max-w-xs">
                                 Generate a strong and unique password to protect your accounts and
                                 sensitive information.
                             </p>
@@ -71,7 +71,7 @@ export default function CredentialsGenerator() {
                         <div className="flex justify-between items-center w-full">
                             <article>
                                 <h2 className="text-base">Create a pin</h2>
-                                <p className="text-sm max-w-xs text-secondary">
+                                <p className="text-sm max-w-xs">
                                     Generate a random pin code, use the selector to change the
                                     length of the pin if needed.
                                 </p>
