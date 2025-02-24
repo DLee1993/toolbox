@@ -16,8 +16,6 @@ import {
 
 export default function CredentialsGenerator() {
     const passwordInput = useRef<HTMLInputElement>(null);
-    const [passwordLength, setPasswordLength] = useState<string>("12");
-    const passwordLengthOptions = new Array(13).fill(0).map((_, idx) => idx + 12);
     const pinInput = useRef<HTMLInputElement>(null);
     const [pinLength, setPinLength] = useState<string>("5");
     const pinLengthOptions = ["5", "6", "7", "8", "9", "10", "11", "12"];
@@ -86,25 +84,10 @@ export default function CredentialsGenerator() {
                             <div className="space-y-2">
                                 <h2 className="text-md">Password generator</h2>
                                 <p className="text-sm max-w-xs">
-                                    Generate a secure password, use the selector to change the
-                                    length of password if needed.
+                                    Generate a strong and unique password to protect your accounts
+                                    and sensitive information.
                                 </p>
                             </div>
-                            <Select onValueChange={setPasswordLength}>
-                                <SelectTrigger
-                                    className="w-40 h-10 border shadow-none"
-                                    aria-label="select password length"
-                                >
-                                    <SelectValue placeholder="Password length" />
-                                </SelectTrigger>
-                                <SelectContent className="max-h-48">
-                                    {passwordLengthOptions.map((option, index) => (
-                                        <SelectItem key={index} value={option.toString()}>
-                                            {option}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
                         </aside>
                         <Input
                             readOnly
@@ -118,7 +101,6 @@ export default function CredentialsGenerator() {
                                 onClick={() =>
                                     GeneratePassword({
                                         input: passwordInput,
-                                        length: passwordLength,
                                     })
                                 }
                                 aria-label="click to generate password"
