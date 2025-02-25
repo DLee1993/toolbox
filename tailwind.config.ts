@@ -15,7 +15,6 @@ export default {
 				md: "var(--fs-md)",
                 lg: "var(--fs-lg)",
                 xl: "var(--fs-xl)",
-                "2xl": "var(--fs-xxl)",
             },
             colors: {
                 background: "hsl(var(--background))",
