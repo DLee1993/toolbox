@@ -41,7 +41,7 @@ export default function BreadCrumbNav() {
                             <DropdownMenuContent align="start">
                                 {tools.map((item, i) => (
                                     <DropdownMenuItem key={i} className="p-0 transition-none">
-                                        <BreadcrumbLink href={item.url} className="inline-block w-full h-full px-2 py-1.5 bg-transparent hover:text-background transition-none">
+                                        <BreadcrumbLink href={item.url} className="inline-block w-full h-full px-2 py-1.5 transition-none">
                                             {item.title}
                                         </BreadcrumbLink>
                                     </DropdownMenuItem>
