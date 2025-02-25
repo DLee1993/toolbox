@@ -14,8 +14,8 @@ export const PublishedLink = ({
     return (
         <Tooltip>
             <TooltipTrigger asChild>
-                <Link href={href} target="_blank" className="socialLink-content">
-                    <li className="socialLink">
+                <Link href={href} target="_blank" className="size-12 mx-auto border border-border rounded-[8px] hover:bg-muted grid place-content-center">
+                    <li className="h-full flex space-x-3 items-center">
                         <Icon size={18} />
                         <span className="sr-only">{label}</span>
                     </li>
