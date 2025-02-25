@@ -23,7 +23,7 @@ const ChangeTheme = () => {
 
     return (
         <Button
-            className="space-x-2 h-8 w-8 cursor-pointer grid place-content-center"
+            className="space-x-2 h-8 w-8 cursor-pointer grid place-content-center hover:bg-muted hover:text-muted-foreground"
             onClick={toggleTheme}
             variant="outline"
         >

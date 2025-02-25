@@ -15,7 +15,7 @@ export default function Header() {
             </div>
             <div className="flex gap-2 w-fit">
                 <Link href="/advertisements">
-                    <Button variant="ghost">Advertisements</Button>
+                    <Button variant="link">Advertisements</Button>
                 </Link>
                 <ChangeTheme />
             </div>
