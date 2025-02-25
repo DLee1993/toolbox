@@ -77,7 +77,7 @@ export default function Home() {
                 variants={imageAnimation}
                 initial="hidden"
                 animate="show"
-                className="my-10"
+                className="my-20"
             >
                 <Image
                     priority
@@ -85,10 +85,10 @@ export default function Home() {
                     src={screenshot}
                     width={1000}
                     height={1000}
-                    className="mx-auto scale-90 rounded-xl ring-1 shadow-xl ring-gray-400/10"
+                    className="mx-auto w-11/12 max-w-3xl rounded-xl ring-1 shadow-xl ring-gray-400/10"
                 />
             </motion.figure>
-            <section className="gridLayout">
+            <section className="grid gap-4 grid-cols-[repeat(auto-fit,_minmax(min(300px,_100%),_1fr))]">
                 {features.map((feature) => (
                     <motion.div
                         variants={textAnimation}
@@ -97,7 +97,7 @@ export default function Home() {
                         viewport={{ amount: 0.2, once: true }}
                         key={feature.name}
                     >
-                        <Card className="flex flex-col justify-center gap-5 bg-card text-card-foreground">
+                        <Card className="min-h-[285px] max-w-md mx-auto flex flex-col justify-center gap-5 bg-card text-card-foreground">
                             <CardHeader className="text-center">
                                 <CardTitle>
                                     {
@@ -111,7 +111,7 @@ export default function Home() {
                                     {feature.name}
                                 </CardDescription>
                             </CardHeader>
-                            <CardContent className="text-pretty">{feature.description}</CardContent>
+                            <CardContent className="text-pretty text-center">{feature.description}</CardContent>
                         </Card>
                     </motion.div>
                 ))}
