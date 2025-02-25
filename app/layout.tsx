@@ -16,7 +16,7 @@ const lexend = Lexend({
 });
 
 export const metadata: Metadata = {
-    title: "Toolbox",
+    title: "Toolbox | Tools for everyone",
     description: "A hub for essential tools",
     icons: {
         icon: "/logo.svg",
@@ -40,7 +40,7 @@ export default function RootLayout({
                                 <div className="block min-[850px]:hidden p-4">
                                     <BreadCrumbNav />
                                 </div>
-                                <div className="minHeight customYPadding w-11/12 max-w-6xl mx-auto">{children}</div>
+                                <div className="py-7 sm:py-10 md:py-14 w-11/12 max-w-6xl mx-auto">{children}</div>
                                 <Footer />
                             </main>
                         </TooltipProvider>
