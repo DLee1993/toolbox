@@ -13,7 +13,7 @@ export default function Header() {
                     <BreadCrumbNav />
                 </div>
             </div>
-            <div className="flex gap-2 w-fit">
+            <div className="flex items-center gap-2 w-fit">
                 <Link href="/advertisements">
                     <Button variant="link">Advertisements</Button>
                 </Link>
