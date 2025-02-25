@@ -151,7 +151,7 @@ export default function LinkInBio() {
                                         alt="profile picture"
                                         width={50}
                                         height={50}
-                                        className="rounded-full size-20"
+                                        className="rounded-full size-20 ring-primary ring-1 ring-offset-2"
                                     />
                                 )}
 
@@ -176,7 +176,7 @@ export default function LinkInBio() {
                                     <Link
                                         href={formValues.portfolio}
                                         target="_blank"
-                                        className="block py-2 px-4 border border-muted rounded-[8px] hover:bg-muted transition-colors duration-300"
+                                        className="block py-2 px-4 border border-muted rounded-[8px] hover:bg-muted"
                                     >
                                         {formValues.portfolio}
                                     </Link>
