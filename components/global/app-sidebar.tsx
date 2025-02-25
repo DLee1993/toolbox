@@ -33,7 +33,7 @@ export function AppSidebar() {
             <SidebarHeader className="overflow-hidden px-0">
                 <div className="relative hidden md:block px-4">
                     <SidebarTrigger
-                        className="absolute top-1/2 -translate-y-1/2 right-2.5 w-full max-w-10 h-10 z-10 cursor-pointer hover:bg-primary/25 hover:text-foreground"
+                        className="absolute top-1/2 -translate-y-1/2 right-2.5 w-full max-w-10 h-10 z-10 cursor-pointer"
                         type="button"
                         variant="ghost"
                     />
@@ -68,7 +68,7 @@ export function AppSidebar() {
                                             <SidebarMenuButton
                                                 asChild
                                                 tooltip={sidebarItem.title}
-                                                className="ml-[0.0655rem] space-x-2 min-h-10 min-w-10 text-muted-foreground hover:bg-muted/50 data-[active=true]:text-primary-foreground data-[active=true]:bg-primary"
+                                                className="ml-[0.0655rem] space-x-2 min-h-10 min-w-10 text-muted-foreground hover:bg-muted/50"
                                                 isActive={
                                                     pathname === sidebarItem.url ? true : false
                                                 }
