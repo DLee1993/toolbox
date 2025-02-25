@@ -79,7 +79,7 @@ export default function LinkInBio() {
             </article>
             <section className="w-4/5 mx-auto mt-10 border-t border-muted py-10">
                 <Tabs defaultValue="PersonalInformation">
-                    <div className="sticky top-16 z-10 flex justify-between items-center bg-background">
+                    <div className="sticky top-16 z-10 flex justify-between items-center bg-background p-2">
                         <TabsList className="grid grid-cols-2 gap-2 h-12 w-2/3">
                             <TabsTrigger value="PersonalInformation" className="cursor-pointer h-9">
                                 Personal Information
