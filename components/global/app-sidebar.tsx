@@ -57,7 +57,7 @@ export function AppSidebar() {
                 {sidebarItems.map((item, index) => (
                     <React.Fragment key={`SidebarGroup-${index}`}>
                         {index !== 0 && <SidebarSeparator className="hidden md:block" />}
-                        <SidebarGroup>
+                        <SidebarGroup className="my-2.5">
                             <SidebarGroupLabel className="pointer-events-none">
                                 {item.category}
                             </SidebarGroupLabel>
