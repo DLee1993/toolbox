@@ -7,7 +7,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppSidebar } from "@/components/global/app-sidebar";
 import Header from "@/components/global/Header";
-import BreadCrumbNav from "@/components/global/BreadCrumbNav";
 import Footer from "@/components/global/Footer";
 
 const lexend = Lexend({
@@ -19,7 +18,7 @@ export const metadata: Metadata = {
     title: "Toolbox | Tools for everyone",
     description: "A hub for essential tools",
     icons: {
-        icon: "/logo.svg",
+        icon: "/icon.svg",
     },
 };
 
@@ -37,10 +36,9 @@ export default function RootLayout({
                             <AppSidebar />
                             <main className="w-full">
                                 <Header />
-                                <div className="block min-[850px]:hidden p-4">
-                                    <BreadCrumbNav />
+                                <div className="py-7 sm:py-10 md:py-14 w-11/12 max-w-6xl mx-auto">
+                                    {children}
                                 </div>
-                                <div className="py-7 sm:py-10 md:py-14 w-11/12 max-w-6xl mx-auto">{children}</div>
                                 <Footer />
                             </main>
                         </TooltipProvider>
