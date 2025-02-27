@@ -36,7 +36,6 @@ export function AppSidebar() {
     const pathname = usePathname();
     const { open, setOpen, isMobile } = useSidebar();
 
-    const toggleSidebar = () => setOpen(!open);
     const closeSidebar = () => setOpen(false);
 
     return (
@@ -45,7 +44,6 @@ export function AppSidebar() {
                 <div className="flex gap-2 min-w-52 py-2 rounded">
                     <div
                         className="grid place-content-center h-9 w-9 bg-foreground text-background rounded-md cursor-pointer"
-                        onClick={toggleSidebar}
                     >
                         <PocketKnife size={15} />
                     </div>
@@ -72,7 +70,7 @@ export function AppSidebar() {
                                 asChild
                                 tooltip={item.title}
                                 isActive={pathname === "/" ? true : false}
-                                onClick={() => setOpen(false)}
+                                onClick={closeSidebar}
                                 className="min-h-10 min-w-10 hover:bg-muted"
                             >
                                 <Link href={item.url} target={item.target ? "_blank" : "_self"}>
