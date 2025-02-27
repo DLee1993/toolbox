@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { sidebarItems } from "./app-sidebar-item-list";
+import { sidebarSubItems } from "./app-sidebar-item-list";
 import {
     Breadcrumb,
     BreadcrumbEllipsis,
@@ -20,8 +20,8 @@ import {
 
 export default function BreadCrumbNav() {
     const path = usePathname();
-    const tools = sidebarItems
-        .filter((sidebarItems) => sidebarItems.category === "Tools")[0]
+    const tools = sidebarSubItems
+        .filter((sidebarSubItems) => sidebarSubItems.title === "Tools")[0]
         .items.filter((item) => item.url !== path);
 
     return (
