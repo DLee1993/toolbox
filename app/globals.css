@@ -101,7 +101,7 @@
         @apply bg-transparent;
     }
     *::-webkit-scrollbar-thumb {
-        @apply bg-foreground rounded;
+        @apply bg-foreground/25;
     }
     body {
         @apply bg-background text-foreground;
