@@ -37,6 +37,7 @@ export function AppSidebar() {
     const { open, setOpen, isMobile } = useSidebar();
 
     const toggleSidebar = () => setOpen(!open);
+    const closeSidebar = () => setOpen(false);
 
     return (
         <Sidebar collapsible="icon">
@@ -71,7 +72,7 @@ export function AppSidebar() {
                                 asChild
                                 tooltip={item.title}
                                 isActive={pathname === "/" ? true : false}
-                                onClick={toggleSidebar}
+                                onClick={() => setOpen(false)}
                                 className="min-h-10 min-w-10 hover:bg-muted"
                             >
                                 <Link href={item.url} target={item.target ? "_blank" : "_self"}>
@@ -135,7 +136,7 @@ export function AppSidebar() {
                                                                     ? "text-foreground"
                                                                     : "text-foreground/50 hover:text-foreground"
                                                             }`}
-                                                            onClick={toggleSidebar}
+                                                            onClick={closeSidebar}
                                                         >
                                                             <Link href={subItem.url}>
                                                                 <>
@@ -165,7 +166,6 @@ export function AppSidebar() {
                                             <DropdownMenuTrigger
                                                 asChild
                                                 className="px-2 min-h-10 min-w-10 hover:bg-muted"
-                                                onClick={toggleSidebar}
                                             >
                                                 <Button variant="ghost">{<item.icon />}</Button>
                                             </DropdownMenuTrigger>
@@ -192,7 +192,7 @@ export function AppSidebar() {
                                                         ? "text-foreground"
                                                         : "text-foreground/50 hover:text-foreground"
                                                 }`}
-                                                onClick={toggleSidebar}
+                                                onClick={closeSidebar}
                                             >
                                                 <Link href={subItem.url}>
                                                     <>
