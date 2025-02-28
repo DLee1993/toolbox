@@ -2,11 +2,11 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import React from "react";
-import { sidebarRootItems, sidebarSubItems } from "./app-sidebar-item-list";
+import { sidebarRootItems, sidebarSubItems } from "@/components/global/navigation/app-sidebar-item-list";
 import { ChevronRight, Library, Dot, Type } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Button } from "../../ui/button";
+import { Button } from "@/components/ui/button";
 import {
     Sidebar,
     SidebarContent,

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
 const ChangeTheme = () => {
     const [hasMounted, setHasMounted] = useState(false); // <-- add this
