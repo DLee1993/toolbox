@@ -5,7 +5,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { AppSidebar } from "@/components/global/app-sidebar";
+import { AppSidebar } from "@/components/global/navigation/app-sidebar";
 import Header from "@/components/global/Header";
 import Footer from "@/components/global/Footer";
 

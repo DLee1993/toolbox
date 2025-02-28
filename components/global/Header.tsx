@@ -1,7 +1,7 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import BreadCrumbNav from "./BreadCrumbNav";
-import ChangeTheme from "./ThemeToggle";
-import { Button } from "../ui/button";
+import BreadCrumbNav from "@/components/global/navigation/BreadCrumbNav";
+import ChangeTheme from "@/components/global/ThemeToggle";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function Header() {
