@@ -2,8 +2,11 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import React from "react";
-import { ChevronRight, Library, Dot, PocketKnife } from "lucide-react";
 import { sidebarRootItems, sidebarSubItems } from "./app-sidebar-item-list";
+import { ChevronRight, Library, Dot, Type } from "lucide-react";
+import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Button } from "../../ui/button";
 import {
     Sidebar,
     SidebarContent,
@@ -28,9 +31,6 @@ import {
     DropdownMenuContent,
     DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Button } from "../ui/button";
 
 export function AppSidebar() {
     const pathname = usePathname();
@@ -42,10 +42,8 @@ export function AppSidebar() {
         <Sidebar collapsible="icon">
             <SidebarHeader className="hidden md:block overflow-hidden p-0 md:px-1.5 md:my-1">
                 <div className="flex gap-2 min-w-52 py-2 rounded">
-                    <div
-                        className="grid place-content-center h-9 w-9 bg-foreground text-background rounded-md cursor-pointer"
-                    >
-                        <PocketKnife size={15} />
+                    <div className="grid place-content-center h-9 w-9 bg-foreground text-background rounded-md cursor-pointer">
+                        <Type size={15} />
                     </div>
                     <p className="flex flex-col text-sm font-semibold">
                         Toolbox
