@@ -8,19 +8,19 @@
 
 &nbsp;
 
-# Tools so far
+# Refs
 
-1. password generator
-2. notepad
-3. link in bio w/ preview page - (ref: linktree)
-4. url shortener
-5. pomodoro timer
-6. file converter
-7. calendar?
+- focus timer - https://pomofocus.io/?form=MG0AV3
 
 &nbsp;
 
 # Remove the above when done
+
+# Importing into files
+
+Please use the following syntax when importing into files - @/folder/folder/file
+
+Do not use the following syntax - ../folder/folder/file
 
 &nbsp;
 

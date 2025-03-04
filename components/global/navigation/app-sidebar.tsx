@@ -1,9 +1,13 @@
 "use client";
+
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import React from "react";
-import { sidebarRootItems, sidebarSubItems } from "@/components/global/navigation/app-sidebar-item-list";
-import { ChevronRight, Library, Dot, Type } from "lucide-react";
+import {
+    sidebarRootItems,
+    sidebarSubItems,
+} from "@/components/global/navigation/app-sidebar-item-list";
+import { ChevronRight, Library, Dot } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
@@ -22,6 +26,7 @@ import {
     SidebarSeparator,
     SidebarMenuBadge,
     useSidebar,
+    SidebarTrigger,
 } from "@/components/ui/sidebar";
 import {
     DropdownMenu,
@@ -40,12 +45,19 @@ export function AppSidebar() {
 
     return (
         <Sidebar collapsible="icon">
-            <SidebarHeader className="hidden md:block overflow-hidden p-0 md:px-1.5 md:my-1">
-                <div className="flex gap-2 min-w-52 py-2 rounded">
-                    <div className="grid place-content-center h-9 w-9 bg-foreground text-background rounded-md cursor-pointer">
-                        <Type size={15} />
-                    </div>
-                    <p className="flex flex-col text-sm font-semibold">
+            <SidebarHeader className="overflow-hidden px-0 md:my-1">
+                <div className="relative hidden md:block px-4">
+                    <SidebarTrigger
+                        className="absolute top-1/2 -translate-y-1/2 right-[3px] min-w-10 min-h-10 z-10 cursor-pointer"
+                        type="button"
+                        variant="secondary"
+                    />
+
+                    <p
+                        className={`flex flex-col min-w-52 transition-opacity duration-200 ease-linear text-sm ${
+                            !open && "opacity-0"
+                        }`}
+                    >
                         Toolbox
                         <span className="text-xs text-muted-foreground font-normal">
                             A hub for essential tools.
@@ -54,11 +66,11 @@ export function AppSidebar() {
                 </div>
             </SidebarHeader>
             <SidebarContent
-                className={`overflow-x-hidden px-1 py-1 mt-2 ${
+                className={`overflow-x-hidden px-1 py-1 ${
                     open ? "overflow-y-auto" : "!overflow-y-auto hiddenScrollbar"
                 }`}
             >
-                <SidebarMenu className="gap-0">
+                <SidebarMenu className="gap-1">
                     {sidebarRootItems.map((item, i) => (
                         <SidebarMenuItem
                             key={`RootItem-${i}`}
@@ -111,7 +123,7 @@ export function AppSidebar() {
                                                 </p>
 
                                                 <div className="flex justify-center items-center ml-auto">
-                                                    <SidebarMenuBadge className="relative right-0">
+                                                    <SidebarMenuBadge className="relative right-0 bg-muted text-muted-foreground">
                                                         {item.items.length}
                                                     </SidebarMenuBadge>
                                                     <ChevronRight

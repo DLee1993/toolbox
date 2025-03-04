@@ -4,7 +4,6 @@ import { usePathname } from "next/navigation";
 import { sidebarSubItems } from "@/components/global/navigation/app-sidebar-item-list";
 import {
     Breadcrumb,
-    BreadcrumbEllipsis,
     BreadcrumbItem,
     BreadcrumbLink,
     BreadcrumbList,
@@ -29,13 +28,9 @@ export default function BreadCrumbNav() {
             {path != "/" && (
                 <BreadcrumbList>
                     <BreadcrumbItem>
-                        <BreadcrumbLink href="/">Home</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
                         <DropdownMenu>
                             <DropdownMenuTrigger className="flex items-center gap-1">
-                                <BreadcrumbEllipsis className="h-4 w-4" />
+                                Tools
                                 <span className="sr-only">Toggle menu</span>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="start">
