@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { sidebarSubItems } from "@/components/global/navigation/app-sidebar-item-list";
 import {
@@ -17,11 +18,28 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+type BreadCrumb = {
+    title: string;
+    url: string;
+    icon: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
+};
+
 export default function BreadCrumbNav() {
     const path = usePathname();
-    const tools = sidebarSubItems
-        .filter((sidebarSubItems) => sidebarSubItems.title === "Tools")[0]
-        .items.filter((item) => item.url !== path);
+    const slug = path.split("/")[1]; // this is the category in the menu i.e. tools, documents etc
+    const [currentBreadCrumbs, setCurrentBreadCrumbs] = useState<BreadCrumb[]>([]);
+
+    useEffect(() => {
+        const itemArray = sidebarSubItems.filter(
+            (sidebarSubItems) => sidebarSubItems.title.toLowerCase() === slug
+        )[0];
+
+        if (!itemArray) return;
+
+        const items = itemArray.items.filter((item) => item.url !== path);
+
+        setCurrentBreadCrumbs(items);
+    }, [slug, path]);
 
     return (
         <Breadcrumb>
@@ -34,7 +52,7 @@ export default function BreadCrumbNav() {
                                 <span className="sr-only">Toggle menu</span>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="start">
-                                {tools.map((item, i) => (
+                                {currentBreadCrumbs.map((item, i) => (
                                     <DropdownMenuItem key={i} className="p-0 transition-none">
                                         <BreadcrumbLink
                                             href={item.url}
@@ -49,7 +67,7 @@ export default function BreadCrumbNav() {
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
-                        <BreadcrumbPage>{path.slice(1)}</BreadcrumbPage>
+                        <BreadcrumbPage>{path.split("/")[2]}</BreadcrumbPage>
                     </BreadcrumbItem>
                 </BreadcrumbList>
             )}
