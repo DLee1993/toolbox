@@ -3,14 +3,14 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import React from "react";
-import {
-    sidebarRootItems,
-    sidebarSubItems,
-} from "@/components/global/navigation/app-sidebar-item-list";
 import { ChevronRight, Library, Dot } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
+import {
+    sidebarRootItems,
+    sidebarSubItems,
+} from "@/components/global/navigation/app-sidebar-item-list";
 import {
     Sidebar,
     SidebarContent,
@@ -45,10 +45,10 @@ export function AppSidebar() {
 
     return (
         <Sidebar collapsible="icon">
-            <SidebarHeader className="overflow-hidden px-0 md:my-1">
-                <div className="relative hidden md:block px-4">
+            <SidebarHeader className="overflow-hidden px-3 md:my-2">
+                <div className="relative hidden md:block">
                     <SidebarTrigger
-                        className="absolute top-1/2 -translate-y-1/2 right-[3px] min-w-10 min-h-10 z-10 cursor-pointer"
+                        className="absolute top-1/2 -translate-y-1/2 -right-1.5 min-w-9 min-h-9 z-10 cursor-pointer"
                         type="button"
                         variant="secondary"
                     />
@@ -65,12 +65,14 @@ export function AppSidebar() {
                     </p>
                 </div>
             </SidebarHeader>
+            {/* SIDEBAR CONTENT */}
             <SidebarContent
-                className={`overflow-x-hidden px-1 py-1 ${
+                className={`overflow-x-hidden px-[5px] py-1 ${
                     open ? "overflow-y-auto" : "!overflow-y-auto hiddenScrollbar"
                 }`}
             >
-                <SidebarMenu className="gap-1">
+                {/* SIDEBAR MENU */}
+                <SidebarMenu className="gap-2">
                     {sidebarRootItems.map((item, i) => (
                         <SidebarMenuItem
                             key={`RootItem-${i}`}
@@ -81,10 +83,10 @@ export function AppSidebar() {
                                 tooltip={item.title}
                                 isActive={pathname === "/" ? true : false}
                                 onClick={closeSidebar}
-                                className="min-h-10 min-w-10 hover:bg-muted"
+                                className="min-h-9 min-w-9 hover:bg-muted"
                             >
                                 <Link href={item.url} target={item.target ? "_blank" : "_self"}>
-                                    {item.icon && <item.icon size={15} className="ml-1" />}
+                                    {item.icon && <item.icon size={15} className="ml-0.5" />}
                                     <p
                                         className={`mx-2 min-w-52 transition-opacity duration-200 ease-linear ${
                                             !open && !isMobile && "opacity-0"
@@ -97,7 +99,10 @@ export function AppSidebar() {
                         </SidebarMenuItem>
                     ))}
                 </SidebarMenu>
+
                 <SidebarSeparator className="bg-border" />
+
+                {/* SIDEBAR MENU */}
                 <SidebarGroup className="!px-0">
                     <SidebarGroupLabel className="sr-only">Menu</SidebarGroupLabel>
                     <SidebarMenu className="items-start">
@@ -109,10 +114,10 @@ export function AppSidebar() {
                                         <CollapsibleTrigger asChild>
                                             <SidebarMenuButton
                                                 tooltip={item.title}
-                                                className="min-h-10 min-w-10 hover:bg-muted"
+                                                className="min-h-9 min-w-9 hover:bg-muted"
                                             >
                                                 {item.icon && (
-                                                    <item.icon size={15} className="ml-1" />
+                                                    <item.icon size={15} className="ml-0.5" />
                                                 )}
                                                 <p
                                                     className={`mx-2 min-w-28 overflow-hidden ease-linear text-sm ${
@@ -123,7 +128,7 @@ export function AppSidebar() {
                                                 </p>
 
                                                 <div className="flex justify-center items-center ml-auto">
-                                                    <SidebarMenuBadge className="relative right-0 bg-muted text-muted-foreground">
+                                                    <SidebarMenuBadge className="relative right-2">
                                                         {item.items.length}
                                                     </SidebarMenuBadge>
                                                     <ChevronRight
@@ -173,7 +178,7 @@ export function AppSidebar() {
                                         <TooltipTrigger asChild>
                                             <DropdownMenuTrigger
                                                 asChild
-                                                className="px-2 min-h-10 min-w-10 hover:bg-muted"
+                                                className="px-2 min-h-9 min-w-9 hover:bg-muted"
                                             >
                                                 <Button variant="ghost">{<item.icon />}</Button>
                                             </DropdownMenuTrigger>
