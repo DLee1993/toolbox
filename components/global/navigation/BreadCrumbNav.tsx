@@ -42,8 +42,8 @@ export default function BreadCrumbNav() {
     }, [slug, path]);
 
     return (
-        <Breadcrumb>
-            {path != "/" && (
+        <Breadcrumb suppressHydrationWarning>
+            {path != "/" && currentBreadCrumbs.length > 0 ? (
                 <BreadcrumbList>
                     <BreadcrumbItem>
                         <DropdownMenu>
@@ -64,6 +64,16 @@ export default function BreadCrumbNav() {
                                 ))}
                             </DropdownMenuContent>
                         </DropdownMenu>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                        <BreadcrumbPage>{path.split("/")[2]}</BreadcrumbPage>
+                    </BreadcrumbItem>
+                </BreadcrumbList>
+            ) : (
+                <BreadcrumbList>
+                    <BreadcrumbItem>
+                        <BreadcrumbLink href="/">Home</BreadcrumbLink>
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
