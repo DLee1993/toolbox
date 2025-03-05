@@ -72,10 +72,14 @@ export default function BreadCrumbNav() {
                 </BreadcrumbList>
             ) : (
                 <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="/">Home</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
+                    {path !== "/" && (
+                        <>
+                            <BreadcrumbItem>
+                                <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                            </BreadcrumbItem>
+                            <BreadcrumbSeparator />
+                        </>
+                    )}
                     <BreadcrumbItem>
                         <BreadcrumbPage>{path.split("/")[2]}</BreadcrumbPage>
                     </BreadcrumbItem>
