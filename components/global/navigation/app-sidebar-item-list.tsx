@@ -49,32 +49,32 @@ export const sidebarSubItems = [
         items: [
             {
                 title: "Credentials",
-                url: "/credentials-generator",
+                url: "/tools/credentials-generator",
                 icon: Key,
             },
             {
                 title: "File converter",
-                url: "/file-converter",
+                url: "/tools/file-converter",
                 icon: Combine,
             },
             {
                 title: "Focus timer",
-                url: "/focus-timer",
+                url: "/tools/focus-timer",
                 icon: Clock,
             },
             {
                 title: "Notepad",
-                url: "/notepad",
+                url: "/tools/notepad",
                 icon: Notebook,
             },
             {
                 title: "Link in bio",
-                url: "/link-in-bio",
+                url: "/tools/link-in-bio",
                 icon: Network,
             },
             {
                 title: "Link shortener",
-                url: "/link-shortener",
+                url: "/tools/link-shortener",
                 icon: Unlink,
             },
         ],
