@@ -23,23 +23,22 @@ export default function CredentialsGenerator() {
 
     return (
         <section>
-            <section className="space-y-10">
-                <article className="space-y-2 text-center">
-                    <h1 className="text-xl leading-none font-light">Manage your privacy.</h1>
-                    <p className="max-w-md mx-auto">
-                        Safeguard your online presence with unbreakable passwords and protect your
-                        valuable data.
+            <section className="space-y-10 py-10">
+                <article className="text-center">
+                    <h1 className="text-lg md:text-xl">Your trusted Credentials Generator.</h1>
+                    <p className="max-w-3xl mx-auto my-5">
+                        In the realm of cybersecurity, ensuring robust and secure credentials is
+                        paramount. Whether you require passwords, or pin codes, We provide a
+                        reliable solution to fortify your online presence.
+                    </p>
+                    <p className="text-sm font-bold">
+                        We recommed only using pin codes for non valuable data/applications, as pin
+                        codes are easily cracked.
                     </p>
                 </article>
                 <section className="flex justify-between items-center gap-5 flex-col lg:flex-row">
-                    <section className="min-h-72 w-full px-2 pt-10 flex flex-col justify-between items-start">
-                        <article>
-                            <h2 className="text-base">Create a Password</h2>
-                            <p className="text-sm max-w-xs">
-                                Generate a strong and unique password to protect your accounts and
-                                sensitive information.
-                            </p>
-                        </article>
+                    <section className="min-h-60 w-full px-2 flex flex-col justify-between items-start">
+                        <h2 className="text-base">Create a Password</h2>
                         <Input
                             readOnly
                             ref={passwordInput}
@@ -67,15 +66,9 @@ export default function CredentialsGenerator() {
                         </div>
                     </section>
                     <Separator orientation="vertical" className="lg:h-72 bg-muted" />
-                    <section className="min-h-72 w-full px-2 pt-10 flex flex-col justify-between items-start">
+                    <section className="min-h-60 w-full px-2 flex flex-col justify-between items-start">
                         <div className="flex justify-between items-center w-full">
-                            <article>
-                                <h2 className="text-base">Create a pin</h2>
-                                <p className="text-sm max-w-xs">
-                                    Generate a random pin code, use the selector to change the
-                                    length of the pin if needed.
-                                </p>
-                            </article>
+                            <h2 className="text-base">Create a pin</h2>
                             <Select onValueChange={setPinLength}>
                                 <SelectTrigger
                                     className="w-32 h-10 border shadow-none"
