@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Lexend } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { ThemeProvider } from "next-themes";
@@ -9,7 +9,7 @@ import { AppSidebar } from "@/components/global/navigation/app-sidebar";
 import Header from "@/components/global/Header";
 import Footer from "@/components/global/Footer";
 
-const lexend = Lexend({
+const inter = Inter({
     weight: ["300", "400", "600", "700", "800"],
     subsets: ["latin"],
 });
@@ -29,18 +29,18 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className={`${lexend.className} antialiased`}>
+            <body className={`${inter.className} antialiased`}>
                 <ThemeProvider>
                     <SidebarProvider defaultOpen={false}>
                         <TooltipProvider>
                             <AppSidebar />
-                            <main className="w-full">
+                            <div className="w-full">
                                 <Header />
-                                <div className="py-7 sm:py-10 md:py-14 w-11/12 max-w-6xl mx-auto">
+                                <main className="py-7 sm:py-10 md:py-14 w-11/12 max-w-6xl mx-auto h-full">
                                     {children}
-                                </div>
+                                </main>
                                 <Footer />
-                            </main>
+                            </div>
                         </TooltipProvider>
                     </SidebarProvider>
                 </ThemeProvider>
