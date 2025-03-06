@@ -41,7 +41,7 @@ const textAnimation: Variants = {
 
 export default function Home() {
     return (
-        <section>
+        <section className="py-10">
             <article className="flex flex-col justify-center items-center w-11/12 max-w-xl mx-auto space-y-10">
                 <div className="text-center">
                     <p className="text-primary">Welcome to</p>
