@@ -47,11 +47,7 @@ export function AppSidebar() {
         <Sidebar collapsible="icon">
             <SidebarHeader className="overflow-hidden px-3 md:my-2">
                 <div className="relative hidden md:block">
-                    <SidebarTrigger
-                        className="absolute top-1/2 -translate-y-1/2 -right-1.5 min-w-9 min-h-9 z-10 cursor-pointer"
-                        type="button"
-                        variant="secondary"
-                    />
+                    <SidebarTrigger className="absolute top-1/2 -translate-y-1/2 -right-1.5 min-w-9 min-h-9 z-10 cursor-pointer" />
 
                     <p
                         className={`flex flex-col min-w-52 transition-opacity duration-200 ease-linear text-sm ${
