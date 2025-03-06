@@ -39,9 +39,12 @@ import {
 
 export function AppSidebar() {
     const pathname = usePathname();
-    const { open, setOpen, isMobile } = useSidebar();
+    const { open, setOpen, isMobile, setOpenMobile } = useSidebar();
 
-    const closeSidebar = () => setOpen(false);
+    const closeSidebar = () => {
+        setOpen(false);
+        setOpenMobile(false);
+    };
 
     return (
         <Sidebar collapsible="icon">
