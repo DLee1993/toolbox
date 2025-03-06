@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { VariantProps, cva } from "class-variance-authority";
-import { PanelLeft } from "lucide-react";
+import { PanelLeft, XIcon } from "lucide-react";
 
 import { useIsMobile } from "@/hooks/global/use-mobile";
 import { cn } from "@/lib/utils";
@@ -16,6 +16,7 @@ import {
     SheetDescription,
     SheetHeader,
     SheetTitle,
+    SheetTrigger,
 } from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -202,11 +203,16 @@ const Sidebar = React.forwardRef<
                         }
                         side={side}
                     >
-                        <SheetHeader className="text-left px-3 py-2 my-1">
-                            <SheetTitle className="text-md leading-none">Toolbox</SheetTitle>
-                            <SheetDescription className="text-xs text-muted-foreground font-normal">
-                                A hub for essential tools.
-                            </SheetDescription>
+                        <SheetHeader className="flex flex-row justify-between items-start text-left px-3 py-2 my-1">
+                            <div>
+                                <SheetTitle className="text-base leading-none">Toolbox</SheetTitle>
+                                <SheetDescription className="text-xs text-muted-foreground font-normal">
+                                    A hub for essential tools.
+                                </SheetDescription>
+                            </div>
+                            <SheetTrigger>
+                                <XIcon />
+                            </SheetTrigger>
                         </SheetHeader>
                         <div className="flex h-full pb-16 w-full flex-col">{children}</div>
                     </SheetContent>

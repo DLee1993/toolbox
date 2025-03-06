@@ -71,16 +71,16 @@ export default function LinkInBio() {
 
     return (
         <section>
-            <article className="text-center max-w-2xl mx-auto space-y-4">
+            <article className="text-center max-w-2xl mx-auto space-y-4 my-10">
                 <h1 className="text-xl leading-none font-light">
                     Help people discover everything you do, with one simple link.
                 </h1>
                 <p>You&apos;ll never have to change the link in your bio ever again.</p>
             </article>
-            <section className="w-4/5 mx-auto mt-10 border-t border-muted py-10">
+            <section className="mt-10 border-t border-muted py-10">
                 <Tabs defaultValue="PersonalInformation">
-                    <div className="sticky top-16 z-10 flex justify-between items-center bg-background p-2">
-                        <TabsList className="grid grid-cols-2 gap-2 h-12 w-2/3">
+                    <div className="sticky top-14 z-10 flex flex-col sm:flex-row justify-between items-center gap-2 bg-card px-1 py-2">
+                        <TabsList className="grid grid-cols-2 gap-2 h-12 w-full sm:w-2/3">
                             <TabsTrigger value="PersonalInformation" className="cursor-pointer h-9">
                                 Personal Information
                             </TabsTrigger>
@@ -89,6 +89,7 @@ export default function LinkInBio() {
                             </TabsTrigger>
                         </TabsList>
                         <Button
+                        className="w-full sm:w-auto"
                             onClick={publish}
                             disabled={
                                 formValues.name && formValues.email && formValues.description

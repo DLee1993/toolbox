@@ -68,7 +68,7 @@ export function AppSidebar() {
                 }`}
             >
                 {/* SIDEBAR MENU */}
-                <SidebarMenu className="gap-2">
+                <SidebarMenu className="gap-1">
                     {sidebarRootItems.map((item, i) => (
                         <SidebarMenuItem
                             key={`RootItem-${i}`}
@@ -116,7 +116,7 @@ export function AppSidebar() {
                                                     <item.icon size={15} className="ml-0.5" />
                                                 )}
                                                 <p
-                                                    className={`mx-2 min-w-28 overflow-hidden ease-linear text-sm ${
+                                                    className={`mx-2 min-w-28 overflow-hidden ease-linear ${
                                                         !open && !isMobile && "opacity-0"
                                                     }`}
                                                 >
