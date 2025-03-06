@@ -65,14 +65,14 @@ export default function LinkInBio() {
     };
 
     const publish = () => {
-        const url = `${window.location.origin}/link-in-bio-preview?data=${encodeData(formValues)}`;
+        const url = `${window.location.origin}/static/link-in-bio-preview?data=${encodeData(formValues)}`;
         Copy({ input: url || "" });
     };
 
     return (
         <section>
             <article className="text-center max-w-2xl mx-auto space-y-4 my-10">
-                <h1 className="text-xl leading-none font-light">
+                <h1 className="text-xl leading-none">
                     Help people discover everything you do, with one simple link.
                 </h1>
                 <p>You&apos;ll never have to change the link in your bio ever again.</p>
@@ -89,7 +89,7 @@ export default function LinkInBio() {
                             </TabsTrigger>
                         </TabsList>
                         <Button
-                        className="w-full sm:w-auto"
+                            className="w-full sm:w-auto"
                             onClick={publish}
                             disabled={
                                 formValues.name && formValues.email && formValues.description
@@ -102,7 +102,7 @@ export default function LinkInBio() {
                     </div>
                     <TabsContent value="PersonalInformation">
                         <section className="mt-5">
-                            <form className="my-10 space-y-10 w-full">
+                            <form className="my-10 space-y-10 w-full md:w-10/12 mx-auto">
                                 {formContents.map((obj, i) => (
                                     <fieldset key={i} className="w-full flex flex-col gap-2">
                                         <Label className="capitalize text-sm">
@@ -147,19 +147,19 @@ export default function LinkInBio() {
                         ) : (
                             <section className="flex justify-center items-center flex-col gap-4 bg-muted/15 border border-muted-foreground/10 rounded-lg py-16 w-full my-10">
                                 {formValues.photo && (
-                                    <img
-                                        src={formValues.photo}
-                                        alt="profile picture"
-                                        width={50}
-                                        height={50}
-                                        className="rounded-full size-20 ring-primary ring-1 ring-offset-2"
-                                    />
+                                    <figure className="p-1 ring-1 ring-primary rounded-full">
+                                        <img
+                                            src={formValues.photo}
+                                            alt="profile picture"
+                                            width={50}
+                                            height={50}
+                                            className="rounded-full size-20 object-cover"
+                                        />
+                                    </figure>
                                 )}
 
                                 <div className="space-y-1">
-                                    <h2 className="text-md font-light capitalize">
-                                        {formValues.name}
-                                    </h2>
+                                    <h2 className="text-md capitalize">{formValues.name}</h2>
                                     {formValues.email && (
                                         <a
                                             href={`mailto:${formValues.email}`}
