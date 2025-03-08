@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* TYPOGRAPHY */
+/** TYPOGRAPHY */
+
 /* For browsers that support clamp  */
 @supports (font-size: clamp(1rem, 1vi, 1rem)) {
     :root {
@@ -33,7 +34,8 @@
     }
 }
 
-/* THEMES */
+/** THEMES */
+
 @layer base {
     :root {
         --background: 0 0% 100%;
@@ -90,7 +92,14 @@
         --chart-4: 280 65% 60%;
         --chart-5: 340 75% 55%;
     }
+}
 
+/** Variables and Base styling */
+
+@layer base {
+    :root {
+        --baseHeight: 4rem;
+    }
     * {
         @apply border-border outline-ring/50;
     }
@@ -104,7 +113,14 @@
         @apply bg-foreground/25;
     }
     body {
-        @apply bg-background text-foreground;
+        @apply bg-background text-foreground h-screen;
+    }
+    header,
+    footer {
+        height: var(--baseHeight);
+    }
+    main {
+        min-height: calc(100vh - (var(--baseHeight) * 2));
     }
 }
 

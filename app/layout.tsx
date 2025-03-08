@@ -36,7 +36,7 @@ export default function RootLayout({
                             <AppSidebar />
                             <div className="w-full">
                                 <Header />
-                                <main className="w-11/12 max-w-6xl mx-auto h-full">
+                                <main className="w-11/12 max-w-6xl mx-auto">
                                     {children}
                                 </main>
                                 <Footer />

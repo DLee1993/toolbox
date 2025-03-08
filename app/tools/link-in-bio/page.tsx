@@ -71,7 +71,7 @@ export default function LinkInBio() {
 
     return (
         <section>
-            <article className="text-center max-w-2xl mx-auto space-y-4 my-10">
+            <article className="text-center max-w-2xl mx-auto space-y-4">
                 <h1 className="text-xl leading-none">
                     Help people discover everything you do, with one simple link.
                 </h1>
