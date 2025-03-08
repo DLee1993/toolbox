@@ -23,7 +23,7 @@ export default function CredentialsGenerator() {
 
     return (
         <section>
-            <section className="space-y-10">
+            <section className="space-y-10 py-10">
                 <article className="text-center">
                     <h1 className="text-lg md:text-xl">Your trusted Credentials Generator.</h1>
                     <p className="max-w-3xl mx-auto my-5">

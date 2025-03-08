@@ -25,93 +25,103 @@ const GeneratePreview = () => {
     const decoded_data = decodeData(data!);
 
     return (
-        <section className="w-full md:w-2/3 lg:w-1/2 mx-auto flex flex-col justify-center items-center gap-10 py-16">
+        <section className="relative">
             {decoded_data.photo && (
-                <figure className="p-1 ring-1 ring-primary rounded-full">
+                <figure className="absolute top-0 -z-10 max-h-60 overflow-hidden flex justify-center items-center rounded-b-2xl">
                     <img
                         src={decoded_data.photo}
                         alt="profile picture"
                         width={50}
                         height={50}
-                        className="rounded-full size-20 object-cover"
+                        className="size-full object-cover"
                     />
                 </figure>
             )}
 
-            <div className="space-y-1">
-                <h2 className="text-md capitalize">{decoded_data.name}</h2>
-                {decoded_data.email && (
-                    <a
-                        href={`mailto:${decoded_data.email}`}
-                        className="opacity-60 w-fit text-sm text-center flex items-center gap-2 mx-auto hover:opacity-100"
+            <section>
+                <div className="space-y-1 text-center mx-auto w-fit">
+                    <h2 className="text-md capitalize">{decoded_data.name}</h2>
+                    {decoded_data.email && (
+                        <a
+                            href={`mailto:${decoded_data.email}`}
+                            className="opacity-60 w-fit text-sm text-center flex items-center gap-2 mx-auto hover:opacity-100"
+                        >
+                            <MailIcon size={12} />
+                            {decoded_data.email}
+                        </a>
+                    )}
+                </div>
+                <p className="w-11/12 max-w-[460px] break-words mx-auto text-center my-10">
+                    {decoded_data.description}
+                </p>
+                {decoded_data.portfolio && (
+                    <Link
+                        href={decoded_data.portfolio}
+                        target="_blank"
+                        className="block py-2 px-4 border border-muted rounded-[8px] hover:bg-muted"
                     >
-                        <MailIcon size={12} />
-                        {decoded_data.email}
-                    </a>
+                        {decoded_data.portfolio}
+                    </Link>
                 )}
-            </div>
-            <p className="max-w-[460px] break-words mx-auto text-center my-10">
-                {decoded_data.description}
-            </p>
-            {decoded_data.portfolio && (
-                <Link
-                    href={decoded_data.portfolio}
-                    target="_blank"
-                    className="block py-2 px-4 border border-muted rounded-[8px] hover:bg-muted"
-                >
-                    {decoded_data.portfolio}
-                </Link>
-            )}
-            <ul className="w-fit flex gap-2">
-                {decoded_data.linkedin && (
-                    <PublishedLink
-                        Icon={FaLinkedinIn}
-                        label={"Linkedin"}
-                        href={decoded_data.linkedin}
-                    />
-                )}
-                {decoded_data.github && (
-                    <PublishedLink Icon={FaGithub} label={"Github"} href={decoded_data.github} />
-                )}
-                {decoded_data.twitter && (
-                    <PublishedLink
-                        Icon={FaXTwitter}
-                        label={"X / Twitter"}
-                        href={decoded_data.twitter}
-                    />
-                )}
-                {decoded_data.instagram && (
-                    <PublishedLink
-                        Icon={FaInstagram}
-                        label={"Instagram"}
-                        href={decoded_data.instagram}
-                    />
-                )}
-                {decoded_data.youtube && (
-                    <PublishedLink Icon={FaYoutube} label={"Youtube"} href={decoded_data.youtube} />
-                )}
-                {decoded_data.facebook && (
-                    <PublishedLink
-                        Icon={FaFacebook}
-                        label={"Facebook"}
-                        href={decoded_data.facebook}
-                    />
-                )}
-                {decoded_data.whatsApp && (
-                    <PublishedLink
-                        Icon={FaWhatsapp}
-                        label={"WhatsApp"}
-                        href={`https://wa.me/${parseInt(decoded_data.whatsApp)}`}
-                    />
-                )}
-                {decoded_data.telegram && (
-                    <PublishedLink
-                        Icon={FaTelegram}
-                        label={"Telegram"}
-                        href={decoded_data.telegram}
-                    />
-                )}
-            </ul>
+                <ul className="w-fit flex gap-2">
+                    {decoded_data.linkedin && (
+                        <PublishedLink
+                            Icon={FaLinkedinIn}
+                            label={"Linkedin"}
+                            href={decoded_data.linkedin}
+                        />
+                    )}
+                    {decoded_data.github && (
+                        <PublishedLink
+                            Icon={FaGithub}
+                            label={"Github"}
+                            href={decoded_data.github}
+                        />
+                    )}
+                    {decoded_data.twitter && (
+                        <PublishedLink
+                            Icon={FaXTwitter}
+                            label={"X / Twitter"}
+                            href={decoded_data.twitter}
+                        />
+                    )}
+                    {decoded_data.instagram && (
+                        <PublishedLink
+                            Icon={FaInstagram}
+                            label={"Instagram"}
+                            href={decoded_data.instagram}
+                        />
+                    )}
+                    {decoded_data.youtube && (
+                        <PublishedLink
+                            Icon={FaYoutube}
+                            label={"Youtube"}
+                            href={decoded_data.youtube}
+                        />
+                    )}
+                    {decoded_data.facebook && (
+                        <PublishedLink
+                            Icon={FaFacebook}
+                            label={"Facebook"}
+                            href={decoded_data.facebook}
+                        />
+                    )}
+                    {decoded_data.whatsApp && (
+                        <PublishedLink
+                            Icon={FaWhatsapp}
+                            label={"WhatsApp"}
+                            href={`https://wa.me/${parseInt(decoded_data.whatsApp)}`}
+                        />
+                    )}
+                    {decoded_data.telegram && (
+                        <PublishedLink
+                            Icon={FaTelegram}
+                            label={"Telegram"}
+                            href={decoded_data.telegram}
+                        />
+                    )}
+                </ul>
+            </section>
         </section>
     );
 };

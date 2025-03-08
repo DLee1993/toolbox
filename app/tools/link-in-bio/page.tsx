@@ -2,7 +2,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import Link from "next/link";
 import { encodeData } from "@/hooks/link-in-bio/encoder";
 import { Copy } from "@/hooks/global/copy-to-clipboard";
@@ -24,6 +24,7 @@ import {
     FaTelegram,
     FaGithub,
 } from "react-icons/fa6";
+import { Separator } from "@/components/ui/separator";
 
 export default function LinkInBio() {
     const [formValues, setFormValues] = useState<LinkInBioValues>({
@@ -64,80 +65,84 @@ export default function LinkInBio() {
         setFormValues((prevState) => ({ ...prevState, [name]: value }));
     };
 
-    const publish = () => {
-        const url = `${window.location.origin}/static/link-in-bio-preview?data=${encodeData(formValues)}`;
+    const publish = (e: FormEvent) => {
+        e.preventDefault();
+        const url = `${window.location.origin}/static/link-in-bio-preview?data=${encodeData(
+            formValues
+        )}`;
         Copy({ input: url || "" });
     };
 
     return (
-        <section>
+        <section className="space-y-20 pt-20 pb-10">
             <article className="text-center max-w-2xl mx-auto space-y-4">
                 <h1 className="text-xl leading-none">
                     Help people discover everything you do, with one simple link.
                 </h1>
                 <p>You&apos;ll never have to change the link in your bio ever again.</p>
             </article>
-            <section className="mt-10 border-t border-muted py-10">
+            <Separator />
+            <section>
                 <Tabs defaultValue="PersonalInformation">
-                    <div className="sticky top-14 z-10 flex flex-col sm:flex-row justify-between items-center gap-2 bg-card px-1 py-2">
-                        <TabsList className="grid grid-cols-2 gap-2 h-12 w-full sm:w-2/3">
-                            <TabsTrigger value="PersonalInformation" className="cursor-pointer h-9">
-                                Personal Information
-                            </TabsTrigger>
-                            <TabsTrigger value="Preview" className="cursor-pointer h-9">
-                                Preview
-                            </TabsTrigger>
-                        </TabsList>
-                        <Button
-                            className="w-full sm:w-auto"
-                            onClick={publish}
-                            disabled={
-                                formValues.name && formValues.email && formValues.description
-                                    ? false
-                                    : true
-                            }
-                        >
-                            Generate Link
-                        </Button>
-                    </div>
+                    <TabsList className="grid grid-cols-2 gap-2 h-12 w-full sm:w-2/3">
+                        <TabsTrigger value="PersonalInformation" className="cursor-pointer h-9">
+                            Personal Information
+                        </TabsTrigger>
+                        <TabsTrigger value="Preview" className="cursor-pointer h-9">
+                            Preview
+                        </TabsTrigger>
+                    </TabsList>
+
                     <TabsContent value="PersonalInformation">
-                        <section className="mt-5">
-                            <form className="my-10 space-y-10 w-full md:w-10/12 mx-auto">
-                                {formContents.map((obj, i) => (
-                                    <fieldset key={i} className="w-full flex flex-col gap-2">
-                                        <Label className="capitalize text-sm">
-                                            {obj.key}
-                                            <span className="ml-1 text-bold text-xs normal-case text-primary">
-                                                {obj.key === "name" || obj.key === "email"
-                                                    ? "( required )"
-                                                    : obj.key === "description"
-                                                    ? "( required ) ( max length: 200 characters )"
-                                                    : "( optional )"}
-                                            </span>
-                                        </Label>
-                                        {obj.key === "description" ? (
-                                            <Textarea
-                                                name={obj.key}
-                                                value={formValues[obj.key]}
-                                                maxLength={200}
-                                                rows={4}
-                                                onChange={handleInputChange}
-                                                className="w-full resize-none"
-                                                placeholder={obj.placeholder}
-                                            />
-                                        ) : (
-                                            <Input
-                                                name={obj.key}
-                                                value={formValues[obj.key]}
-                                                onChange={handleInputChange}
-                                                className="w-full py-2"
-                                                placeholder={obj.placeholder}
-                                            />
-                                        )}
-                                    </fieldset>
-                                ))}
-                            </form>
-                        </section>
+                        <form className="my-10 space-y-10 md:columns-2 gap-20">
+                            {formContents.map((obj, i) => (
+                                <fieldset
+                                    key={i}
+                                    className="w-full flex flex-col gap-3 break-inside-avoid"
+                                >
+                                    <Label className="capitalize text-sm">
+                                        {obj.key}
+                                        <span className="ml-1 text-bold text-xs normal-case text-primary">
+                                            {obj.key === "name" || obj.key === "email"
+                                                ? "( required )"
+                                                : obj.key === "description"
+                                                ? "( required ) ( max length: 200 characters )"
+                                                : "( optional )"}
+                                        </span>
+                                    </Label>
+                                    {obj.key === "description" ? (
+                                        <Textarea
+                                            name={obj.key}
+                                            value={formValues[obj.key]}
+                                            maxLength={200}
+                                            rows={4}
+                                            onChange={handleInputChange}
+                                            className="w-full resize-none"
+                                            placeholder={obj.placeholder}
+                                        />
+                                    ) : (
+                                        <Input
+                                            name={obj.key}
+                                            value={formValues[obj.key]}
+                                            onChange={handleInputChange}
+                                            className="w-full py-2"
+                                            placeholder={obj.placeholder}
+                                        />
+                                    )}
+                                </fieldset>
+                            ))}
+                            <Button
+                                className="w-full sm:w-auto"
+                                onClick={publish}
+                                disabled={
+                                    formValues.name && formValues.email && formValues.description
+                                        ? false
+                                        : true
+                                }
+                            >
+                                Generate Link
+                            </Button>
+                        </form>
                     </TabsContent>
                     <TabsContent value="Preview">
                         {Object.values(formValues).every((value) => value.length < 1) ? (
