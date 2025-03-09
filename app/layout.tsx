@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     title: "Toolbox | Tools for everyone",
     description: "A hub for essential tools",
     icons: {
-        icon: "/logo.svg",
+        icon: "./images/logo.svg",
     },
 };
 

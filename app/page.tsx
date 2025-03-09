@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, Variants } from "motion/react";
 import { Button } from "@/components/ui/button";
-import screenshot from "@/public/screenshot.webp";
+import screenshot from "@/public/images/screenshot.webp";
 import { DollarSignIcon, LockIcon, ServerIcon, StarIcon } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
