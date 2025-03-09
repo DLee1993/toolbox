@@ -13,6 +13,7 @@ import { PublishedLink } from "@/components/link-in-bio/PublishedLink";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 import { MailIcon } from "lucide-react";
 import {
     FaInstagram,
@@ -24,7 +25,6 @@ import {
     FaTelegram,
     FaGithub,
 } from "react-icons/fa6";
-import { Separator } from "@/components/ui/separator";
 
 export default function LinkInBio() {
     const [formValues, setFormValues] = useState<LinkInBioValues>({
@@ -73,6 +73,24 @@ export default function LinkInBio() {
         Copy({ input: url || "" });
     };
 
+    const setTempData = () => {
+        setFormValues({
+            name: "John Snow",
+            description: "Im John Snow, the king in the north. I know Nothing.",
+            photo: "https://images.unsplash.com/photo-1740471230620-0dc54e43fa4c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            portfolio: "https://i.insider.com/56743fad72f2c12a008b6cc0",
+            facebook: "https://www.facebook.com/john_snow",
+            twitter: "https://twitter.com/john_snow",
+            instagram: "https://www.instagram.com/john_snow",
+            email: "mail@john_snow.cc",
+            github: "https://github.com/john_snow",
+            telegram: "https://t.me/john_snow",
+            whatsApp: "+918888888888",
+            youtube: "https://youtube.com/@john_snow",
+            linkedin: "https://linkedin.com/john_snow",
+        });
+    };
+
     return (
         <section className="space-y-20 pt-20 pb-10">
             <article className="text-center max-w-2xl mx-auto space-y-4">
@@ -80,6 +98,7 @@ export default function LinkInBio() {
                     Help people discover everything you do, with one simple link.
                 </h1>
                 <p>You&apos;ll never have to change the link in your bio ever again.</p>
+                <Button onClick={setTempData}>temp data</Button>
             </article>
             <Separator />
             <section>
