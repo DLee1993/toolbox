@@ -113,6 +113,7 @@ export default function LinkInBio() {
                     </TabsList>
 
                     <TabsContent value="PersonalInformation">
+                        <p className="text-sm mt-10">Fill in the form to view the preview</p>
                         <form className="my-10 space-y-10 md:columns-2 gap-20">
                             {formContents.map((obj, i) => (
                                 <fieldset
