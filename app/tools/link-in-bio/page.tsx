@@ -163,6 +163,7 @@ export default function LinkInBio() {
                             </Button>
                         </form>
                     </TabsContent>
+
                     <TabsContent value="Preview">
                         {Object.values(formValues).every((value) => value.length < 1) ? (
                             <p className="text-center mt-10">
