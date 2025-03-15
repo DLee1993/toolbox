@@ -5,27 +5,24 @@ import Link from "next/link";
 import { motion, Variants } from "motion/react";
 import { Button } from "@/components/ui/button";
 import screenshot from "@/public/images/screenshot.webp";
-import { DollarSignIcon, LockIcon, ServerIcon, StarIcon } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { StarIcon } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const features = [
     {
         name: "Free for everyone.",
         description:
             "Our aim is to provide tools for free. We can't do this without a sustainable revenue, so we rely on donations and adverts to keep the lights on.",
-        icon: DollarSignIcon,
     },
     {
         name: "Security and Privacy.",
         description:
             "It's simple, we don't need nor do we want your personal data. We don't need to know who you are for you to use our services.",
-        icon: LockIcon,
     },
     {
         name: "The tools.",
         description:
             "The platform offers a diverse range of tools, catering to different needs. If you have a tool you believe could be of use to everyone, get in touch with us.",
-        icon: ServerIcon,
     },
 ];
 
@@ -99,19 +96,11 @@ export default function Home() {
                     >
                         <Card className="min-h-[285px] max-w-md mx-auto flex flex-col justify-center gap-5 bg-card text-card-foreground">
                             <CardHeader className="text-center">
-                                <CardTitle>
-                                    {
-                                        <feature.icon
-                                            size={16}
-                                            className="text-card-foreground mx-auto"
-                                        />
-                                    }
-                                </CardTitle>
-                                <CardDescription className="text-base text-card-foreground">
-                                    {feature.name}
-                                </CardDescription>
+                                <CardTitle className="text-base">{feature.name}</CardTitle>
                             </CardHeader>
-                            <CardContent className="text-pretty text-center">{feature.description}</CardContent>
+                            <CardContent className="text-pretty text-center">
+                                {feature.description}
+                            </CardContent>
                         </Card>
                     </motion.div>
                 ))}
