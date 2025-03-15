@@ -1,8 +1,6 @@
 import BreadCrumbNav from "@/components/global/navigation/BreadCrumbNav";
 import ChangeTheme from "@/components/global/ThemeToggle";
-import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import Link from "next/link";
 
 export default function Header() {
     return (
@@ -11,14 +9,7 @@ export default function Header() {
                 <SidebarTrigger variant="ghost" className="w-10 h-10 md:hidden" />
                 <BreadCrumbNav />
             </div>
-            <div className="flex items-center gap-2 w-fit">
-                <div className="hidden md:block">
-                    <Link href="/advertisements">
-                        <Button variant="link">Advertisements</Button>
-                    </Link>
-                </div>
-                <ChangeTheme />
-            </div>
+            <ChangeTheme />
         </header>
     );
 }
