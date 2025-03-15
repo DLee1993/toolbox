@@ -1,51 +1,9 @@
-import {
-    Key,
-    Combine,
-    Clock,
-    Notebook,
-    Network,
-    Unlink,
-    SquareTerminal,
-    Home,
-    FolderGit2,
-    CoffeeIcon,
-    MegaphoneIcon,
-} from "lucide-react";
+import { Key, Combine, Clock, Notebook, Network, Unlink } from "lucide-react";
 
 //! DO NOT REMOVE
-export const sidebarRootItems = [
-    {
-        title: "Home",
-        url: "/",
-        icon: Home,
-        target: false,
-    },
-    {
-        title: "Request a tool",
-        url: "https://github.com/DLee1993",
-        icon: FolderGit2,
-        target: true,
-    },
-    {
-        title: "Buy us a coffee",
-        url: "https://github.com/DLee1993",
-        icon: CoffeeIcon,
-        target: true,
-    },
-    {
-        title: "Advertisements",
-        url: "https://www.google.com",
-        icon: MegaphoneIcon,
-        target: true,
-    },
-];
-
-//? - ADD NEW ADDITIONS TO APP HERE
-
-export const sidebarSubItems = [
+export const sidebarItems = [
     {
         title: "Tools",
-        icon: SquareTerminal,
         items: [
             {
                 title: "Credentials",

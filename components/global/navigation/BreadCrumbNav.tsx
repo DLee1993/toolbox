@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { sidebarSubItems } from "@/components/global/navigation/app-sidebar-item-list";
+import { sidebarItems } from "@/components/global/navigation/app-sidebar-item-list";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -30,9 +30,7 @@ export default function BreadCrumbNav() {
     const [currentBreadCrumbs, setCurrentBreadCrumbs] = useState<BreadCrumb[]>([]);
 
     useEffect(() => {
-        const itemArray = sidebarSubItems.filter(
-            (sidebarSubItems) => sidebarSubItems.title.toLowerCase() === slug
-        )[0];
+        const itemArray = sidebarItems.filter((item) => item.title.toLowerCase() === slug)[0];
 
         if (!itemArray) return;
 
@@ -43,12 +41,12 @@ export default function BreadCrumbNav() {
 
     return (
         <Breadcrumb suppressHydrationWarning>
-            {path != "/" && currentBreadCrumbs.length > 0 ? (
+            {path != "/" && currentBreadCrumbs.length > 0 && (
                 <BreadcrumbList>
                     <BreadcrumbItem>
                         <DropdownMenu>
-                            <DropdownMenuTrigger className="flex items-center gap-1">
-                                Tools
+                            <DropdownMenuTrigger className="flex items-center gap-1 capitalize">
+                                {slug}
                                 <span className="sr-only">Toggle menu</span>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="start">
@@ -66,20 +64,6 @@ export default function BreadCrumbNav() {
                         </DropdownMenu>
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbPage>{path.split("/")[2]}</BreadcrumbPage>
-                    </BreadcrumbItem>
-                </BreadcrumbList>
-            ) : (
-                <BreadcrumbList>
-                    {path !== "/" && (
-                        <>
-                            <BreadcrumbItem>
-                                <BreadcrumbLink href="/">Home</BreadcrumbLink>
-                            </BreadcrumbItem>
-                            <BreadcrumbSeparator />
-                        </>
-                    )}
                     <BreadcrumbItem>
                         <BreadcrumbPage>{path.split("/")[2]}</BreadcrumbPage>
                     </BreadcrumbItem>
