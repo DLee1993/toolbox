@@ -71,13 +71,10 @@ export default function LinkInBio() {
         encryptData(formValues).then((encryptedResult) => {
             // Create the query string to pass the encrypted data in the URL
             const queryString = new URLSearchParams({
+                data: encryptedResult.data,
                 iv: encryptedResult.iv,
                 salt: encryptedResult.salt,
-                ciphertext: encryptedResult.ciphertext,
             }).toString();
-
-            // Store the passphrase temporarily in sessionStorage for later use (e.g., for decryption)
-            localStorage.setItem("passphrase", encryptedResult.passphrase);
 
             // Generate a url for the user
             const url = `${window.location.origin}/static/link-in-bio-preview?${queryString}`;

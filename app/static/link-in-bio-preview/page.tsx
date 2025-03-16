@@ -27,7 +27,7 @@ const GeneratePreview = () => {
         const urlParams = new URLSearchParams(window.location.search);
 
         const encryptedDataFromUrl = {
-            ciphertext: urlParams.get("ciphertext") || "",
+            data: urlParams.get("data") || "",
             iv: urlParams.get("iv") || "",
             salt: urlParams.get("salt") || "",
         };

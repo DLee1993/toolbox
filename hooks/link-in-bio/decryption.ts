@@ -1,6 +1,6 @@
-export async function decryptData(encryptedData: { ciphertext: string; iv: string; salt: string }) {
+export async function decryptData(encryptedData: { data: string; iv: string; salt: string }) {
     // Retrieve the passphrase from sessionStorage
-    const passphrase = localStorage.getItem("passphrase");
+    const passphrase = localStorage.getItem("_key");
 
     if (!passphrase) {
         throw new Error("Passphrase is missing");
@@ -8,7 +8,7 @@ export async function decryptData(encryptedData: { ciphertext: string; iv: strin
 
     // Decode the Base64-encoded data (ciphertext, IV, and salt)
     const ciphertext = new Uint8Array(
-        atob(encryptedData.ciphertext)
+        atob(encryptedData.data)
             .split("")
             .map((c) => c.charCodeAt(0))
     );

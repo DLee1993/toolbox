@@ -15,6 +15,9 @@ export async function encryptData(data: LinkInBioValues) {
     // Generate a random passphrase each time
     const passphrase = generateRandomPassphrase();
 
+    // Store the passphrase temporarily in sessionStorage for later use (e.g., for decryption)
+    localStorage.setItem("_key", passphrase);
+
     // Convert the object data to a JSON string
     const serializedData = JSON.stringify(data);
 
@@ -59,7 +62,7 @@ export async function encryptData(data: LinkInBioValues) {
 
     // Return the encrypted data (ciphertext, IV, and salt) along with the passphrase
     return {
-        ciphertext: base64Ciphertext,
+        data: base64Ciphertext,
         iv: base64Iv,
         salt: base64Salt,
         passphrase: passphrase, // The random passphrase for decryption
