@@ -42,6 +42,7 @@ export default function CredentialsGenerator() {
                         <Input
                             readOnly
                             ref={passwordInput}
+                            name="password input"
                             placeholder="]-[vPW}~'1=>"
                             className="!text-base text-foreground min-h-14 border-muted"
                         ></Input>
@@ -69,7 +70,7 @@ export default function CredentialsGenerator() {
                     <section className="min-h-60 w-full px-2 flex flex-col justify-between items-start">
                         <div className="flex justify-between items-center w-full">
                             <h2 className="text-base">Create a pin</h2>
-                            <Select onValueChange={setPinLength}>
+                            <Select onValueChange={setPinLength} name="pin length">
                                 <SelectTrigger
                                     className="w-32 h-10 border shadow-none"
                                     aria-label="select pin code length"
@@ -88,6 +89,7 @@ export default function CredentialsGenerator() {
                         <Input
                             readOnly
                             ref={pinInput}
+                            name="pin input"
                             placeholder="140312"
                             className="!text-base text-foreground min-h-14 border-muted"
                         ></Input>
