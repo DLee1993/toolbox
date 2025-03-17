@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { GeneratePassword, GenerateCode } from "@/markdown/generate-credentials";
+import { GeneratePassword, GenerateCode } from "@/hooks/credentials-generator/generate-credentials";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CopyIcon, RefreshCcwIcon } from "lucide-react";
