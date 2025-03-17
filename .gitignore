@@ -42,4 +42,3 @@ next-env.d.ts
 
 # additional files
 /hooks/credentials-generator
-/hooks/link-in-bio
