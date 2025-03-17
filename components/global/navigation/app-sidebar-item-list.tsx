@@ -1,4 +1,4 @@
-import { Key, Combine, Clock, Notebook, Network, Unlink } from "lucide-react";
+import { Key, Combine, Clock, Notebook, Unlink } from "lucide-react";
 
 //! DO NOT REMOVE
 export const sidebarItems = [
@@ -24,11 +24,6 @@ export const sidebarItems = [
                 title: "Notepad",
                 url: "/tools/notepad",
                 icon: Notebook,
-            },
-            {
-                title: "Link in bio",
-                url: "/tools/link-in-bio",
-                icon: Network,
             },
             {
                 title: "Link shortener",
