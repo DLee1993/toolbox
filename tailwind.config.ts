@@ -9,13 +9,6 @@ export default {
     ],
     theme: {
         extend: {
-            fontSize: {
-                sm: "var(--fs-sm)",
-                base: "var(--fs-base)",
-                md: "var(--fs-md)",
-                lg: "var(--fs-lg)",
-                xl: "var(--fs-xl)",
-            },
             colors: {
                 background: "hsl(var(--background))",
                 foreground: "hsl(var(--foreground))",

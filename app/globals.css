@@ -2,38 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/** TYPOGRAPHY */
-
-/* For browsers that support clamp  */
-@supports (font-size: clamp(1rem, 1vi, 1rem)) {
-    :root {
-        --fs-sm: clamp(0.8rem, 0.08vi + 0.78rem, 0.84rem);
-        --fs-base: clamp(1rem, 0.23vi + 0.94rem, 1.13rem);
-        --fs-md: clamp(1.25rem, 0.45vi + 1.14rem, 1.5rem);
-        --fs-lg: clamp(1.56rem, 0.79vi + 1.36rem, 2rem);
-        --fs-xl: clamp(1.95rem, 1.29vi + 1.63rem, 2.66rem);
-    }
-}
-/* For browsers that don't support clamp */
-@supports not (font-size: clamp(1rem, 1vi, 1rem)) {
-    :root {
-        --fs-sm: 0.8rem;
-        --fs-base: 1rem;
-        --fs-md: 1.25rem;
-        --fs-lg: 1.56rem;
-        --fs-xl: 1.95rem;
-    }
-    @media screen and (min-width: 1280px) {
-        :root {
-            --fs-sm: 0.84rem;
-            --fs-base: 1.13rem;
-            --fs-md: 1.5rem;
-            --fs-lg: 2rem;
-            --fs-xl: 2.66rem;
-        }
-    }
-}
-
 /** THEMES */
 
 @layer base {
@@ -128,5 +96,8 @@
     .hiddenScrollbar {
         scrollbar-width: none;
         -ms-overflow-style: none;
+    }
+    .clickAnim {
+        @apply relative overflow-hidden rounded-md transition-transform duration-300 [transition-timing-function:cubic-bezier(0.175,0.885,0.32,1.275)] active:-translate-y-1 active:scale-x-90 active:scale-y-110;
     }
 }
