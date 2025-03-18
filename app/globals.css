@@ -80,6 +80,16 @@
     *::-webkit-scrollbar-thumb {
         @apply bg-foreground/25;
     }
+
+    [data-sidebar="content"]::-webkit-scrollbar {
+        @apply w-1;
+    }
+    [data-sidebar="content"]::-webkit-scrollbar-track {
+        @apply bg-transparent;
+    }
+    [data-sidebar="content"]::-webkit-scrollbar-thumb {
+        @apply bg-foreground;
+    }
     body {
         @apply bg-background text-foreground h-screen;
     }
