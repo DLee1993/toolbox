@@ -63,7 +63,7 @@ export function AppSidebar() {
                                 onClick={closeSidebar}
                                 className="min-h-9 min-w-9 hover:bg-muted"
                             >
-                                <Link href="/" className="data-[active=true]:bg-secondary">
+                                <Link href="/" className="data-[active=true]:bg-primary data-[active=true]:text-primary-foreground">
                                     <Home size={15} className="ml-0.5" />
                                     <p
                                         className={`mx-2 min-w-32 transition-opacity duration-200 ease-linear ${
@@ -113,17 +113,19 @@ export function AppSidebar() {
                                         onClick={closeSidebar}
                                         className="min-h-9 min-w-9 hover:bg-muted"
                                     >
-                                        <Link href={item.url}>
+                                        <Link
+                                            href={item.url}
+                                            className="data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
+                                        >
                                             {item.icon && (
                                                 <item.icon size={15} className="ml-0.5" />
                                             )}
                                             <p
-                                                className={`flex gap-1 min-w-44 ml-1 transition-opacity duration-200 ease-linear ${
+                                                className={`flex items-center gap-1 min-w-44 ml-1 transition-opacity duration-200 ease-linear ${
                                                     !open && !isMobile && "opacity-0"
                                                 }`}
                                             >
                                                 {item.title}
-                                                {pathname === item.url && <Dot className="ml-auto"/>}
                                             </p>
                                         </Link>
                                     </SidebarMenuButton>
