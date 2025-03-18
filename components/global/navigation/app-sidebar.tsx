@@ -21,12 +21,7 @@ import {
 
 export function AppSidebar() {
     const pathname = usePathname();
-    const { open, setOpen, isMobile, setOpenMobile } = useSidebar();
-
-    const closeSidebar = () => {
-        setOpen(false);
-        setOpenMobile(false);
-    };
+    const { open, isMobile } = useSidebar();
 
     return (
         <Sidebar collapsible="icon">
@@ -60,10 +55,12 @@ export function AppSidebar() {
                                 asChild
                                 tooltip="Dashboard"
                                 isActive={pathname === "/" ? true : false}
-                                onClick={closeSidebar}
                                 className="min-h-9 min-w-9 hover:bg-muted"
                             >
-                                <Link href="/" className="data-[active=true]:bg-primary data-[active=true]:text-primary-foreground">
+                                <Link
+                                    href="/"
+                                    className="data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
+                                >
                                     <Home size={15} className="ml-0.5" />
                                     <p
                                         className={`mx-2 min-w-32 transition-opacity duration-200 ease-linear ${
@@ -80,7 +77,6 @@ export function AppSidebar() {
                             <SidebarMenuButton
                                 asChild
                                 tooltip="Request a tool"
-                                onClick={closeSidebar}
                                 className="min-h-9 min-w-9 hover:bg-muted"
                             >
                                 <Link href="https://github.com/DLee1993/toolbox" target="_blank">
@@ -110,7 +106,6 @@ export function AppSidebar() {
                                         asChild
                                         tooltip={item.title}
                                         isActive={pathname === item.url ? true : false}
-                                        onClick={closeSidebar}
                                         className="min-h-9 min-w-9 hover:bg-muted"
                                     >
                                         <Link
@@ -118,15 +113,16 @@ export function AppSidebar() {
                                             className="data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
                                         >
                                             {item.icon && (
-                                                <item.icon size={15} className="ml-0.5" />
+                                                <item.icon className="ml-0.5" />
                                             )}
                                             <p
-                                                className={`flex items-center gap-1 min-w-44 ml-1 transition-opacity duration-200 ease-linear ${
+                                                className={`flex items-center gap-1 w-full min-w-32 ml-1 whitespace-nowrap ${
                                                     !open && !isMobile && "opacity-0"
                                                 }`}
                                             >
                                                 {item.title}
                                             </p>
+                                            {pathname === item.url && <Dot className="ml-auto" />}
                                         </Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
