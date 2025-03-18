@@ -11,8 +11,8 @@ export default function Home() {
         <section className="py-10">
             <article className="flex flex-col justify-center items-center w-11/12 max-w-xl mx-auto space-y-10">
                 <div className="text-center">
-                    <p className="text-primary text-sm">Welcome to</p>
-                    <h1 className="text-3xl font-semibold">Your digital Toolbox.</h1>
+                    <sup className="text-primary text-sm">Welcome to</sup>
+                    <h1 className="text-4xl font-semibold">Your digital Toolbox.</h1>
                 </div>
                 <p className="mt-4 text-pretty max-w-lg text-center">
                     A platform offering free tools that empower people to navigate the digital world
