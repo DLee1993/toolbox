@@ -25,7 +25,7 @@ export function AppSidebar() {
 
     return (
         <Sidebar collapsible="icon">
-            <SidebarHeader className="overflow-hidden px-3 md:my-1">
+            <SidebarHeader className="overflow-hidden px-3 py-3">
                 <div className="relative hidden md:block">
                     <SidebarTrigger className="absolute top-1/2 -translate-y-1/2 -right-1.5 min-w-9 min-h-9 z-10 cursor-pointer" />
 
@@ -41,6 +41,7 @@ export function AppSidebar() {
                     </p>
                 </div>
             </SidebarHeader>
+            <SidebarSeparator className="bg-border my-1" />
             {/* SIDEBAR CONTENT */}
             <SidebarContent
                 className={`overflow-x-hidden px-[5px] py-1 ${
@@ -112,9 +113,7 @@ export function AppSidebar() {
                                             href={item.url}
                                             className="data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
                                         >
-                                            {item.icon && (
-                                                <item.icon className="ml-0.5" />
-                                            )}
+                                            {item.icon && <item.icon className="ml-0.5" />}
                                             <p
                                                 className={`flex items-center gap-1 w-full min-w-32 ml-1 whitespace-nowrap ${
                                                     !open && !isMobile && "opacity-0"
