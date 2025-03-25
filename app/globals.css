@@ -88,7 +88,7 @@
         @apply bg-transparent;
     }
     [data-sidebar="content"]::-webkit-scrollbar-thumb {
-        @apply bg-foreground;
+        @apply bg-border;
     }
     body {
         @apply bg-background text-foreground h-screen;
