@@ -55,11 +55,13 @@ export default function UnitConverter() {
     };
 
     return (
-        <section className="flex flex-col justify-center h-full items-center gap-10">
+        <section className="flex flex-col justify-center h-full py-5 items-center gap-5 md:gap-10">
             <article className="space-y-3 mx-auto text-center">
-                <h1 className="text-3xl font-semibold">Quick, free, online unit converter.</h1>
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold">
+                    Quick, free, online unit converter.
+                </h1>
             </article>
-            <div className="flex gap-2 mt-10">
+            <div className="flex flex-wrap items-center gap-2 mt-10">
                 <SelectComponent type="from" />
 
                 <div className="flex flex-col">
@@ -68,6 +70,7 @@ export default function UnitConverter() {
                         type="number"
                         onChange={(e) => setAmount(e.target.value)}
                         className="text-center"
+                        placeholder="100"
                     />
                 </div>
 

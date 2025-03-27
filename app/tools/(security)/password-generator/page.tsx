@@ -15,8 +15,10 @@ export default function CredentialsGenerator() {
     return (
         <section className="flex flex-col justify-center items-center py-10 space-y-10">
             <article className="space-y-3 mx-auto text-center">
-                <h1 className="text-3xl font-semibold">Your trusted Password Generator.</h1>
-                <h2 className="max-w-lg">
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold">
+                    Your trusted Password Generator.
+                </h1>
+                <h2 className="max-w-lg font-light">
                     Our password generator is a reliable tool designed to create secure, random, and
                     complex passwords.
                 </h2>
@@ -39,9 +41,9 @@ export default function CredentialsGenerator() {
                 ref={passwordInput}
                 name="password input"
                 placeholder="]-[vPW}~'1=>"
-                className="w-full max-w-96 text-center text-foreground font-semibold border border-foreground"
+                className="w-full min-h-12 text-center text-foreground font-semibold border border-muted"
             ></Input>
-            <div className="flex flex-wrap gap-2 justify-center items-center mx-auto w-full max-w-96">
+            <div className="flex flex-col sm:flex-row gap-2 justify-center items-center mx-auto w-full">
                 <Button
                     onClick={() =>
                         GeneratePassword({
@@ -50,12 +52,12 @@ export default function CredentialsGenerator() {
                         })
                     }
                     aria-label="click to generate password"
-                    className="clickAnim flex-1"
+                    className="clickAnim w-full min-w-52"
                 >
                     Generate password <RefreshCcwIcon />
                 </Button>
                 <Button
-                    className="clickAnim flex-1"
+                    className="clickAnim w-full min-w-52"
                     variant="outline"
                     onClick={() => Copy({ input: passwordInput.current?.value || "" })}
                     aria-label="click to copy password"
