@@ -1,4 +1,13 @@
-import { Key, Combine, Clock, Notebook, Unlink, ArrowLeftRight, Binary } from "lucide-react";
+import {
+    Key,
+    Combine,
+    Clock,
+    Notebook,
+    Unlink,
+    Network,
+    ArrowLeftRight,
+    Binary,
+} from "lucide-react";
 
 //! DO NOT REMOVE
 export const sidebarItems = [
@@ -54,6 +63,11 @@ export const sidebarItems = [
                 title: "Link shortener",
                 url: "/tools/link-shortener",
                 icon: Unlink,
+            },
+            {
+                title: "Link in bio",
+                url: "/tools/link-in-bio",
+                icon: Network,
             },
         ],
     },
