@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { decodeData } from "@/hooks/link-in-bio/encoder";
@@ -15,7 +16,6 @@ import {
     FaTelegram,
     FaGithub,
 } from "react-icons/fa6";
-import { Suspense } from "react";
 
 function LinkPreview() {
     const searchParams = useSearchParams();
@@ -23,7 +23,7 @@ function LinkPreview() {
     const decoded_data = decodeData(data!);
 
     return (
-        <section className="h-screen flex flex-col justify-center items-center gap-10">
+        <section className="flex flex-col justify-center items-center gap-10 py-10">
             {decoded_data.photo && (
                 <img
                     src={decoded_data.photo}
