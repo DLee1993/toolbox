@@ -22,6 +22,15 @@ import {
     FaTelegram,
     FaGithub,
 } from "react-icons/fa6";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogClose,
+} from "@/components/ui/dialog";
 
 export default function LinkInBio() {
     const { toast } = useToast();
@@ -110,16 +119,18 @@ export default function LinkInBio() {
                     </TabsList>
                     <TabsContent value="PersonalInformation">
                         <section className="mt-5">
-                            <form className="my-10 space-y-10 w-full">
+                            <form className="my-10 space-y-5 w-full columns-2">
                                 {formContents.map((obj, i) => (
                                     <fieldset key={i} className="w-full flex flex-col gap-2">
                                         <Label className="capitalize text-sm">
                                             {obj.key}
                                             <span className="ml-1 text-bold text-xs normal-case text-accent-foreground">
                                                 {obj.key === "name" || obj.key === "email"
-                                                    ? "( required )"
+                                                    ? "( required * )"
                                                     : obj.key === "description"
-                                                    ? "( required ) ( max length: 200 characters )"
+                                                    ? "( required * ) ( max length: 200 characters )"
+                                                    : obj.key === "photo"
+                                                    ? "( optional, full url required )"
                                                     : "( optional )"}
                                             </span>
                                         </Label>
@@ -149,10 +160,14 @@ export default function LinkInBio() {
                         </section>
                     </TabsContent>
                     <TabsContent value="Preview">
-                        {Object.values(formValues).every((value) => value.length < 1)
-                            ? "Please fill in the personal information form to view the preview"
-                            : ""}
-                        <section className="flex flex-col justify-center items-center gap-10">
+                        {Object.values(formValues).every((value) => value.length < 1) ? (
+                            <p className="text-center mt-5">
+                                Please fill in the personal information form to view the preview
+                            </p>
+                        ) : (
+                            ""
+                        )}
+                        <section className="flex flex-col justify-center items-center gap-10 py-10">
                             {formValues.photo && (
                                 // eslint-disable-next-line @next/next/no-img-element
                                 <img
@@ -245,6 +260,39 @@ export default function LinkInBio() {
                     </TabsContent>
                 </Tabs>
             </section>
+            <Dialog defaultOpen={true}>
+                <DialogContent
+                    className="sm:max-w-xl space-y-5 [&>button:last-child]:hidden"
+                    onInteractOutside={(e) => {
+                        e.preventDefault();
+                    }}
+                >
+                    <DialogHeader className="space-y-5">
+                        <DialogTitle>Warning! Experimental Feature</DialogTitle>
+                        <DialogDescription>
+                            <span>
+                                Please note that this feature is experimental and still under
+                                development. As a result, we cannot guarantee the security or
+                                confidentiality of the data processed through it. You can use the
+                                form and the preview feature without sharing data, your data will{" "}
+                                {""} <span className="font-bold underline">not be shared</span>{" "}
+                                until you click the Generate Link button
+                            </span>
+                            <br />
+                            <br />
+                            <span>If you wish to continue click the consent button.</span>
+                        </DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter className="!justify-between">
+                        <Button variant="secondary">
+                            <Link href="/">Go Home</Link>
+                        </Button>
+                        <DialogClose asChild>
+                            <Button>Consent</Button>
+                        </DialogClose>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </section>
     );
 }
