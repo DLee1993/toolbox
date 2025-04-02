@@ -63,8 +63,8 @@ export default function UnitConverter() {
     return (
         <section className="flex flex-col justify-center h-full py-5 items-center gap-5 md:gap-10">
             <article className="space-y-3 mx-auto text-center">
-                <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold">Unit converter.</h1>
-                <p className="max-w-lg">
+                <h1 className="text-2xl md:text-3xl font-semibold">Unit converter.</h1>
+                <p className="max-w-lg w-11/12 mx-auto">
                     This free conversion calculator converts between common units of length,
                     temperature, area, volume, weight, time and more.
                 </p>
