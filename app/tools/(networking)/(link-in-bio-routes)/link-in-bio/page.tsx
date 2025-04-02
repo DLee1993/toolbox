@@ -95,7 +95,7 @@ export default function LinkInBio() {
     };
 
     return (
-        <section className="min-h-screen py-16">
+        <section className="min-h-screen w-full py-16">
             <section className="space-y-4 max-w-2xl mx-auto text-center">
                 <article className="space-y-4">
                     <h1 className="text-2xl md:text-3xl font-semibold">Consolidate Your Links.</h1>
@@ -109,17 +109,17 @@ export default function LinkInBio() {
             </section>
             <section className="mt-14">
                 <Tabs defaultValue="PersonalInformation">
-                    <TabsList className="w-full grid grid-cols-2 gap-2 h-12">
-                        <TabsTrigger value="PersonalInformation" className="cursor-pointer h-9">
+                    <TabsList className=" max-w-md grid grid-cols-2 gap-2">
+                        <TabsTrigger value="PersonalInformation" className="cursor-pointer">
                             Personal Information
                         </TabsTrigger>
-                        <TabsTrigger value="Preview" className="cursor-pointer h-9">
+                        <TabsTrigger value="Preview" className="cursor-pointer">
                             Preview
                         </TabsTrigger>
                     </TabsList>
                     <TabsContent value="PersonalInformation">
                         <section className="mt-5">
-                            <form className="my-10 space-y-5 w-full columns-1 sm:columns-2">
+                            <form className="my-10 space-y-5 w-full columns-1 sm:columns-2 gap-10">
                                 {formContents.map((obj, i) => (
                                     <fieldset key={i} className="w-full flex flex-col gap-2">
                                         <Label className="capitalize text-sm">
@@ -161,7 +161,7 @@ export default function LinkInBio() {
                     </TabsContent>
                     <TabsContent value="Preview">
                         {Object.values(formValues).every((value) => value.length < 1) ? (
-                            <p className="text-center mt-5">
+                            <p className="text-center mt-10">
                                 Please fill in the personal information form to view the preview
                             </p>
                         ) : (
@@ -268,7 +268,7 @@ export default function LinkInBio() {
                     }}
                 >
                     <DialogHeader className="space-y-5">
-                        <DialogTitle>Warning! Experimental Feature</DialogTitle>
+                        <DialogTitle className="text-red-700">Warning! Experimental Feature</DialogTitle>
                         <DialogDescription>
                             <span>
                                 Please note that this feature is experimental and still under
@@ -288,7 +288,7 @@ export default function LinkInBio() {
                             <Link href="/">Go Home</Link>
                         </Button>
                         <DialogClose asChild>
-                            <Button>Consent</Button>
+                            <Button className="bg-red-700">Consent</Button>
                         </DialogClose>
                     </DialogFooter>
                 </DialogContent>

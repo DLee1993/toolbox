@@ -13,10 +13,10 @@ export default function CredentialsGenerator() {
     const [length, setLength] = useState<number>(4);
 
     return (
-        <section className="flex flex-col justify-center items-center py-10 space-y-10">
+        <section className="h-screen flex flex-col justify-evenly items-center">
             <article className="space-y-3 mx-auto text-center">
                 <h1 className="text-2xl md:text-3xl font-semibold">Code Generator.</h1>
-                <h2 className="max-w-lg w-10/12 mx-auto font-light">
+                <h2 className="max-w-2xl mx-auto font-light">
                     Our code generator is a reliable tool designed to create random codes.
                 </h2>
                 {/* <p className="font-semibold">All you have to do, is choose the length.</p> */}
@@ -38,7 +38,7 @@ export default function CredentialsGenerator() {
                 ref={codeInput}
                 name="code input"
                 placeholder="49302"
-                className="w-full max-w-96 min-h-12 text-center text-foreground font-semibold border border-muted"
+                className="w-full max-w-96 min-h-12 text-center text-foreground font-semibold border-foreground"
             ></Input>
             <div className="flex flex-col sm:flex-row gap-2 justify-center items-center mx-auto max-w-80">
                 <Button

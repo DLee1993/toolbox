@@ -34,8 +34,13 @@ export default function RootLayout({
                         <TooltipProvider>
                             <AppSidebar />
                             <div className="w-full relative">
-                                <SidebarTrigger variant="ghost" className="fixed top-5 left-5 w-10 h-10 md:hidden" />
-                                <main className="w-11/12 max-w-6xl mx-auto flex justify-center items-center">{children}</main>
+                                <SidebarTrigger
+                                    variant="ghost"
+                                    className="fixed top-5 left-5 w-10 h-10 md:hidden"
+                                />
+                                <main className="w-11/12 max-w-6xl mx-auto flex justify-center items-center">
+                                    {children}
+                                </main>
                                 <Footer />
                             </div>
                         </TooltipProvider>
