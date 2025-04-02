@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppSidebar } from "@/components/global/navigation/app-sidebar";
-import Header from "@/components/global/Header";
 import Footer from "@/components/global/Footer";
 
 const inter = Inter({
@@ -34,11 +33,9 @@ export default function RootLayout({
                     <SidebarProvider defaultOpen={false}>
                         <TooltipProvider>
                             <AppSidebar />
-                            <div className="w-full">
-                                <Header />
-                                <main className="w-11/12 max-w-6xl mx-auto">
-                                    {children}
-                                </main>
+                            <div className="w-full relative">
+                                <SidebarTrigger variant="ghost" className="fixed top-5 left-5 w-10 h-10 md:hidden" />
+                                <main className="w-11/12 max-w-6xl mx-auto flex justify-center items-center">{children}</main>
                                 <Footer />
                             </div>
                         </TooltipProvider>
