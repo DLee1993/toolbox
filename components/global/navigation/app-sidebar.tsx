@@ -18,6 +18,7 @@ import {
     useSidebar,
     SidebarTrigger,
 } from "@/components/ui/sidebar";
+import ChangeTheme from "@/components/global/ThemeToggle";
 
 export function AppSidebar() {
     const pathname = usePathname();
@@ -74,6 +75,7 @@ export function AppSidebar() {
                                 </Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
+
                         <SidebarMenuItem>
                             <SidebarMenuButton
                                 asChild
@@ -92,6 +94,7 @@ export function AppSidebar() {
                                 </Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
+                        <ChangeTheme open={open} isMobile={isMobile} />
                     </SidebarMenu>
                 </SidebarGroup>
                 <SidebarSeparator className="bg-border my-1" />
