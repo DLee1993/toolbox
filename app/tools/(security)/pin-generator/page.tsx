@@ -15,10 +15,8 @@ export default function CredentialsGenerator() {
     return (
         <section className="flex flex-col justify-center items-center py-10 space-y-10">
             <article className="space-y-3 mx-auto text-center">
-                <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold">
-                    Code Generator.
-                </h1>
-                <h2 className="max-w-lg font-light">
+                <h1 className="text-2xl md:text-3xl font-semibold">Code Generator.</h1>
+                <h2 className="max-w-lg w-10/12 mx-auto font-light">
                     Our code generator is a reliable tool designed to create random codes.
                 </h2>
                 {/* <p className="font-semibold">All you have to do, is choose the length.</p> */}

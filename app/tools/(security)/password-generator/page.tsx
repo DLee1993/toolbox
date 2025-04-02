@@ -13,12 +13,12 @@ export default function CredentialsGenerator() {
     const [length, setLength] = useState<number>(8);
 
     return (
-        <section className="flex flex-col justify-center items-center py-10 space-y-10">
+        <section className="h-screen flex flex-col justify-evenly items-center">
             <article className="space-y-3 mx-auto text-center">
-                <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold">
+                <h1 className="text-2xl md:text-3xl font-semibold">
                     Password Generator.
                 </h1>
-                <h2 className="max-w-lg font-light">
+                <h2 className="max-w-lg w-11/12 mx-auto font-light">
                     Our password generator is a reliable tool designed to create secure, random, and
                     complex passwords.
                 </h2>
