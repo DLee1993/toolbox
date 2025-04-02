@@ -43,4 +43,8 @@ next-env.d.ts
 # additional files
 /hooks/credentials-generator
 /hooks/unit-conversion
+/hooks/file-conversion
 /hooks/link-in-bio
+/hooks/notepad
+/hooks/focus-timer
+
