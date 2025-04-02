@@ -95,10 +95,10 @@ export default function LinkInBio() {
     };
 
     return (
-        <section className="py-10">
+        <section className="min-h-screen py-16">
             <section className="space-y-4 max-w-2xl mx-auto text-center">
                 <article className="space-y-4">
-                    <h1 className="text-3xl">Consolidate Your Links.</h1>
+                    <h1 className="text-2xl md:text-3xl font-semibold">Consolidate Your Links.</h1>
                     <p>
                         Seamlessly manage and showcase all your important links in one place.
                         Perfect for <span className="text-primary">social media profiles</span>,{" "}
@@ -107,9 +107,9 @@ export default function LinkInBio() {
                     </p>
                 </article>
             </section>
-            <section className="w-11/12 mx-auto mt-14">
+            <section className="mt-14">
                 <Tabs defaultValue="PersonalInformation">
-                    <TabsList className="grid grid-cols-2 gap-2 h-12">
+                    <TabsList className="w-full grid grid-cols-2 gap-2 h-12">
                         <TabsTrigger value="PersonalInformation" className="cursor-pointer h-9">
                             Personal Information
                         </TabsTrigger>
@@ -119,7 +119,7 @@ export default function LinkInBio() {
                     </TabsList>
                     <TabsContent value="PersonalInformation">
                         <section className="mt-5">
-                            <form className="my-10 space-y-5 w-full columns-2">
+                            <form className="my-10 space-y-5 w-full columns-1 sm:columns-2">
                                 {formContents.map((obj, i) => (
                                     <fieldset key={i} className="w-full flex flex-col gap-2">
                                         <Label className="capitalize text-sm">
@@ -262,7 +262,7 @@ export default function LinkInBio() {
             </section>
             <Dialog defaultOpen={true}>
                 <DialogContent
-                    className="sm:max-w-xl space-y-5 [&>button:last-child]:hidden"
+                    className="w-10/12 max-w-lg space-y-5 [&>button:last-child]:hidden"
                     onInteractOutside={(e) => {
                         e.preventDefault();
                     }}
@@ -283,7 +283,7 @@ export default function LinkInBio() {
                             <span>If you wish to continue click the consent button.</span>
                         </DialogDescription>
                     </DialogHeader>
-                    <DialogFooter className="!justify-between">
+                    <DialogFooter className="!justify-between gap-2">
                         <Button variant="secondary">
                             <Link href="/">Go Home</Link>
                         </Button>
