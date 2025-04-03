@@ -2,16 +2,33 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { encodeData } from "@/hooks/link-in-bio/encoder";
-import { Copy } from "@/hooks/global/copy-to-clipboard";
+import { publish } from "@/hooks/link-in-bio/publish";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LinkInBioSchema } from "@/schema/zodSchema";
 import { useToast } from "@/hooks/global/use-toast";
 
+import PublishedLink from "@/components/global/PublishedLink";
+import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import PublishedLink from "@/components/global/PublishedLink";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/ui/form";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogClose,
+} from "@/components/ui/dialog";
 import {
     FaInstagram,
     FaWhatsapp,
@@ -22,19 +39,9 @@ import {
     FaTelegram,
     FaGithub,
 } from "react-icons/fa6";
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogClose,
-} from "@/components/ui/dialog";
 
 export default function LinkInBio() {
     const { toast } = useToast();
-
     const [formValues, setFormValues] = useState<LinkInBioValues>({
         name: "",
         email: "",
@@ -51,7 +58,25 @@ export default function LinkInBio() {
         whatsApp: "",
     });
 
-    const [formContents] = useState([
+    const [formContents] = useState<
+        {
+            key:
+                | "photo"
+                | "name"
+                | "email"
+                | "description"
+                | "portfolio"
+                | "linkedin"
+                | "github"
+                | "facebook"
+                | "twitter"
+                | "instagram"
+                | "whatsApp"
+                | "telegram"
+                | "youtube";
+            placeholder: string;
+        }[]
+    >([
         { key: "photo", placeholder: "Add a photo of yourself" },
         { key: "name", placeholder: "Enter your name" },
         { key: "email", placeholder: "Enter your email" },
@@ -73,19 +98,32 @@ export default function LinkInBio() {
         setFormValues((prevState) => ({ ...prevState, [name]: value }));
     };
 
-    const publish = () => {
-        const url = `${window.location.origin}/tools/link-in-bio-preview?data=${encodeData(
-            JSON.stringify(formValues)
-        )}`;
+    const form = useForm({
+        mode: "onChange",
+        resolver: zodResolver(LinkInBioSchema),
+        defaultValues: {
+            photo: "",
+            name: "",
+            email: "",
+            description: "",
+            portfolio: "",
+            linkedin: "",
+            github: "",
+            facebook: "",
+            twitter: "",
+            instagram: "",
+            whatsApp: "",
+            telegram: "",
+            youtube: "",
+        },
+    });
 
-        try {
-            const result = Copy({ input: url });
-            if (!result) {
-                throw new Error("Unable to copy to clipboard");
-            }
+    const onSubmit = () => {
+        const publishResult = publish(formValues);
+
+        if (publishResult) {
             toast({ title: "Success", description: "Copied to clipboard", duration: 1350 });
-        } catch (error) {
-            console.error(error);
+        } else {
             toast({
                 title: "Error",
                 description: "Unable to copy to clipboard, please try again later",
@@ -118,45 +156,38 @@ export default function LinkInBio() {
                         </TabsTrigger>
                     </TabsList>
                     <TabsContent value="PersonalInformation">
-                        <section className="mt-5">
-                            <form className="my-10 space-y-5 w-full columns-1 sm:columns-2 gap-10">
-                                {formContents.map((obj, i) => (
-                                    <fieldset key={i} className="w-full flex flex-col gap-2">
-                                        <Label className="capitalize text-sm">
-                                            {obj.key}
-                                            <span className="ml-1 text-bold text-xs normal-case text-accent-foreground">
-                                                {obj.key === "name" || obj.key === "email"
-                                                    ? "( required * )"
-                                                    : obj.key === "description"
-                                                    ? "( required * ) ( max length: 200 characters )"
-                                                    : obj.key === "photo"
-                                                    ? "( optional, full url required )"
-                                                    : "( optional )"}
-                                            </span>
-                                        </Label>
-                                        {obj.key === "description" ? (
-                                            <Textarea
-                                                name={obj.key}
-                                                value={formValues[obj.key]}
-                                                maxLength={200}
-                                                rows={4}
-                                                onChange={handleInputChange}
-                                                className="w-full resize-none"
-                                                placeholder={obj.placeholder}
-                                            />
-                                        ) : (
-                                            <Input
-                                                name={obj.key}
-                                                value={formValues[obj.key]}
-                                                onChange={handleInputChange}
-                                                className="w-full py-2"
-                                                placeholder={obj.placeholder}
-                                            />
-                                        )}
-                                    </fieldset>
-                                ))}
-                            </form>
-                            <Button onClick={publish}>Generate Link</Button>
+                        <section className="mt-10">
+                            <Form {...form}>
+                                <form
+                                    onSubmit={form.handleSubmit(onSubmit)}
+                                    className="space-y-8 columns-2"
+                                >
+                                    {formContents.map((formField, i) => (
+                                        <FormField
+                                            control={form.control}
+                                            name={formField.key}
+                                            key={i}
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel className="capitalize">
+                                                        {formField.key}
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            placeholder={formField.placeholder}
+                                                            {...field}
+                                                            onChange={handleInputChange}
+                                                            value={formValues[formField.key]}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    ))}
+                                    <Button type="submit">Generate Link</Button>
+                                </form>
+                            </Form>
                         </section>
                     </TabsContent>
                     <TabsContent value="Preview">
@@ -268,7 +299,9 @@ export default function LinkInBio() {
                     }}
                 >
                     <DialogHeader className="space-y-5">
-                        <DialogTitle className="text-red-700">Warning! Experimental Feature</DialogTitle>
+                        <DialogTitle className="text-red-700">
+                            Warning! Experimental Feature
+                        </DialogTitle>
                         <DialogDescription>
                             <span>
                                 Please note that this feature is experimental and still under
