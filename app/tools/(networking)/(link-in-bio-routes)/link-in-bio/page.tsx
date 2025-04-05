@@ -3,32 +3,15 @@
 import Link from "next/link";
 import { useState } from "react";
 import { publish } from "@/hooks/link-in-bio/publish";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { LinkInBioSchema } from "@/schema/zodSchema";
 import { useToast } from "@/hooks/global/use-toast";
 
 import PublishedLink from "@/components/global/PublishedLink";
+import FeatureWarning from "@/components/global/FeatureWarning";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form";
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogClose,
-} from "@/components/ui/dialog";
 import {
     FaInstagram,
     FaWhatsapp,
@@ -57,26 +40,7 @@ export default function LinkInBio() {
         youtube: "",
         whatsApp: "",
     });
-
-    const [formContents] = useState<
-        {
-            key:
-                | "photo"
-                | "name"
-                | "email"
-                | "description"
-                | "portfolio"
-                | "linkedin"
-                | "github"
-                | "facebook"
-                | "twitter"
-                | "instagram"
-                | "whatsApp"
-                | "telegram"
-                | "youtube";
-            placeholder: string;
-        }[]
-    >([
+    const [formContents] = useState([
         { key: "photo", placeholder: "Add a photo of yourself" },
         { key: "name", placeholder: "Enter your name" },
         { key: "email", placeholder: "Enter your email" },
@@ -98,27 +62,16 @@ export default function LinkInBio() {
         setFormValues((prevState) => ({ ...prevState, [name]: value }));
     };
 
-    const form = useForm({
-        mode: "onChange",
-        resolver: zodResolver(LinkInBioSchema),
-        defaultValues: {
-            photo: "",
-            name: "",
-            email: "",
-            description: "",
-            portfolio: "",
-            linkedin: "",
-            github: "",
-            facebook: "",
-            twitter: "",
-            instagram: "",
-            whatsApp: "",
-            telegram: "",
-            youtube: "",
-        },
-    });
+    const handleClearForm = () => {
+        Object.keys(formValues).forEach((key) => {
+            formValues[key] = "";
+        });
+        toast({ title: "FYI", description: "Form cleared", duration: 1350 });
+    };
 
-    const onSubmit = () => {
+    const Publish = (e: { preventDefault: () => void }) => {
+        e.preventDefault();
+
         const publishResult = publish(formValues);
 
         if (publishResult) {
@@ -134,6 +87,7 @@ export default function LinkInBio() {
 
     return (
         <section className="min-h-screen w-full py-16">
+            <FeatureWarning />
             <section className="space-y-4 max-w-2xl mx-auto text-center">
                 <article className="space-y-4">
                     <h1 className="text-2xl md:text-3xl font-semibold">Consolidate Your Links.</h1>
@@ -156,38 +110,70 @@ export default function LinkInBio() {
                         </TabsTrigger>
                     </TabsList>
                     <TabsContent value="PersonalInformation">
-                        <section className="mt-10">
-                            <Form {...form}>
-                                <form
-                                    onSubmit={form.handleSubmit(onSubmit)}
-                                    className="space-y-8 columns-2"
-                                >
-                                    {formContents.map((formField, i) => (
-                                        <FormField
-                                            control={form.control}
-                                            name={formField.key}
-                                            key={i}
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel className="capitalize">
-                                                        {formField.key}
-                                                    </FormLabel>
-                                                    <FormControl>
-                                                        <Input
-                                                            placeholder={formField.placeholder}
-                                                            {...field}
-                                                            onChange={handleInputChange}
-                                                            value={formValues[formField.key]}
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-                                    ))}
-                                    <Button type="submit">Generate Link</Button>
-                                </form>
-                            </Form>
+                        <section className="mt-5">
+                            <form className="my-10 space-y-5 w-full columns-1 sm:columns-2">
+                                {formContents.map((obj, i) => (
+                                    <fieldset
+                                        key={`Form field-${obj.key}-${i}`}
+                                        className="relative"
+                                    >
+                                        {obj.key === "description" ? (
+                                            <Textarea
+                                                name={obj.key}
+                                                id={obj.key}
+                                                value={formValues[obj.key]}
+                                                maxLength={200}
+                                                rows={4}
+                                                onChange={handleInputChange}
+                                                className="resize-none formField peer"
+                                                placeholder=" "
+                                            />
+                                        ) : (
+                                            <Input
+                                                name={obj.key}
+                                                id={obj.key}
+                                                value={formValues[obj.key]}
+                                                onChange={handleInputChange}
+                                                className="formField peer"
+                                                autoComplete="true"
+                                                placeholder=" "
+                                            />
+                                        )}
+                                        <Label
+                                            htmlFor={obj.key}
+                                            className={`pointer-events-none absolute text-sm duration-300 bg-background transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 ${
+                                                obj.key === "description"
+                                                    ? "peer-placeholder-shown:top-6"
+                                                    : "peer-placeholder-shown:top-1/2"
+                                            } peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:text-blue-600 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1 capitalize`}
+                                        >
+                                            {obj.key}
+                                            <span className="ml-1 text-bold text-xs normal-case text-accent-foreground">
+                                                {obj.key === "name" || obj.key === "email"
+                                                    ? "( required * )"
+                                                    : obj.key === "description"
+                                                    ? "( required * ) ( max length: 200 characters )"
+                                                    : obj.key === "photo"
+                                                    ? "( optional, full url required )"
+                                                    : "( optional )"}
+                                            </span>
+                                        </Label>
+                                    </fieldset>
+                                ))}
+
+                                <div>
+                                    <Button
+                                        type="button"
+                                        className="mt-5"
+                                        onClick={handleClearForm}
+                                    >
+                                        Clear Form
+                                    </Button>
+                                    <Button type="submit" className="mt-5" onClick={Publish}>
+                                        Generate Link
+                                    </Button>
+                                </div>
+                            </form>
                         </section>
                     </TabsContent>
                     <TabsContent value="Preview">
@@ -291,41 +277,6 @@ export default function LinkInBio() {
                     </TabsContent>
                 </Tabs>
             </section>
-            <Dialog defaultOpen={true}>
-                <DialogContent
-                    className="w-10/12 max-w-lg space-y-5 [&>button:last-child]:hidden"
-                    onInteractOutside={(e) => {
-                        e.preventDefault();
-                    }}
-                >
-                    <DialogHeader className="space-y-5">
-                        <DialogTitle className="text-red-700">
-                            Warning! Experimental Feature
-                        </DialogTitle>
-                        <DialogDescription>
-                            <span>
-                                Please note that this feature is experimental and still under
-                                development. As a result, we cannot guarantee the security or
-                                confidentiality of the data processed through it. You can use the
-                                form and the preview feature without sharing data, your data will{" "}
-                                {""} <span className="font-bold underline">not be shared</span>{" "}
-                                until you click the Generate Link button
-                            </span>
-                            <br />
-                            <br />
-                            <span>If you wish to continue click the consent button.</span>
-                        </DialogDescription>
-                    </DialogHeader>
-                    <DialogFooter className="!justify-between gap-2">
-                        <Button variant="secondary">
-                            <Link href="/">Go Home</Link>
-                        </Button>
-                        <DialogClose asChild>
-                            <Button className="bg-red-700">Consent</Button>
-                        </DialogClose>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
         </section>
     );
 }
