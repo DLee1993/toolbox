@@ -1,9 +1,10 @@
 "use client";
 
 import { Dispatch, SetStateAction, useState } from "react";
-import { GetRandomID } from "@/lib/global/GetRandomId";
-// import { NotifyUser } from "@/lib/global/NotifyUser";
-import { PlusIcon } from "lucide-react";
+import { getAllNotes, updateNote } from "@/lib/notepad/crud";
+import { NotifyUser } from "@/lib/global/NotifyUser";
+import SelectCategory from "@/components/notepad/SelectCategory";
+import { Edit } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,6 +20,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 
+
 export default function UpdateNote({
     setCurrentNotes,
     id,
@@ -26,43 +28,52 @@ export default function UpdateNote({
     setCurrentNotes: Dispatch<SetStateAction<NotepadNoteValues[] | null>>;
     id: string;
 }) {
-    // dialog open/close
     const [isOpen, setIsOpen] = useState(false);
-    // selected category state
     const [selectedCategory, setSelectedCategory] = useState("");
-
-    // sets all data, this is used to SubmitData for both notes and categories
+    const [error, setError] = useState(false);
+    const note = getAllNotes().filter((n: NotepadNoteValues) => n.id === id)[0];
     const [data, setData] = useState<NotepadNoteValues>({
-        title: "",
-        content: "",
-        id: "",
-        createdAt: "",
+        title: note.title,
+        content: note.content,
+        id: note.id,
+        createdAt: note.createdAt,
     });
 
-    // Handles changes to all inputs
     function HandleInputChange(e: { target: { name: string; value: string } }) {
         const { name, value } = e.target;
 
         setData((prevState) => ({ ...prevState, [name]: value }));
     }
 
-    // Submits data from each form
-    function SubmitData(data: NotepadNoteValues) {
-        const updatedNotes = addNote(data);
-        setIsOpen(false);
-        setCurrentNotes(updatedNotes);
+    function UpdateData(data: NotepadNoteValues) {
+        const updatedNotes = updateNote(data);
+
+        if (updatedNotes.duplicate) {
+            NotifyUser({ type: "Error", message: "Title already exists" });
+            setError(true);
+        } else {
+            setIsOpen(false);
+            setError(false)
+            setCurrentNotes(updatedNotes.existingData);
+            NotifyUser({ type: "Success", message: "Note updated" });
+        }
     }
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <Button className="hover:bg-foreground hover:text-background">
-                    New Note <PlusIcon />
+                <Button
+                    variant="secondary"
+                    size="icon"
+                    aria-label="edit note"
+                    className="hover:bg-foreground hover:text-background"
+                >
+                    <Edit />
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle>Create new note</DialogTitle>
+                    <DialogTitle>Update note</DialogTitle>
                     <DialogDescription className="sr-only">Create a new note</DialogDescription>
                 </DialogHeader>
                 <div className="my-5">
@@ -72,8 +83,9 @@ export default function UpdateNote({
                                 name="title"
                                 id="title"
                                 placeholder=" "
-                                className="formField peer"
+                                className={`formField peer ${error && "border-red-600"}`}
                                 onChange={HandleInputChange}
+                                value={data.title}
                             />
                             <Label
                                 htmlFor="title"
@@ -89,6 +101,7 @@ export default function UpdateNote({
                                 placeholder=" "
                                 className="resize-none min-h-24 formField peer"
                                 onChange={HandleInputChange}
+                                value={data.content}
                             />
                             <Label
                                 htmlFor="content"
@@ -98,7 +111,10 @@ export default function UpdateNote({
                             </Label>
                         </fieldset>
                         <fieldset>
-                            <SelectCategory setSelectedCategory={setSelectedCategory} />
+                            <SelectCategory
+                                setSelectedCategory={setSelectedCategory}
+                                defaultValue={note.category}
+                            />
                         </fieldset>
                     </form>
                 </div>
@@ -107,18 +123,18 @@ export default function UpdateNote({
                         type="submit"
                         disabled={!data.title || !data.content ? true : false}
                         onClick={() =>
-                            SubmitData({
+                            UpdateData({
                                 title: data.title,
                                 content: data.content,
-                                category: selectedCategory,
-                                id: GetRandomID(),
-                                createdAt: new Date().toISOString(),
+                                category: selectedCategory ? selectedCategory : data.category,
+                                id: data.id,
+                                createdAt: data.createdAt,
                             })
                         }
                     >
                         Save changes
                     </Button>
-                    <DialogClose>Cancel</DialogClose>
+                    <DialogClose onClick={() => setError(false)}>Cancel</DialogClose>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

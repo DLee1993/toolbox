@@ -2,7 +2,9 @@
 
 import { Dispatch, SetStateAction, useState } from "react";
 import { GetRandomID } from "@/lib/global/GetRandomId";
-// import { NotifyUser } from "@/lib/global/NotifyUser";
+import { addNote } from "@/lib/notepad/crud";
+import { NotifyUser } from "@/lib/global/NotifyUser";
+import SelectCategory from "@/components/notepad/SelectCategory";
 import { PlusIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,55 +20,15 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
-import { addNote } from "@/lib/notepad/crud";
-
-// Component for selecting category
-function SelectCategory({
-    setSelectedCategory,
-}: {
-    setSelectedCategory: Dispatch<SetStateAction<string>>;
-}) {
-    const categories = JSON.parse(localStorage.getItem("notepad-categories")!);
-
-    return (
-        <Select onValueChange={(value) => setSelectedCategory(value)}>
-            <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select a Category" />
-            </SelectTrigger>
-            <SelectContent>
-                <SelectGroup>
-                    <SelectLabel>Categories</SelectLabel>
-                    {categories.map((cat: NotepadCategoryValues) => (
-                        <SelectItem key={cat.categoryName} value={cat.categoryName}>
-                            {cat.categoryName}
-                        </SelectItem>
-                    ))}
-                </SelectGroup>
-            </SelectContent>
-        </Select>
-    );
-}
 
 export default function NewNote({
     setCurrentNotes,
 }: {
     setCurrentNotes: Dispatch<SetStateAction<NotepadNoteValues[] | null>>;
 }) {
-    // dialog open/close
     const [isOpen, setIsOpen] = useState(false);
-    // selected category state
     const [selectedCategory, setSelectedCategory] = useState("");
-
-    // sets all data, this is used to SubmitData for both notes and categories
+    const [error, setError] = useState(false);
     const [data, setData] = useState<NotepadNoteValues>({
         title: "",
         content: "",
@@ -74,20 +36,25 @@ export default function NewNote({
         createdAt: "",
     });
 
-    // Handles changes to all inputs
     function HandleInputChange(e: { target: { name: string; value: string } }) {
         const { name, value } = e.target;
 
         setData((prevState) => ({ ...prevState, [name]: value }));
     }
 
-    // Submits data from each form
     function SubmitData(data: NotepadNoteValues) {
         const updatedNotes = addNote(data);
-        setIsOpen(false);
-        setCurrentNotes(updatedNotes);
+
+        if (updatedNotes.duplicate) {
+            NotifyUser({ type: "Error", message: "Title already exists" });
+            setError(true);
+        } else {
+            setIsOpen(false);
+            setError(false);
+            setCurrentNotes(updatedNotes.currentNotes);
+            NotifyUser({ type: "Success", message: "New note created" });
+        }
     }
-    
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -108,7 +75,7 @@ export default function NewNote({
                                 name="title"
                                 id="title"
                                 placeholder=" "
-                                className="formField peer"
+                                className={`formField peer ${error && "border-red-600"}`}
                                 onChange={HandleInputChange}
                             />
                             <Label
@@ -154,7 +121,7 @@ export default function NewNote({
                     >
                         Save changes
                     </Button>
-                    <DialogClose>Cancel</DialogClose>
+                    <DialogClose onClick={() => setError(false)}>Cancel</DialogClose>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
