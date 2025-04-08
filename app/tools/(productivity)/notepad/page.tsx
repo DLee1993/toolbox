@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import { getAllNotes, deleteNote } from "@/lib/notepad/crud";
 import NewNote from "@/components/notepad/NewNote";
-
-//https://github.com/shadcn-ui/ui/tree/main/apps/www/app/(app)/examples/tasks
+import { Trash } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import UpdateNote from "@/components/notepad/UpdateNote";
 
 export default function Notepad() {
     // all notes
@@ -21,7 +22,7 @@ export default function Notepad() {
     }
 
     return (
-        <section className="h-screen w-full py-10">
+        <section className="h-screen w-full py-5">
             <header className="place-items-end">
                 <div className="space-x-2">
                     <NewNote setCurrentNotes={setCurrentNotes} />
@@ -32,7 +33,15 @@ export default function Notepad() {
                     ? currentNotes.map((note: NotepadNoteValues) => (
                           <div key={note.id}>
                               <p>{note.title}</p>
-                              <button onClick={() => deleteData(note.id)}>delete</button>
+                              <Button
+                                  variant="destructive"
+                                  size="icon"
+                                  aria-label="click to delete note"
+                                  onClick={() => deleteData(note.id)}
+                              >
+                                  <Trash size={15} />
+                              </Button>
+                              <UpdateNote setCurrentNotes={setCurrentNotes} id={note.id} />
                           </div>
                       ))
                     : ""}
