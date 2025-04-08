@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { getAllNotes, deleteNote } from "@/lib/notepad/crud";
 import NewNote from "@/components/notepad/NewNote";
 
+//https://github.com/shadcn-ui/ui/tree/main/apps/www/app/(app)/examples/tasks
+
 export default function Notepad() {
     // all notes
     const [currentNotes, setCurrentNotes] = useState<NotepadNoteValues[] | null>(null);
