@@ -21,7 +21,6 @@ type NotepadNoteValues = {
     category?: string;
     id: string;
     createdAt: string;
-    updatedAt: string;
 };
 
 type NotepadCategoryValues = {
