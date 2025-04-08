@@ -15,7 +15,7 @@ type LinkInBioValues = {
     [key: string]: string;
 };
 
-type NotepadValues = {
+type NotepadNoteValues = {
     title: string;
     content?: string;
     category?: string;
@@ -24,6 +24,6 @@ type NotepadValues = {
     updatedAt: string;
 };
 
-type CategoryNameValues = {
+type NotepadCategoryValues = {
     categoryName: string;
 };
