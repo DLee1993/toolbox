@@ -41,10 +41,10 @@ yarn-error.log*
 next-env.d.ts
 
 # additional files
-/hooks/credentials-generator
-/hooks/unit-conversion
-/hooks/file-conversion
-/hooks/link-in-bio
-/hooks/notepad
-/hooks/focus-timer
+/lib/credentials-generator
+/lib/unit-conversion
+/lib/file-conversion
+/lib/link-in-bio
+/lib/notepad
+/lib/focus-timer
 

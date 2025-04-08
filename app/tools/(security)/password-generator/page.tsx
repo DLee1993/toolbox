@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { GeneratePassword } from "@/hooks/credentials-generator/generate-credentials";
-import { Copy } from "@/hooks/global/copy-to-clipboard";
+import { GeneratePassword } from "@/lib/credentials-generator/generate-credentials";
+import { Copy } from "@/lib/global/copy-to-clipboard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CopyIcon, RefreshCcwIcon } from "lucide-react";
@@ -15,9 +15,7 @@ export default function CredentialsGenerator() {
     return (
         <section className="h-screen flex flex-col justify-evenly items-center">
             <article className="space-y-3 mx-auto text-center">
-                <h1 className="text-2xl md:text-3xl font-semibold">
-                    Password Generator.
-                </h1>
+                <h1 className="text-2xl md:text-3xl font-semibold">Password Generator.</h1>
                 <h2 className="max-w-2xl mx-auto font-light">
                     Our password generator is a reliable tool designed to create secure, random, and
                     complex passwords.

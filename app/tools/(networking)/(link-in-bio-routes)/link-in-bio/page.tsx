@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { publish } from "@/hooks/link-in-bio/publish";
-import { useToast } from "@/hooks/global/use-toast";
+import { publish } from "@/lib/link-in-bio/publish";
+import { useToast } from "@/lib/global/use-toast";
 
 import PublishedLink from "@/components/global/PublishedLink";
 import FeatureWarning from "@/components/global/FeatureWarning";

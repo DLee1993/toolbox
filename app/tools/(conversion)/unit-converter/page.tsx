@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Unit } from "convert-units";
-import { ConvertUnits, MeasurementTypes } from "@/hooks/unit-conversion/convertUnits";
+import { ConvertUnits, MeasurementTypes } from "@/lib/unit-conversion/convertUnits";
 
 import {
     Select,
@@ -15,6 +15,9 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+
+//!!! ADD A MINI SIDEBAR OF LIST TO SELECT THE UNIT FOR CONVERSION, I.E. LENGTH, DIGITAL, VOLUME ETC
+//? When the user selected the unit of measurement, then populate the selects with the available units i.e. mm, km, ml etc
 
 export default function UnitConverter() {
     const [amount, setAmount] = useState("");

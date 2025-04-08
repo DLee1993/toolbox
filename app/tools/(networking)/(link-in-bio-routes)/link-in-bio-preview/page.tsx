@@ -4,7 +4,7 @@
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { decodeData } from "@/hooks/link-in-bio/encoder";
+import { decodeData } from "@/lib/link-in-bio/encoder";
 import PublishedLink from "@/components/global/PublishedLink";
 import {
     FaInstagram,

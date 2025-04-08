@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { GenerateCode } from "@/hooks/credentials-generator/generate-credentials";
-import { Copy } from "@/hooks/global/copy-to-clipboard";
+import { GenerateCode } from "@/lib/credentials-generator/generate-credentials";
+import { Copy } from "@/lib/global/copy-to-clipboard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CopyIcon, RefreshCcwIcon } from "lucide-react";
