@@ -18,11 +18,12 @@ type LinkInBioValues = {
 type NotepadValues = {
     title: string;
     content?: string;
+    category?: string;
     id: string;
     createdAt: string;
     updatedAt: string;
 };
 
-type GroupNameValues = {
-    groupName: string;
+type CategoryNameValues = {
+    categoryName: string;
 };
