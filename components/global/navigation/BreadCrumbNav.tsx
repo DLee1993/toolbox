@@ -30,18 +30,16 @@ export default function BreadCrumbNav() {
     const [currentBreadCrumbs, setCurrentBreadCrumbs] = useState<BreadCrumb[]>([]);
 
     useEffect(() => {
-        const itemArray = sidebarItems.filter((item) => item.title.toLowerCase() === slug)[0];
+        const filteredBreadcrumbs = sidebarItems.flatMap((obj) =>
+            obj.items.filter((innerObj) => innerObj.url !== path)
+        );
 
-        if (!itemArray) return;
-
-        const items = itemArray.items.filter((item) => item.url !== path);
-
-        setCurrentBreadCrumbs(items);
-    }, [slug, path]);
+        setCurrentBreadCrumbs(filteredBreadcrumbs);
+    }, [path]);
 
     return (
         <Breadcrumb suppressHydrationWarning>
-            {path != "/" && currentBreadCrumbs.length > 0 && (
+            {path != "/" && (
                 <BreadcrumbList>
                     <BreadcrumbItem>
                         <DropdownMenu>
