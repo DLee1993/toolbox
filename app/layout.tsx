@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppSidebar } from "@/components/global/navigation/app-sidebar";
 import Footer from "@/components/global/Footer";
+import BreadCrumbNav from "@/components/global/navigation/BreadCrumbNav";
 
 const inter = Inter({
     weight: ["300", "400", "600", "700", "800"],
@@ -34,10 +35,13 @@ export default function RootLayout({
                         <TooltipProvider>
                             <AppSidebar />
                             <div className="w-full relative">
-                                <SidebarTrigger
-                                    variant="ghost"
-                                    className="fixed top-5 left-5 w-10 h-10 md:hidden"
-                                />
+                                <header className="sticky top-0 z-50 flex justify-between items-center border-b border-border bg-background px-5">
+                                    <BreadCrumbNav />
+                                    <SidebarTrigger
+                                        variant="ghost"
+                                        className="w-10 h-10 md:hidden"
+                                    />
+                                </header>
                                 <main className="w-11/12 max-w-6xl mx-auto flex justify-center items-center">
                                     {children}
                                 </main>
