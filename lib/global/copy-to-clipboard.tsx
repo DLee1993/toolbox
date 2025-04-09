@@ -12,14 +12,14 @@ const writeToClipboard = async (input: string) => {
 
 export const Copy = async ({ input }: { input: string }) => {
     if (input.length === 0) {
-        return NotifyUser("Error", "Nothing to copy");
+        return NotifyUser({ type: "Error", message: "Nothing to copy" });
     } else {
         const success = await writeToClipboard(input);
 
         if (success) {
-            NotifyUser("Success", "Copied to clipboard");
+            NotifyUser({ type: "Success", message: "Copied to clipboard" });
         } else {
-            NotifyUser("Error", "Failed to copy to clipboard");
+            NotifyUser({ type: "Error", message: "Failed to copy to clipboard" });
         }
     }
 };
