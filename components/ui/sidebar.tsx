@@ -203,9 +203,9 @@ const Sidebar = React.forwardRef<
                         }
                         side={side}
                     >
-                        <SheetHeader className="flex flex-row justify-between items-start text-left px-3 py-2 my-1">
+                        <SheetHeader className="flex flex-row justify-between items-start text-left px-3 py-2 my-2">
                             <div>
-                                <SheetTitle className="text-base leading-none">Toolbox</SheetTitle>
+                                <SheetTitle className="text-base">Toolbox</SheetTitle>
                                 <SheetDescription className="text-xs text-muted-foreground font-normal">
                                     A hub for essential tools.
                                 </SheetDescription>
