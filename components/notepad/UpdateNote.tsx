@@ -20,7 +20,6 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 
-
 export default function UpdateNote({
     setCurrentNotes,
     id,
@@ -53,7 +52,7 @@ export default function UpdateNote({
             setError(true);
         } else {
             setIsOpen(false);
-            setError(false)
+            setError(false);
             setCurrentNotes(updatedNotes.existingData);
             NotifyUser({ type: "Success", message: "Note updated" });
         }
@@ -134,7 +133,19 @@ export default function UpdateNote({
                     >
                         Save changes
                     </Button>
-                    <DialogClose onClick={() => setError(false)}>Cancel</DialogClose>
+                    <DialogClose
+                        onClick={() => {
+                            setError(false);
+                            setData({
+                                title: note.title,
+                                content: note.content,
+                                id: note.id,
+                                createdAt: note.createdAt,
+                            });
+                        }}
+                    >
+                        Cancel
+                    </DialogClose>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
