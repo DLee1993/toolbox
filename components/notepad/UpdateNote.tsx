@@ -85,6 +85,7 @@ export default function UpdateNote({
                                 className={`formField peer ${error && "border-red-600"}`}
                                 onChange={HandleInputChange}
                                 value={data.title}
+                                autoFocus
                             />
                             <Label
                                 htmlFor="title"
