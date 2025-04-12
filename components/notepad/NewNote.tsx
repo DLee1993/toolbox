@@ -34,6 +34,7 @@ export default function NewNote({
         content: "",
         id: "",
         createdAt: "",
+        completed: false,
     });
 
     function HandleInputChange(e: { target: { name: string; value: string } }) {
@@ -116,6 +117,7 @@ export default function NewNote({
                                 category: selectedCategory,
                                 id: GetRandomID(),
                                 createdAt: new Date().toISOString(),
+                                completed: data.completed,
                             })
                         }
                     >

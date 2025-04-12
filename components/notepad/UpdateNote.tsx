@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
     Dialog,
     DialogClose,
@@ -35,7 +36,9 @@ export default function UpdateNote({
         title: note.title,
         content: note.content,
         id: note.id,
+        category: note.category,
         createdAt: note.createdAt,
+        completed: note.completed,
     });
 
     function HandleInputChange(e: { target: { name: string; value: string } }) {
@@ -76,7 +79,7 @@ export default function UpdateNote({
                     <DialogDescription className="sr-only">Create a new note</DialogDescription>
                 </DialogHeader>
                 <div className="my-5">
-                    <form className="space-y-2">
+                    <form className="space-y-4">
                         <fieldset className="relative">
                             <Input
                                 name="title"
@@ -110,7 +113,23 @@ export default function UpdateNote({
                                 Content
                             </Label>
                         </fieldset>
-                        <fieldset>
+                        <fieldset className="flex justify-between items-center flex-wrap">
+                            <div className="flex items-center space-x-2">
+                                <Checkbox
+                                    name="completed"
+                                    checked={data.completed}
+                                    value={JSON.stringify(data.completed)}
+                                    onCheckedChange={() =>
+                                        setData({ ...data, completed: !data.completed })
+                                    }
+                                />
+                                <label
+                                    htmlFor="completed"
+                                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                >
+                                    Completed
+                                </label>
+                            </div>
                             <SelectCategory
                                 setSelectedCategory={setSelectedCategory}
                                 defaultValue={note.category}
@@ -129,6 +148,7 @@ export default function UpdateNote({
                                 category: selectedCategory ? selectedCategory : data.category,
                                 id: data.id,
                                 createdAt: data.createdAt,
+                                completed: data.completed,
                             })
                         }
                     >
@@ -142,6 +162,7 @@ export default function UpdateNote({
                                 content: note.content,
                                 id: note.id,
                                 createdAt: note.createdAt,
+                                completed: note.completed,
                             });
                         }}
                     >

@@ -21,6 +21,7 @@ type NotepadNoteValues = {
     category?: string;
     id: string;
     createdAt: string;
+    completed: boolean;
 };
 
 type NotepadCategoryValues = {
