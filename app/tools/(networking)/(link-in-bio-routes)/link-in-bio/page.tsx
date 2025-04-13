@@ -86,9 +86,9 @@ export default function LinkInBio() {
     };
 
     return (
-        <section className="min-h-screen w-full py-16">
+        <section className="w-full py-10">
             <FeatureWarning />
-            <section className="space-y-4 max-w-2xl mx-auto text-center">
+            <section className="space-y-4 max-w-xl">
                 <article className="space-y-4">
                     <h1 className="text-2xl md:text-3xl font-semibold">Consolidate Your Links.</h1>
                     <p>
@@ -161,9 +161,10 @@ export default function LinkInBio() {
                                     </fieldset>
                                 ))}
 
-                                <div>
+                                <div className="flex gap-5">
                                     <Button
                                         type="button"
+                                        variant="secondary"
                                         className="mt-5"
                                         onClick={handleClearForm}
                                     >

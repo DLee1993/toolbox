@@ -13,10 +13,10 @@ export default function CredentialsGenerator() {
     const [length, setLength] = useState<number>(8);
 
     return (
-        <section className="h-screen flex flex-col justify-evenly items-center">
-            <article className="space-y-3 mx-auto text-center">
+        <section className="flex flex-col space-y-10 py-10">
+            <article className="space-y-3">
                 <h1 className="text-2xl md:text-3xl font-semibold">Password Generator.</h1>
-                <h2 className="max-w-2xl mx-auto font-light">
+                <h2 className="max-w-lg font-light">
                     Our password generator is a reliable tool designed to create secure, random, and
                     complex passwords.
                 </h2>
@@ -41,7 +41,7 @@ export default function CredentialsGenerator() {
                 placeholder="]-[vPW}~'1=>"
                 className="w-full max-w-96 min-h-12 text-center text-foreground font-semibold border-foreground"
             ></Input>
-            <div className="flex flex-col sm:flex-row gap-2 justify-center items-center mx-auto max-w-80">
+            <div className="flex flex-col sm:flex-row gap-2 max-w-80">
                 <Button
                     onClick={() =>
                         GeneratePassword({

@@ -42,7 +42,7 @@ export default function RootLayout({
                                         className="w-10 h-10 md:hidden"
                                     />
                                 </header>
-                                <main className="w-11/12 max-w-6xl mx-auto flex justify-center items-center">
+                                <main className="w-11/12 max-w-6xl mx-auto flex justify-center">
                                     {children}
                                 </main>
                                 <Footer />

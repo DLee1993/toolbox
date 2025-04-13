@@ -64,17 +64,16 @@ export default function UnitConverter() {
     };
 
     return (
-        <section className="flex flex-col justify-center h-full py-5 items-center gap-5 md:gap-10">
-            <article className="space-y-3 mx-auto text-center">
+        <section className="flex flex-col space-y-10 py-10">
+            <article className="space-y-3">
                 <h1 className="text-2xl md:text-3xl font-semibold">Unit converter.</h1>
-                <p className="max-w-lg w-11/12 mx-auto">
+                <p className="max-w-lg w-11/12">
                     This free conversion calculator converts between common units of length,
                     temperature, area, volume, weight, time and more.
                 </p>
             </article>
-            <div className="flex flex-col sm:flex-row items-center gap-2 mt-10">
+            <div className="flex flex-col sm:flex-row items-center gap-2">
                 <SelectComponent type="from" />
-
                 <Input
                     value={amount}
                     type="number"
@@ -85,14 +84,13 @@ export default function UnitConverter() {
 
                 <SelectComponent type="to" />
             </div>
-            <p className="min-h-6 w-full text-center">
+            <p className="min-h-6 w-full">
                 {error
                     ? `${error}`
                     : result
                     ? `${amount} ${selectedValue.from} is equal to ${result} ${selectedValue.to}`
                     : ""}
             </p>
-
             <div className="flex gap-5">
                 <Button
                     size="lg"

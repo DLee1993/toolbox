@@ -14,7 +14,7 @@ export default function Notepad() {
     }, []);
 
     return (
-        <section className="min-h-screen w-full py-5">
+        <section className="w-full py-10">
             <NotepadTable
                 data={currentNotes ? currentNotes : []}
                 setCurrentNotes={setCurrentNotes}
