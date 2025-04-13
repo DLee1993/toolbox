@@ -1,7 +1,7 @@
 "use client";
 
 import { Dispatch, SetStateAction, useState } from "react";
-import { getAllNotes, updateNote } from "@/lib/notepad/crud";
+import { deleteNote, getAllNotes, updateNote } from "@/lib/notepad/crud";
 import { NotifyUser } from "@/lib/global/NotifyUser";
 import SelectCategory from "@/components/notepad/SelectCategory";
 import { Edit } from "lucide-react";
@@ -61,6 +61,11 @@ export default function UpdateNote({
         }
     }
 
+    function deleteData(id: string) {
+        const updatedNotes = deleteNote(id);
+        setCurrentNotes(updatedNotes);
+    }
+
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
@@ -73,7 +78,7 @@ export default function UpdateNote({
                     <Edit />
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Update note</DialogTitle>
                     <DialogDescription className="sr-only">Create a new note</DialogDescription>
@@ -113,10 +118,11 @@ export default function UpdateNote({
                                 Content
                             </Label>
                         </fieldset>
-                        <fieldset className="flex justify-between items-center flex-wrap">
+                        <fieldset className="flex justify-between items-center gap-2">
                             <div className="flex items-center space-x-2">
                                 <Checkbox
                                     name="completed"
+                                    id="completed"
                                     checked={data.completed}
                                     value={JSON.stringify(data.completed)}
                                     onCheckedChange={() =>
@@ -137,7 +143,30 @@ export default function UpdateNote({
                         </fieldset>
                     </form>
                 </div>
-                <DialogFooter className="gap-5">
+                <DialogFooter className="flex flex-row place-content-end gap-2">
+                    <DialogClose
+                        onClick={() => {
+                            setError(false);
+                            setData({
+                                title: note.title,
+                                content: note.content,
+                                id: note.id,
+                                createdAt: note.createdAt,
+                                completed: note.completed,
+                            });
+                        }}
+                        className="hidden sm:block"
+                    >
+                        Cancel
+                    </DialogClose>
+                    <Button
+                        variant="destructive"
+                        aria-label="delete note"
+                        className="sm:hidden hover:bg-foreground hover:text-background"
+                        onClick={() => deleteData(note.id)}
+                    >
+                        Delete note
+                    </Button>
                     <Button
                         type="submit"
                         disabled={!data.title || !data.content ? true : false}
@@ -154,20 +183,6 @@ export default function UpdateNote({
                     >
                         Save changes
                     </Button>
-                    <DialogClose
-                        onClick={() => {
-                            setError(false);
-                            setData({
-                                title: note.title,
-                                content: note.content,
-                                id: note.id,
-                                createdAt: note.createdAt,
-                                completed: note.completed,
-                            });
-                        }}
-                    >
-                        Cancel
-                    </DialogClose>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
