@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { Dispatch, SetStateAction, useState } from "react";
@@ -23,10 +24,10 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-
 import {
     ColumnDef,
     ColumnFiltersState,
+    RowData,
     SortingState,
     flexRender,
     getCoreRowModel,
@@ -35,8 +36,13 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table";
+import { cn } from "@/lib/utils";
 
-/////////////
+declare module "@tanstack/react-table" {
+    interface ColumnMeta<TData extends RowData, TValue> {
+        className?: string;
+    }
+}
 
 export function NotepadTable({
     data,
@@ -74,6 +80,9 @@ export function NotepadTable({
                         : row.getValue("content")}
                 </div>
             ),
+            meta: {
+                className: "hidden md:table-cell",
+            },
         },
         {
             accessorKey: "category",
@@ -100,6 +109,9 @@ export function NotepadTable({
                     )}
                 </div>
             ),
+            meta: {
+                className: "hidden sm:table-cell",
+            },
         },
         {
             id: "actions",
@@ -114,7 +126,7 @@ export function NotepadTable({
                             variant="destructive"
                             size="icon"
                             aria-label="delete note"
-                            className="hover:bg-foreground hover:text-background"
+                            className="hidden sm:flex hover:bg-foreground hover:text-background"
                             onClick={() => deleteData(note.id)}
                         >
                             <Trash />
@@ -148,7 +160,7 @@ export function NotepadTable({
 
     return (
         <div className="w-full">
-            <div className="flex flex-wrap justify-between items-center py-4 gap-2">
+            <div className="flex flex-wrap justify-between items-center py-4 gap-4">
                 <div className="flex flex-wrap gap-2">
                     <Input
                         placeholder="Filter by title..."
@@ -162,14 +174,20 @@ export function NotepadTable({
                 </div>
                 <NewNote setCurrentNotes={setCurrentNotes} />
             </div>
-            <div className="rounded-md border">
+            <div className="rounded-md border mt-5 sm:mt-0">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead key={header.id} className="font-semibold">
+                                        <TableHead
+                                            key={header.id}
+                                            className={cn(
+                                                header.column.columnDef.meta?.className,
+                                                "font-semibold"
+                                            )}
+                                        >
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -190,7 +208,13 @@ export function NotepadTable({
                                     data-state={row.getIsSelected() && "selected"}
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>
+                                        <TableCell
+                                            key={cell.id}
+                                            className={cn(
+                                                cell.column.columnDef.meta?.className,
+                                                ""
+                                            )}
+                                        >
                                             {flexRender(
                                                 cell.column.columnDef.cell,
                                                 cell.getContext()
@@ -210,7 +234,7 @@ export function NotepadTable({
                 </Table>
             </div>
             <section className="flex flex-wrap justify-between items-center mt-7 gap-2">
-                <div className="flex items-center gap-2 text-sm">
+                <div className="hidden md:flex items-center gap-2 text-sm">
                     <p>rows per page</p>
                     <Select
                         value={`${table.getState().pagination.pageSize}`}
