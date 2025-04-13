@@ -1,11 +1,10 @@
 "use client";
 
 import { Dispatch, SetStateAction, useState } from "react";
-import { cn } from "@/lib/utils";
 import NewNote from "@/components/notepad/NewNote";
 import UpdateNote from "@/components/notepad/UpdateNote";
 import { deleteNote } from "@/lib/notepad/crud";
-import { CheckCheck, CircleX, Trash } from "lucide-react";
+import { CheckCheck, ChevronsLeft, ChevronsRight, CircleX, Trash } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -37,19 +36,7 @@ import {
     useReactTable,
 } from "@tanstack/react-table";
 
-// Extend ColumnMeta to include className,
-
-// this fixes type error that would show in the table head/bpdy when using cn to add classnames from meta
-
-declare module "@tanstack/react-table" {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    interface ColumnMeta<TData, TValue> {
-        className?: string;
-    }
-}
-
 /////////////
-
 
 export function NotepadTable({
     data,
@@ -100,9 +87,6 @@ export function NotepadTable({
                     )}
                 </div>
             ),
-            meta: {
-                className: "max-[640px]:hidden",
-            },
         },
         {
             accessorKey: "completed",
@@ -142,7 +126,9 @@ export function NotepadTable({
     ];
 
     const table = useReactTable({
-        data,
+        data: data.sort(
+            (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        ),
         columns,
         onSortingChange: setSorting,
         onColumnFiltersChange: setColumnFilters,
@@ -162,35 +148,17 @@ export function NotepadTable({
 
     return (
         <div className="w-full">
-            <div className="flex justify-between items-center py-4">
-                <div className="w-full flex flex-wrap gap-2">
+            <div className="flex flex-wrap justify-between items-center py-4 gap-2">
+                <div className="flex flex-wrap gap-2">
                     <Input
-                        placeholder="Filter notes..."
+                        placeholder="Filter by title..."
                         value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
                         onChange={(event) =>
                             table.getColumn("title")?.setFilterValue(event.target.value)
                         }
                         className="max-w-xs"
                     />
-                    {table.getCanNextPage() && (
-                        <Select
-                            value={`${table.getState().pagination.pageSize}`}
-                            onValueChange={(value) => {
-                                table.setPageSize(Number(value));
-                            }}
-                        >
-                            <SelectTrigger className="w-[70px]">
-                                <SelectValue placeholder={table.getState().pagination.pageSize} />
-                            </SelectTrigger>
-                            <SelectContent side="top">
-                                {[10, 20, 30, 40, 50].map((pageSize) => (
-                                    <SelectItem key={pageSize} value={`${pageSize}`}>
-                                        {pageSize}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                    )}
+                    {/* <FilterCategory table={table} /> */}
                 </div>
                 <NewNote setCurrentNotes={setCurrentNotes} />
             </div>
@@ -201,13 +169,7 @@ export function NotepadTable({
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead
-                                            key={header.id}
-                                            className={cn(
-                                                header.column.columnDef.meta?.className,
-                                                "font-semibold"
-                                            )}
-                                        >
+                                        <TableHead key={header.id} className="font-semibold">
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -228,10 +190,7 @@ export function NotepadTable({
                                     data-state={row.getIsSelected() && "selected"}
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell
-                                            key={cell.id}
-                                            className={cell.column.columnDef.meta?.className}
-                                        >
+                                        <TableCell key={cell.id}>
                                             {flexRender(
                                                 cell.column.columnDef.cell,
                                                 cell.getContext()
@@ -250,27 +209,52 @@ export function NotepadTable({
                     </TableBody>
                 </Table>
             </div>
-            {/* PAGINATION SECTION  */}
-            <div className="flex items-center justify-end space-x-2 py-4">
-                <div className="space-x-2">
+            <section className="flex flex-wrap justify-between items-center mt-7 gap-2">
+                <div className="flex items-center gap-2 text-sm">
+                    <p>rows per page</p>
+                    <Select
+                        value={`${table.getState().pagination.pageSize}`}
+                        onValueChange={(value) => {
+                            table.setPageSize(Number(value));
+                        }}
+                    >
+                        <SelectTrigger className="w-[70px]">
+                            <SelectValue placeholder={table.getState().pagination.pageSize} />
+                        </SelectTrigger>
+                        <SelectContent side="top">
+                            {[10, 20, 30, 40, 50].map((pageSize) => (
+                                <SelectItem key={pageSize} value={`${pageSize}`}>
+                                    {pageSize}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+                {/* PAGINATION SECTION  */}
+                <div className="flex justify-center items-center space-x-2">
                     <Button
                         variant="outline"
-                        size="sm"
                         onClick={() => table.previousPage()}
                         disabled={!table.getCanPreviousPage()}
+                        aria-label="previous page"
                     >
-                        Previous
+                        <ChevronsLeft />
                     </Button>
+                    <p className="text-sm text-muted-foreground flex gap-2">
+                        {table.getState().pagination.pageIndex + 1}
+                        <span>of</span>
+                        {table.getPageCount()}
+                    </p>
                     <Button
                         variant="outline"
-                        size="sm"
                         onClick={() => table.nextPage()}
                         disabled={!table.getCanNextPage()}
+                        aria-label="next page"
                     >
-                        Next
+                        <ChevronsRight />
                     </Button>
                 </div>
-            </div>
+            </section>
         </div>
     );
 }
