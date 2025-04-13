@@ -102,7 +102,7 @@ export default function UpdateNote({
                                 name="content"
                                 id="content"
                                 placeholder=" "
-                                className="resize-none min-h-24 formField peer"
+                                className="resize-none min-h-36 formField peer"
                                 onChange={HandleInputChange}
                                 value={data.content}
                             />
