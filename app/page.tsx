@@ -21,10 +21,10 @@ export default function Home() {
                     </div>
                 </div>
                 <article className="text-center">
-                    <h1 className="text-5xl font-semibold tracking-tight text-balance sm:text-7xl">
+                    <h1 className="text-5xl font-semibold tracking-tight text-balance sm:text-6xl">
                         Your Ultimate Digital Companion
                     </h1>
-                    <p className="mt-8 text-lg font-medium text-pretty text-muted-foreground">
+                    <p className="mt-8 text-md font-medium text-pretty text-muted-foreground">
                         A versatile platform designed to simplify and enhance your daily tasks,
                         bringing efficiency, and organization to your fingertips.
                     </p>
