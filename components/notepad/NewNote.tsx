@@ -60,7 +60,7 @@ export default function NewNote({
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <Button className="hover:bg-foreground hover:text-background">
+                <Button className="w-fit hover:bg-foreground hover:text-background">
                     New Note <PlusIcon />
                 </Button>
             </DialogTrigger>

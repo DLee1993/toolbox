@@ -8,6 +8,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { getAllCategories } from "@/lib/notepad/crud";
 
 export default function SelectCategory({
     setSelectedCategory,
@@ -16,10 +17,14 @@ export default function SelectCategory({
     setSelectedCategory: Dispatch<SetStateAction<string>>;
     defaultValue?: string;
 }) {
-    const categories = JSON.parse(localStorage.getItem("notepad-categories")!);
+    const categories = getAllCategories();
 
     return (
-        <Select onValueChange={(value) => setSelectedCategory(value)} defaultValue={defaultValue}>
+        <Select
+            onValueChange={(value) => setSelectedCategory(value)}
+            defaultValue={defaultValue}
+            name="select category"
+        >
             <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Select a Category" />
             </SelectTrigger>
