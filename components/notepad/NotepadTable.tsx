@@ -2,8 +2,10 @@
 "use client";
 
 import { Dispatch, SetStateAction, useState } from "react";
+import { cn } from "@/lib/utils";
 import NewNote from "@/components/notepad/NewNote";
 import UpdateNote from "@/components/notepad/UpdateNote";
+import FilterCategory from "@/components/notepad/FilterCategory";
 import { deleteNote } from "@/lib/notepad/crud";
 import { CheckCheck, ChevronsLeft, ChevronsRight, CircleX, Trash } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -36,7 +38,6 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-import { cn } from "@/lib/utils";
 
 declare module "@tanstack/react-table" {
     interface ColumnMeta<TData extends RowData, TValue> {
@@ -160,17 +161,18 @@ export function NotepadTable({
 
     return (
         <div className="w-full">
-            <div className="flex flex-wrap justify-between items-center py-4 gap-4">
-                <div className="flex flex-wrap gap-2">
+            <div className="flex flex-col-reverse sm:flex-row flex-wrap justify-between sm:items-center py-4 gap-4">
+                <div className="flex gap-2">
                     <Input
                         placeholder="Filter by title..."
                         value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
                         onChange={(event) =>
                             table.getColumn("title")?.setFilterValue(event.target.value)
                         }
+                        name="title filter"
                         className="max-w-xs"
                     />
-                    {/* <FilterCategory table={table} /> */}
+                    <FilterCategory table={table} />
                 </div>
                 <NewNote setCurrentNotes={setCurrentNotes} />
             </div>
