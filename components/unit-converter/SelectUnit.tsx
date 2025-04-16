@@ -23,6 +23,7 @@ import {
     DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { ChevronDown } from "lucide-react";
 
 type Props = {
     type: "from" | "to";
@@ -46,11 +47,15 @@ export function SelectUnit({ type, selectedValue, setSelectedValue }: Props) {
         return (
             <Popover open={open} onOpenChange={setOpen}>
                 <PopoverTrigger asChild>
-                    <Button variant="outline" className="w-[150px] justify-start">
+                    <Button
+                        variant="outline"
+                        className="w-[150px] flex justify-between items-center"
+                    >
                         {selectedValue[type] ? selectedValue[type] : `Convert ${type}`}
+                        <ChevronDown className={`${open ? "rotate-180" : "rotate-0"}`} />
                     </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-[200px] p-0" align="start">
+                <PopoverContent className="w-[200px] h-60 p-0" align="start">
                     <StatusList setOpen={setOpen} setSelectedUnit={setSelectedValue} type={type} />
                 </PopoverContent>
             </Popover>
