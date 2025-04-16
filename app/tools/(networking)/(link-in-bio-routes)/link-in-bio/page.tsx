@@ -5,7 +5,7 @@ import { useState } from "react";
 import { publish } from "@/lib/link-in-bio/publish";
 import { useToast } from "@/lib/global/use-toast";
 
-import PublishedLink from "@/components/global/PublishedLink";
+import PublishedLink from "@/components/link-in-bio/PublishedLink";
 import FeatureWarning from "@/components/global/FeatureWarning";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
