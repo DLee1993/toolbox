@@ -51,7 +51,7 @@ export function SelectUnit({ type, selectedValue, setSelectedValue }: Props) {
                         variant="outline"
                         className="w-[150px] flex justify-between items-center"
                     >
-                        {selectedValue[type] ? selectedValue[type] : `Convert ${type}`}
+                        {selectedValue[type] ? selectedValue[type] : `Select unit`}
                         <ChevronDown className={`${open ? "rotate-180" : "rotate-0"}`} />
                     </Button>
                 </PopoverTrigger>
