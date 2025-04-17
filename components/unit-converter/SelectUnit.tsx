@@ -56,7 +56,7 @@ export function SelectUnit({ type, selectedValue, setSelectedValue }: Props) {
                     </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-[200px] h-60 p-0" align="start">
-                    <StatusList setOpen={setOpen} setSelectedUnit={setSelectedValue} type={type} />
+                    <UnitList setOpen={setOpen} setSelectedUnit={setSelectedValue} type={type} />
                 </PopoverContent>
             </Popover>
         );
@@ -75,14 +75,14 @@ export function SelectUnit({ type, selectedValue, setSelectedValue }: Props) {
                         <DrawerTitle>Select a unit</DrawerTitle>
                         <DrawerDescription>Choose the unit you want to use.</DrawerDescription>
                     </DrawerHeader>
-                    <StatusList setOpen={setOpen} setSelectedUnit={setSelectedValue} type={type} />
+                    <UnitList setOpen={setOpen} setSelectedUnit={setSelectedValue} type={type} />
                 </div>
             </DrawerContent>
         </Drawer>
     );
 }
 
-function StatusList({
+function UnitList({
     setOpen,
     setSelectedUnit,
     type,
