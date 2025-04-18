@@ -72,7 +72,7 @@ export function SelectCurrency({ type, selectedValue, setSelectedValue, countryC
         <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger asChild>
                 <Button variant="outline" className="w-[150px] justify-start">
-                    {selectedValue[type] ? selectedValue[type] : `Convert ${type}`}
+                    {selectedValue[type] ? selectedValue[type] : `Select currency`}
                 </Button>
             </DrawerTrigger>
             <DrawerContent>
