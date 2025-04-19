@@ -141,7 +141,7 @@ export default function LinkInBio() {
                                         )}
                                         <Label
                                             htmlFor={obj.key}
-                                            className={`pointer-events-none absolute text-sm duration-300 bg-background transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 ${
+                                            className={`pointer-events-none absolute text-sm duration-300 transition-transform bg-background transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 ${
                                                 obj.key === "description"
                                                     ? "peer-placeholder-shown:top-6"
                                                     : "peer-placeholder-shown:top-1/2"
