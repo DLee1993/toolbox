@@ -93,7 +93,7 @@ function UnitList({
 }) {
     return (
         <Command>
-            <CommandInput placeholder="Filter units..." />
+            <CommandInput placeholder="Filter units..." autoFocus/>
             <CommandList>
                 <CommandEmpty>No results found.</CommandEmpty>
                 {MeasurementTypes.map((mType) => (

@@ -108,7 +108,7 @@ function CurrencyList({
 }) {
     return (
         <Command>
-            <CommandInput placeholder="Filter currencies..." />
+            <CommandInput placeholder="Filter currencies..." autoFocus />
             <CommandList>
                 <CommandEmpty>No results found.</CommandEmpty>
                 {Object.keys(rates).flatMap((rate, i) => (

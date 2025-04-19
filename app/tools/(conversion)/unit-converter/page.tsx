@@ -43,6 +43,7 @@ export default function UnitConverter() {
                         />
                         <Input
                             value={amount}
+                            id="amount"
                             onChange={(e) => setAmount(e.target.value)}
                             className="max-w-52 sm:text-center"
                             placeholder="Amount"
@@ -60,6 +61,7 @@ export default function UnitConverter() {
                         />
                         <Input
                             readOnly
+                            id="result"
                             value={result !== null ? Number(result).toLocaleString() : ""}
                             className="max-w-52 sm:text-center"
                         />
