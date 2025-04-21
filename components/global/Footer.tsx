@@ -1,6 +1,6 @@
 import { CopyrightIcon } from "lucide-react";
 import Link from "next/link";
-import { FaSquareGithub, FaGithub, FaGithubAlt } from "react-icons/fa6";
+import { FaGithub } from "react-icons/fa6";
 
 export default function Footer() {
     return (
