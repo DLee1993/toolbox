@@ -50,7 +50,6 @@ export function AppSidebar() {
                 }`}
             >
                 <SidebarGroup key={`Dashboard menu group`}>
-                    <SidebarGroupLabel className="pointer-events-none">Dashboard</SidebarGroupLabel>
                     <SidebarMenu>
                         <SidebarMenuItem>
                             <SidebarMenuButton
