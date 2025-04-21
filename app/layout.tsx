@@ -6,7 +6,6 @@ import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppSidebar } from "@/components/global/navigation/app-sidebar";
-import Footer from "@/components/global/Footer";
 import BreadCrumbNav from "@/components/global/navigation/BreadCrumbNav";
 
 const inter = Inter({
@@ -45,7 +44,6 @@ export default function RootLayout({
                                 <main className="w-11/12 max-w-6xl mx-auto flex justify-center">
                                     {children}
                                 </main>
-                                <Footer />
                             </div>
                         </TooltipProvider>
                     </SidebarProvider>
