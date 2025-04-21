@@ -161,20 +161,20 @@ export function NotepadTable({
 
     return (
         <div className="w-full">
-            <div className="flex flex-col-reverse sm:flex-row flex-wrap justify-between sm:items-center py-4 gap-4">
-                <div className="flex gap-2">
-                    <Input
-                        placeholder="Filter by title..."
-                        value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-                        onChange={(event) =>
-                            table.getColumn("title")?.setFilterValue(event.target.value)
-                        }
-                        name="title filter"
-                        className="max-w-xs"
-                    />
+            <div className="flex flex-col-reverse sm:flex-row justify-between sm:items-center py-4 gap-4">
+                <Input
+                    placeholder="Filter by title..."
+                    value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+                    onChange={(event) =>
+                        table.getColumn("title")?.setFilterValue(event.target.value)
+                    }
+                    name="title filter"
+                    className="max-w-xs"
+                />
+                <div className="flex flex-1 sm:justify-between gap-2">
                     <FilterCategory table={table} />
+                    <NewNote setCurrentNotes={setCurrentNotes} />
                 </div>
-                <NewNote setCurrentNotes={setCurrentNotes} />
             </div>
             <div className="rounded-md border mt-5 sm:mt-0">
                 <Table>
