@@ -1,47 +1,138 @@
-import { Dispatch, SetStateAction } from "react";
-import { useTimezoneSelect, allTimezones } from "react-timezone-select";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { allTimezones, ITimezone, ITimezoneOption, useTimezoneSelect } from "react-timezone-select";
+import { useMediaQuery } from "@/lib/global/use-media-query";
+import { Button } from "@/components/ui/button";
 import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
+} from "@/components/ui/command";
+import {
+    Drawer,
+    DrawerContent,
+    DrawerDescription,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "@/components/ui/drawer";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { ChevronDown } from "lucide-react";
 
-const labelStyle = "altName";
-const timezones = {
-    ...allTimezones,
-};
+export default function TimezoneSelect({
+    tz,
+    setTz,
+    setCurrentTz,
+}: {
+    tz: ITimezoneOption | undefined;
+    setTz: Dispatch<SetStateAction<ITimezoneOption | undefined>>;
+    setCurrentTz: Dispatch<SetStateAction<ITimezoneOption | undefined>>;
+}) {
+    const [open, setOpen] = useState(false);
 
-type Props = {
-    setSelectedTZ: Dispatch<SetStateAction<string>>;
-};
+    const isDesktop = useMediaQuery("(min-width: 768px)");
+    const { options, parseTimezone } = useTimezoneSelect({
+        labelStyle: "altName",
+        timezones: allTimezones,
+    });
 
-export default function TimezoneSelect({ setSelectedTZ }: Props) {
-    const { options, parseTimezone } = useTimezoneSelect({ labelStyle, timezones });
+    // get current timezone from the browser
+    useEffect(() => {
+        const date = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        setCurrentTz(parseTimezone(date));
+    });
 
+    if (isDesktop) {
+        return (
+            <Popover open={open} onOpenChange={setOpen}>
+                <PopoverTrigger asChild>
+                    <Button
+                        variant="outline"
+                        className="w-[30rem] flex justify-between items-center"
+                    >
+                        <p className="overflow-hidden">{tz ? tz.label : "Select a timezone"}</p>
+                        <ChevronDown className={`${open ? "rotate-180" : "rotate-0"}`} />
+                    </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-[30rem] h-60 p-0" align="start">
+                    <TimezoneList
+                        setOpen={setOpen}
+                        options={options}
+                        setSelectedUnit={setTz}
+                        parseTimezone={parseTimezone}
+                    />
+                </PopoverContent>
+            </Popover>
+        );
+    }
+
+    if (!isDesktop) {
+        return (
+            <Drawer open={open} onOpenChange={setOpen}>
+                <DrawerTrigger asChild>
+                    <Button
+                        variant="outline"
+                        className="w-[30rem] flex justify-between items-center"
+                    >
+                        <p className="overflow-hidden">{tz ? tz.label : "Select a timezone"}</p>
+                        <ChevronDown className={`${open ? "rotate-180" : "rotate-0"}`} />
+                    </Button>
+                </DrawerTrigger>
+                <DrawerContent>
+                    <div className="mt-4 border-t">
+                        <DrawerHeader>
+                            <DrawerTitle>Select a timezone</DrawerTitle>
+                            <DrawerDescription>
+                                Choose the timezone you want to use.
+                            </DrawerDescription>
+                        </DrawerHeader>
+                        <TimezoneList
+                            setOpen={setOpen}
+                            options={options}
+                            setSelectedUnit={setTz}
+                            parseTimezone={parseTimezone}
+                        />
+                    </div>
+                </DrawerContent>
+            </Drawer>
+        );
+    }
+}
+
+function TimezoneList({
+    setOpen,
+    options,
+    setSelectedUnit,
+    parseTimezone,
+}: {
+    setOpen: (open: boolean) => void;
+    options: ITimezoneOption[];
+    setSelectedUnit: Dispatch<SetStateAction<ITimezoneOption | undefined>>;
+    parseTimezone: (zone: ITimezone) => ITimezoneOption;
+}) {
     return (
-        <Select
-            onValueChange={(value) => {
-                parseTimezone(value);
-                setSelectedTZ(value);
-            }}
-        >
-            <SelectTrigger className="w-full max-w-md">
-                <SelectValue placeholder="Select a timezone" />
-            </SelectTrigger>
-            <SelectContent className="w-full max-w-md">
-                <SelectGroup>
-                    <SelectLabel>Timezones</SelectLabel>
-                    {options.map((option, i) => (
-                        <SelectItem key={i} value={option.value}>
+        <Command>
+            <CommandInput placeholder="Filter timezones..." autoFocus />
+            <CommandList>
+                <CommandEmpty>No results found.</CommandEmpty>
+                {options.map((option, i) => (
+                    <CommandGroup key={i}>
+                        <CommandItem
+                            key={i}
+                            className="cursor-pointer ml-1"
+                            value={option.value}
+                            onSelect={(value) => {
+                                setSelectedUnit(parseTimezone(value));
+                                setOpen(false);
+                            }}
+                        >
                             {option.label}
-                        </SelectItem>
-                    ))}
-                </SelectGroup>
-            </SelectContent>
-        </Select>
+                        </CommandItem>
+                    </CommandGroup>
+                ))}
+            </CommandList>
+        </Command>
     );
 }
