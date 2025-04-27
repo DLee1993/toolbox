@@ -9,6 +9,9 @@ export default {
     ],
     theme: {
         extend: {
+            fontFamily: {
+                robotoMono: ["var(--font-azeret-mono)", "monospace"],
+            },
             colors: {
                 background: "hsl(var(--background))",
                 foreground: "hsl(var(--foreground))",
@@ -81,12 +84,21 @@ export default {
                     from: { height: "var(--radix-collapsible-content-height)" },
                     to: { height: "0" },
                 },
+                wiggle: {
+                    "0%,100%": {
+                        transform: "rotate(-3deg)",
+                    },
+                    "50%": {
+                        transform: "rotate(3deg)",
+                    },
+                },
             },
             animation: {
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
                 "collapsible-down": "collapsible-down 0.3s linear",
                 "collapsible-up": "collapsible-up 0.3s linear",
+                wiggle: "wiggle .5s ease-in-out 10",
             },
         },
     },

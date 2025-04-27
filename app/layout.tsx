@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Azeret_Mono } from "next/font/google";
 import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { ThemeProvider } from "next-themes";
@@ -11,6 +11,11 @@ import BreadCrumbNav from "@/components/global/navigation/BreadCrumbNav";
 const inter = Inter({
     weight: ["300", "400", "600", "700", "800"],
     subsets: ["latin"],
+});
+const azeretMono = Azeret_Mono({
+    weight: ["300", "400", "600", "700", "800"],
+    subsets: ["latin"],
+    variable: "--font-azeret-mono",
 });
 
 export const metadata: Metadata = {
@@ -28,7 +33,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className={`${inter.className} antialiased`}>
+            <body className={`${inter.className} ${azeretMono.variable} antialiased`}>
                 <ThemeProvider>
                     <SidebarProvider defaultOpen={false}>
                         <TooltipProvider>
