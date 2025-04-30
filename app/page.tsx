@@ -4,8 +4,18 @@ import Link from "next/link";
 import { ArrowDown } from "lucide-react";
 import { sidebarItems } from "@/components/global/navigation/app-sidebar-item-list";
 import Footer from "@/components/global/Footer";
+import ToolLink from "@/components/root/ToolLink";
 
 export default function Home() {
+    const parentElementLength = 10; // Desired number of items in the parent
+    const currentArray = sidebarItems || []; // Use the provided array, or default to an empty array
+
+    // Calculate the required number of placeholders dynamically
+    const missingElements = Math.max(0, parentElementLength - currentArray.length);
+
+    // Create a new array that fills the gaps
+    const extendedArray = [...currentArray, ...Array(missingElements).fill(null)];
+
     return (
         <section>
             <section className="w-full py-16 space-y-28">
@@ -54,28 +64,10 @@ export default function Home() {
                         </div>
                     </article>
                 </div>
-                <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 lg:gap-10">
-                    {sidebarItems.map((item) =>
-                        item.items.map((subItem, i) => (
-                            <div key={i} className="flex gap-4 p-6 sm:p-4">
-                                <div className="size-7 p-2 bg-foreground rounded-sm grid place-content-center">
-                                    {<subItem.icon size={15} className="text-background" />}
-                                </div>
-                                <article className="min-h-20 flex flex-col justify-between items-start">
-                                    <h2 className="font-semibold">
-                                        {subItem.title}.{" "}
-                                        <span className="text-muted-foreground font-normal">
-                                            {subItem.description}
-                                        </span>
-                                    </h2>
-                                    <Link
-                                        href={subItem.url}
-                                        className="w-fit block relative after:absolute after:bottom-0 after:left-0 after:h-[1.5px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-muted-foreground after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 text-sm text-muted-foreground"
-                                    >
-                                        Check it out &rarr;
-                                    </Link>
-                                </article>
-                            </div>
+                <section className="flex flex-wrap justify-center max-w-6xl">
+                    {extendedArray.map((item) =>
+                        item?.items.map((subItem: { [key: string]: string }, i: number) => (
+                            <ToolLink tool={subItem} index={i} key={i} />
                         ))
                     )}
                 </section>
