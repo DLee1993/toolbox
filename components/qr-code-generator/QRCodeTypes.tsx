@@ -1,15 +1,4 @@
 import { Dispatch, SetStateAction } from "react";
-import { Button } from "@/components/ui/button";
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // - call the GenerateQrCode when user submits data
@@ -22,6 +11,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function QRCodeTypes({ setValue }: { setValue: Dispatch<SetStateAction<string>> }) {
     const types = ["URL", "VCARD", "EMAIL", "SMS", "WIFI", "IMAGE", "PROFILE", "PDF"];
+
+    console.log(setValue);
 
     return (
         <TabsContent value="Type">
@@ -39,6 +30,7 @@ export default function QRCodeTypes({ setValue }: { setValue: Dispatch<SetStateA
                 </TabsList>
                 {types.map((type, i) => (
                     <TabsContent key={i} value={type.toLowerCase()}>
+                        {/* RUN A CHECK TO RENDER EACH FORM BASED ON TYPE, ALSO PASS ON THE SET VALUE FUNCTION */}
                         {type}
                     </TabsContent>
                 ))}
