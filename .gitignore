@@ -48,4 +48,5 @@ next-env.d.ts
 /lib/link-in-bio
 /lib/notepad
 /lib/focus-timer
+/lib/qr-code-generator
 
