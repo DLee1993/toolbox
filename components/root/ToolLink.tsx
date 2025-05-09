@@ -9,7 +9,7 @@ export default function ToolLink({
 }) {
     return (
         <Link href={tool.url} key={index} className="w-fit">
-            <div className="group relative flex size-56 border border-border p-7 hover:bg-muted/50">
+            <div className="group relative flex w-56 h-52 border border-border p-5 hover:bg-muted/50">
                 {index === 0 && (
                     <>
                         <svg
