@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import URL from "@/components/qr-code-generator/forms/url";
 
 // - call the GenerateQrCode when user submits data
 //! - Make sure all objects have a type key, this key will determine how the function proccesses the data
@@ -10,9 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 // - set value prop is to return the full string
 
 export default function QRCodeTypes({ setValue }: { setValue: Dispatch<SetStateAction<string>> }) {
-    const types = ["URL", "VCARD", "EMAIL", "SMS", "WIFI", "IMAGE", "PROFILE", "PDF"];
-
-    console.log(setValue);
+    const types = ["URL", "VCARD", "EMAIL", "SMS", "WIFI", "IMAGE"];
 
     return (
         <TabsContent value="Type">
@@ -29,9 +28,9 @@ export default function QRCodeTypes({ setValue }: { setValue: Dispatch<SetStateA
                     ))}
                 </TabsList>
                 {types.map((type, i) => (
-                    <TabsContent key={i} value={type.toLowerCase()}>
+                    <TabsContent key={i} value={type.toLowerCase()} className="py-10">
                         {/* RUN A CHECK TO RENDER EACH FORM BASED ON TYPE, ALSO PASS ON THE SET VALUE FUNCTION */}
-                        {type}
+                        {type === "URL" ? <URL setValue={setValue} /> : null}
                     </TabsContent>
                 ))}
             </Tabs>
