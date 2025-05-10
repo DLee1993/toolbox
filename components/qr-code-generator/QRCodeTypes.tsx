@@ -2,6 +2,10 @@ import { Dispatch, SetStateAction } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import URL from "@/components/qr-code-generator/forms/url";
 import VCARD from "@/components/qr-code-generator/forms/vcard";
+import EMAIL from "@/components/qr-code-generator/forms/email";
+import SMS from "@/components/qr-code-generator/forms/sms";
+import WIFI from "@/components/qr-code-generator/forms/wifi";
+import IMAGE from "@/components/qr-code-generator/forms/image";
 
 // - call the GenerateQrCode when user submits data
 //! - Make sure all objects have a type key, this key will determine how the function proccesses the data
@@ -33,6 +37,10 @@ export default function QRCodeTypes({ setValue }: { setValue: Dispatch<SetStateA
                         {/* RUN A CHECK TO RENDER EACH FORM BASED ON TYPE, ALSO PASS ON THE SET VALUE FUNCTION */}
                         {type === "URL" ? <URL setValue={setValue} /> : null}
                         {type === "VCARD" ? <VCARD setValue={setValue} /> : null}
+                        {type === "EMAIL" ? <EMAIL setValue={setValue} /> : null}
+                        {type === "SMS" ? <SMS setValue={setValue} /> : null}
+                        {type === "WIFI" ? <WIFI setValue={setValue} /> : null}
+                        {type === "IMAGE" ? <IMAGE setValue={setValue} /> : null}
                     </TabsContent>
                 ))}
             </Tabs>
