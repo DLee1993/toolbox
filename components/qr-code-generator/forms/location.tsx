@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Input } from "@/components/ui/input";
 import { Dispatch, SetStateAction, useState } from "react";
+import { Input } from "@/components/ui/input";
 import { GenerateQrCode } from "@/lib/qr-code-generator/generateQR";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 export default function LOCATION({ setValue }: { setValue: Dispatch<SetStateAction<string>> }) {
     const [location, setLocation] = useState({});
@@ -54,7 +55,39 @@ export default function LOCATION({ setValue }: { setValue: Dispatch<SetStateActi
                     Longitude
                 </Label>
             </fieldset>
-            <Button onClick={() => ProcessData({ type: "location" })}>Generate QR Code</Button>
+            <div className="flex justify-between flex-wrap-reverse">
+                <Button onClick={() => ProcessData({ type: "location" })}>Generate QR Code</Button>
+                <TooltipProvider>
+                    <Tooltip>
+                        <TooltipTrigger className="text-xs text-muted-foreground hover:underline">
+                            How to find your geo location?
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            <ul className="space-y-2">
+                                <li>
+                                    - <span className="font-semibold">Smartphone GPS:</span> Open
+                                    your phone&apos;s Compass (iPhone) or Google Maps (Android) to
+                                    see coordinates.
+                                </li>
+                                <li>
+                                    - <span className="font-semibold">Google Maps:</span>{" "}
+                                    Right-click anywhere on the map and select &quot;What&apos;s
+                                    here?&quot; to get latitude/longitude.
+                                </li>
+                                <li>
+                                    - <span className="font-semibold">Online Tools:</span> Websites
+                                    like{" "}
+                                    <span className="font-semibold underline">LatLong.net</span> and{" "}
+                                    <span className="font-semibold underline">
+                                        GPS-Coordinates.net
+                                    </span>{" "}
+                                    can pinpoint locations.
+                                </li>
+                            </ul>
+                        </TooltipContent>
+                    </Tooltip>
+                </TooltipProvider>
+            </div>
         </div>
     );
 }
