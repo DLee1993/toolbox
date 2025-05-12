@@ -5,7 +5,9 @@ import VCARD from "@/components/qr-code-generator/forms/vcard";
 import EMAIL from "@/components/qr-code-generator/forms/email";
 import SMS from "@/components/qr-code-generator/forms/sms";
 import WIFI from "@/components/qr-code-generator/forms/wifi";
-import IMAGE from "@/components/qr-code-generator/forms/image";
+import VEVENT from "@/components/qr-code-generator/forms/vevent";
+import PLAINTEXT from "@/components/qr-code-generator/forms/plainText";
+import LOCATION from "@/components/qr-code-generator/forms/location";
 
 // - call the GenerateQrCode when user submits data
 //! - Make sure all objects have a type key, this key will determine how the function proccesses the data
@@ -16,17 +18,17 @@ import IMAGE from "@/components/qr-code-generator/forms/image";
 // - set value prop is to return the full string
 
 export default function QRCodeTypes({ setValue }: { setValue: Dispatch<SetStateAction<string>> }) {
-    const types = ["URL", "VCARD", "EMAIL", "SMS", "WIFI", "IMAGE"];
+    const types = ["URL", "VCARD", "VEVENT", "EMAIL", "SMS", "TEXT", "WIFI", "LOCATION"];
 
     return (
         <TabsContent value="Type">
             <Tabs defaultValue={types[0].toLowerCase()} className="py-5">
-                <TabsList className="w-full h-fit flex flex-wrap justify-start bg-transparent">
+                <TabsList className="w-full h-fit flex flex-wrap gap-2 justify-start bg-transparent">
                     {types.map((type, i) => (
                         <TabsTrigger
                             key={i}
                             value={type.toLowerCase()}
-                            className="h-10 w-20 data-[state=active]:bg-muted"
+                            className="h-10 w-20 text-xs data-[state=active]:bg-muted"
                         >
                             {type}
                         </TabsTrigger>
@@ -37,10 +39,12 @@ export default function QRCodeTypes({ setValue }: { setValue: Dispatch<SetStateA
                         {/* RUN A CHECK TO RENDER EACH FORM BASED ON TYPE, ALSO PASS ON THE SET VALUE FUNCTION */}
                         {type === "URL" ? <URL setValue={setValue} /> : null}
                         {type === "VCARD" ? <VCARD setValue={setValue} /> : null}
+                        {type === "VEVENT" ? <VEVENT setValue={setValue} /> : null}
                         {type === "EMAIL" ? <EMAIL setValue={setValue} /> : null}
                         {type === "SMS" ? <SMS setValue={setValue} /> : null}
+                        {type === "TEXT" ? <PLAINTEXT setValue={setValue} /> : null}
                         {type === "WIFI" ? <WIFI setValue={setValue} /> : null}
-                        {type === "IMAGE" ? <IMAGE setValue={setValue} /> : null}
+                        {type === "LOCATION" ? <LOCATION setValue={setValue} /> : null}
                     </TabsContent>
                 ))}
             </Tabs>
