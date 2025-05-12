@@ -49,7 +49,7 @@ export default function QRCodeSettings({ qrProps, handleChange }: Props) {
 
     return (
         <TabsContent value="Customisation">
-            <Accordion type="multiple" className="w-full">
+            <Accordion type="multiple" className="w-full py-5">
                 <AccordionItem value="item-1">
                     <AccordionTrigger className="[&[data-state=open]]:bg-muted/50 rounded-md px-2">
                         Base styling
