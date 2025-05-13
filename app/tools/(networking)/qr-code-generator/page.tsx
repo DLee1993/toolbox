@@ -8,10 +8,8 @@ import QRCodeSettings from "@/components/qr-code-generator/QRCodeSettings";
 import QRCodeTypes from "@/components/qr-code-generator/QRCodeTypes";
 import { Button } from "@/components/ui/button";
 
-// test data - https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
-
 export default function QRCodeGenerator() {
-    const [qrcodeValue, setQrCodeValue] = useState("sms:+1234567890?body=Hello%20there!");
+    const [qrcodeValue, setQrCodeValue] = useState("");
     const [qrProps, setQrProps] = useState<{ [key: string]: any }>({
         logoOpacity: "0.5",
         enableCORS: true,
