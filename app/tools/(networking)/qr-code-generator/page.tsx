@@ -9,7 +9,7 @@ import QRCodeTypes from "@/components/qr-code-generator/QRCodeTypes";
 import { Button } from "@/components/ui/button";
 
 export default function QRCodeGenerator() {
-    const [qrcodeValue, setQrCodeValue] = useState("");
+    const [qrcodeValue, setQrCodeValue] = useState("https://github.com/DLee1993");
     const [qrProps, setQrProps] = useState<{ [key: string]: any }>({
         logoOpacity: "0.5",
         enableCORS: true,
