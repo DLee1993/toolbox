@@ -7,14 +7,6 @@ import WIFI from "@/components/qr-code-generator/forms/wifi";
 import PLAINTEXT from "@/components/qr-code-generator/forms/plainText";
 import LOCATION from "@/components/qr-code-generator/forms/location";
 
-// - call the GenerateQrCode when user submits data
-//! - Make sure all objects have a type key, this key will determine how the function proccesses the data
-// - use async await for error handling
-// - function will return a string
-// - pass the string to setValue
-// - this will set the value in the root page and be passed to the library to generate the qr code
-// - set value prop is to return the full string
-
 export default function QRCodeTypes({ setValue }: { setValue: Dispatch<SetStateAction<string>> }) {
     const types = ["URL", "EMAIL", "SMS", "TEXT", "WIFI", "LOCATION"];
 
