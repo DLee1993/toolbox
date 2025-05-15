@@ -25,7 +25,7 @@ export default function QRCodeSettings({ qrProps, handleChange }: Props) {
                 min={0}
                 max={20}
                 defaultValue={0}
-                className="p-0"
+                className="p-0 w-fit"
             />
         );
     };
@@ -62,9 +62,9 @@ export default function QRCodeSettings({ qrProps, handleChange }: Props) {
                                     name="size"
                                     type="range"
                                     onChange={handleChange}
-                                    min={100}
+                                    min={170}
                                     max={300}
-                                    defaultValue={100}
+                                    defaultValue={170}
                                     className="p-0 w-fit"
                                 />
                             </fieldset>
@@ -74,9 +74,9 @@ export default function QRCodeSettings({ qrProps, handleChange }: Props) {
                                     name="quietZone"
                                     type="range"
                                     onChange={handleChange}
-                                    min={20}
-                                    max={80}
-                                    defaultValue={20}
+                                    min={10}
+                                    max={60}
+                                    defaultValue={10}
                                     className="p-0 w-fit"
                                 />
                             </fieldset>
@@ -96,21 +96,11 @@ export default function QRCodeSettings({ qrProps, handleChange }: Props) {
                         <div className="flex gap-10">
                             <fieldset>
                                 <Label>Background color</Label>
-                                <Input
-                                    name="bgColor"
-                                    type="color"
-                                    defaultValue="#ffffff"
-                                    onChange={handleChange}
-                                />
+                                <Input name="bgColor" type="color" onChange={handleChange} />
                             </fieldset>
                             <fieldset>
                                 <Label>Foreground color</Label>
-                                <Input
-                                    name="fgColor"
-                                    type="color"
-                                    defaultValue="#000000"
-                                    onChange={handleChange}
-                                />
+                                <Input name="fgColor" type="color" onChange={handleChange} />
                             </fieldset>
                         </div>
                     </AccordionContent>
@@ -162,9 +152,9 @@ export default function QRCodeSettings({ qrProps, handleChange }: Props) {
                                     type="range"
                                     onChange={handleChange}
                                     min={0}
-                                    max={0.6}
+                                    max={0.4}
                                     step={0.1}
-                                    defaultValue={0.6}
+                                    defaultValue={0.4}
                                     className="p-0 w-fit"
                                 />
                             </fieldset>
