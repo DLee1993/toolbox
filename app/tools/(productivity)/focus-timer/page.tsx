@@ -14,6 +14,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 
 export default function FocusTimer() {
     const [isOpen, setIsOpen] = useState(false);
@@ -101,6 +102,15 @@ export default function FocusTimer() {
         setIsOpen(false);
     };
 
+    const handleCustomTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        if (!value) return;
+        const numericValue = parseInt(value);
+        if (isNaN(numericValue)) return;
+        const time = numericValue * 60;
+        calculateTime(time);
+    };
+
     const presets = [
         { label: "5 minutes", value: 5 },
         { label: "10 minutes", value: 10 },
@@ -108,11 +118,7 @@ export default function FocusTimer() {
         { label: "20 minutes", value: 20 },
         { label: "25 minutes", value: 25 },
         { label: "30 minutes", value: 30 },
-        { label: "35 minutes", value: 35 },
-        { label: "40 minutes", value: 40 },
         { label: "45 minutes", value: 45 },
-        { label: "50 minutes", value: 50 },
-        { label: "55 minutes", value: 55 },
         { label: "60 minutes", value: 60 },
         { label: "90 minutes", value: 90 },
         { label: "120 minutes", value: 120 },
@@ -179,15 +185,26 @@ export default function FocusTimer() {
                                     Make changes to the timer settings here.
                                 </DialogDescription>
                             </DialogHeader>
-                            <section className="mt-10 space-x-4">
-                                <ul className="columns-3 space-y-2">
+                            <section className="space-y-4">
+                                <p className="text-sm text-muted-foreground">Custom Time</p>
+                                <Input
+                                    type="number"
+                                    onChange={handleCustomTimeChange}
+                                    defaultValue={time / 60}
+                                    placeholder="Add time in minutes"
+                                    autoFocus
+                                />
+                            </section>
+                            <section className="space-y-4">
+                                <p className="text-sm text-muted-foreground">Presets</p>
+                                <ul className="flex flex-wrap items-center gap-2">
                                     {presets.map((preset) => (
                                         <li key={preset.value}>
                                             <Button
                                                 variant="outline"
                                                 onClick={() => handlePresetClick(preset.value)}
                                                 disabled={time / 60 === preset.value}
-                                                className="disabled:bg-transparent disabled:text-foreground disabled:border-[2px] disabled:shadow-none"
+                                                className="w-24 disabled:bg-transparent disabled:text-foreground disabled:border-[2px] disabled:shadow-none"
                                             >
                                                 {preset.label}
                                             </Button>
