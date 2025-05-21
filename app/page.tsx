@@ -47,7 +47,7 @@ export default function Home() {
                                 }}
                                 className="group relative inline-flex h-10 items-center justify-center overflow-hidden rounded-md  px-6 font-medium duration-500 transition-transform bg-foreground text-background"
                             >
-                                <div className="translate-y-0 opacity-100 transition group-hover:-translate-y-[150%] group-hover:opacity-0">
+                                <div className="translate-y-0 opacity-100 transition-transform group-hover:-translate-y-[150%] group-hover:opacity-0">
                                     Get started
                                 </div>
                                 <div className="absolute translate-y-[150%] opacity-0 transition-transform group-hover:translate-y-0 group-hover:opacity-100">
