@@ -49,7 +49,10 @@ export default function BreadCrumbNav() {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="start">
                                 {currentBreadCrumbs.map((item, i) => (
-                                    <DropdownMenuItem key={i} className="p-0 transition-none">
+                                    <DropdownMenuItem
+                                        key={i}
+                                        className="p-0 transition-none capitalize"
+                                    >
                                         <BreadcrumbLink
                                             href={item.url}
                                             className="inline-block w-full h-full px-2 py-1.5 transition-none"
@@ -63,7 +66,9 @@ export default function BreadCrumbNav() {
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
-                        <BreadcrumbPage>{path.split("/")[2]}</BreadcrumbPage>
+                        <BreadcrumbPage className="capitalize">
+                            {path.split("/")[2].split("-").join(" ")}{" "}
+                        </BreadcrumbPage>
                     </BreadcrumbItem>
                 </BreadcrumbList>
             )}
