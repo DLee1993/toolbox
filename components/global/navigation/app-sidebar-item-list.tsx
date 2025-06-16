@@ -19,7 +19,7 @@ export const sidebarItems = [
                 title: "Credentials",
                 url: "/tools/credentials-generator",
                 icon: Key,
-                description: "Generate strong and secure passwords.",
+                description: "Generate strong and secure credentials.",
             },
         ],
     },
