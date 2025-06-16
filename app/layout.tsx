@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Inter, Azeret_Mono } from "next/font/google";
 import "./globals.css";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppSidebar } from "@/components/global/navigation/app-sidebar";
-import BreadCrumbNav from "@/components/global/navigation/BreadCrumbNav";
+import Header from "@/components/global/Header";
 
 const inter = Inter({
     weight: ["300", "400", "600", "700", "800"],
@@ -39,13 +39,7 @@ export default function RootLayout({
                         <TooltipProvider>
                             <AppSidebar />
                             <div className="w-full relative">
-                                <header className="sticky top-0 z-50 flex justify-between items-center border-b border-border bg-background px-5">
-                                    <BreadCrumbNav />
-                                    <SidebarTrigger
-                                        variant="ghost"
-                                        className="w-10 h-10 md:hidden"
-                                    />
-                                </header>
+                                <Header />
                                 <main className="w-11/12 max-w-6xl mx-auto flex justify-center">
                                     {children}
                                 </main>
