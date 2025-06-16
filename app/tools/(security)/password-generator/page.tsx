@@ -27,7 +27,7 @@ export default function CredentialsGenerator() {
                 <Slider
                     defaultValue={[length]}
                     max={30}
-                    min={1}
+                    min={8}
                     step={1}
                     onValueChange={(value) => setLength(value[0])}
                     className="w-40"

@@ -5,7 +5,6 @@ import {
     Notebook,
     Network,
     ArrowLeftRight,
-    Binary,
     Map,
     DollarSign,
     QrCode,
@@ -17,16 +16,10 @@ export const sidebarItems = [
         title: "Security",
         items: [
             {
-                title: "Passwords",
-                url: "/tools/password-generator",
+                title: "Credentials",
+                url: "/tools/credentials-generator",
                 icon: Key,
                 description: "Generate strong and secure passwords.",
-            },
-            {
-                title: "Pin numbers",
-                url: "/tools/pin-generator",
-                icon: Binary,
-                description: "Generate PIN codes.",
             },
         ],
     },
