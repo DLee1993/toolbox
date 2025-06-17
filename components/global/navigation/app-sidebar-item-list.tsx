@@ -8,6 +8,7 @@ import {
     Map,
     DollarSign,
     QrCode,
+    Binary,
 } from "lucide-react";
 
 //! DO NOT REMOVE
@@ -16,9 +17,15 @@ export const sidebarItems = [
         title: "Security",
         items: [
             {
-                title: "Credentials",
-                url: "/tools/credentials-generator",
+                title: "Password",
+                url: "/tools/password-generator",
                 icon: Key,
+                description: "Generate strong and secure credentials.",
+            },
+            {
+                title: "Code",
+                url: "/tools/code-generator",
+                icon: Binary,
                 description: "Generate strong and secure credentials.",
             },
         ],
@@ -83,8 +90,7 @@ export const sidebarItems = [
                 url: "/tools/qr-code-generator",
                 icon: QrCode,
                 description: "Generate QR codes for any URL.",
-
-            }
+            },
         ],
     },
 ];

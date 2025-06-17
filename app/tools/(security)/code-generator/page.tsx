@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { CopyIcon, RefreshCcwIcon } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 
-export default function CredentialsGenerator() {
+export default function CodeGenerator() {
     const codeInput = useRef<HTMLInputElement>(null);
     const [length, setLength] = useState<number>(4);
 

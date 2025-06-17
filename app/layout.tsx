@@ -40,9 +40,7 @@ export default function RootLayout({
                             <AppSidebar />
                             <div className="w-full relative">
                                 <Header />
-                                <main className="w-11/12 max-w-6xl mx-auto flex justify-center">
-                                    {children}
-                                </main>
+                                <main>{children}</main>
                             </div>
                         </TooltipProvider>
                     </SidebarProvider>
