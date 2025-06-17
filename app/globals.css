@@ -113,4 +113,7 @@
     .formField {
         @apply block px-2.5 pb-2.5 pt-4 min-h-12 w-full text-sm bg-transparent rounded-lg appearance-none focus:outline-none;
     }
+    .height {
+        @apply min-h-[calc(100vh-var(--baseHeight))];
+    }
 }
