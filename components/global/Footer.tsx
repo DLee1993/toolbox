@@ -4,7 +4,7 @@ import { FaGithub } from "react-icons/fa6";
 
 export default function Footer() {
     return (
-        <footer className="flex justify-between items-center border-t-2 border-muted">
+        <footer className="flex justify-between items-center border-t-2 border-muted px-5">
             <p className="flex items-center gap-1 text-muted-foreground text-sm">
                 Toolbox <CopyrightIcon size={15} /> 2025
             </p>
