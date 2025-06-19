@@ -26,8 +26,10 @@ type BreadCrumb = {
 
 export default function BreadCrumbNav() {
     const path = usePathname();
-    const slug = path.split("/")[1]; // this is the category in the menu i.e. tools, documents etc
+    const slug = path.split("/")[2]; // this is the category in the menu i.e. tools, documents etc
     const [currentBreadCrumbs, setCurrentBreadCrumbs] = useState<BreadCrumb[]>([]);
+    console.log(path);
+    console.log(slug);
 
     useEffect(() => {
         const filteredBreadcrumbs = sidebarItems.flatMap((obj) =>
@@ -44,7 +46,7 @@ export default function BreadCrumbNav() {
                     <BreadcrumbItem>
                         <DropdownMenu>
                             <DropdownMenuTrigger className="flex items-center gap-1 capitalize">
-                                {slug}
+                                tools
                                 <span className="sr-only">Toggle menu</span>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="start">
@@ -66,9 +68,7 @@ export default function BreadCrumbNav() {
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
-                        <BreadcrumbPage className="capitalize">
-                            {path.split("/")[2].split("-").join(" ")}{" "}
-                        </BreadcrumbPage>
+                        <BreadcrumbPage className="capitalize">{slug}</BreadcrumbPage>
                     </BreadcrumbItem>
                 </BreadcrumbList>
             )}
