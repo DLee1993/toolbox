@@ -40,7 +40,7 @@ export default function RootLayout({
                             <AppSidebar />
                             <div className="w-full relative">
                                 <Header />
-                                <main>{children}</main>
+                                <main className="w-full sm:w-11/12 mx-auto">{children}</main>
                             </div>
                         </TooltipProvider>
                     </SidebarProvider>

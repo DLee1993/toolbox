@@ -14,7 +14,7 @@ export default function Notepad() {
     }, []);
 
     return (
-        <section className="w-11/12 mx-auto py-10">
+        <section className="py-10">
             <NotepadTable
                 data={currentNotes ? currentNotes : []}
                 setCurrentNotes={setCurrentNotes}
