@@ -247,7 +247,7 @@ export default function FileConverterDropzone() {
     // returns
     if (actions.length) {
         return (
-            <section className="height w-full max-w-4xl mx-auto space-y-10 py-5">
+            <section className="w-full max-w-4xl mx-auto space-y-10 py-5">
                 <div className="flex w-full justify-end">
                     {is_done ? (
                         <div className="space-y-4 w-fit">
@@ -271,7 +271,7 @@ export default function FileConverterDropzone() {
                     {actions.map((action: Action, i: any) => (
                         <div
                             key={i}
-                            className="flex flex-wrap justify-between items-center border-b border-muted-foreground mx-auto py-5 gap-5 md:gap-0 text-sm"
+                            className="flex flex-wrap justify-between items-center border-b border-border mx-auto py-5 gap-5 md:gap-0 text-sm"
                         >
                             {!is_loaded && (
                                 <Skeleton className="h-full w-full -ml-10 cursor-progress absolute rounded-xl" />
@@ -340,7 +340,7 @@ export default function FileConverterDropzone() {
     }
 
     return (
-        <section className="height p-3 flex justify-center items-center">
+        <section className="p-3 flex justify-center items-center">
             <ReactDropzone
                 onDrop={handleUpload}
                 onDragEnter={handleHover}
@@ -366,7 +366,7 @@ export default function FileConverterDropzone() {
                 {({ getRootProps, getInputProps }) => (
                     <div
                         {...getRootProps()}
-                        className="w-full h-[calc(100vh-10vh)] flex justify-center items-center cursor-pointer border border-dotted border-muted-foreground"
+                        className="w-full h-[calc(100vh-20vh)] flex justify-center items-center cursor-pointer border border-dotted border-muted-foreground"
                     >
                         <input {...getInputProps()} />
 
