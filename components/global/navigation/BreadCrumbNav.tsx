@@ -28,8 +28,6 @@ export default function BreadCrumbNav() {
     const path = usePathname();
     const slug = path.split("/")[2]; // this is the category in the menu i.e. tools, documents etc
     const [currentBreadCrumbs, setCurrentBreadCrumbs] = useState<BreadCrumb[]>([]);
-    console.log(path);
-    console.log(slug);
 
     useEffect(() => {
         const filteredBreadcrumbs = sidebarItems.flatMap((obj) =>
