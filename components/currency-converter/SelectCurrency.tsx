@@ -26,16 +26,16 @@ import { ChevronDown } from "lucide-react";
 type Props = {
     type: "from" | "to";
     selectedValue: {
-        from: "";
-        to: "";
+        from: string;
+        to: string;
     };
     countryCodes: {
         [key: string]: number;
     };
     setSelectedValue: React.Dispatch<
         React.SetStateAction<{
-            from: "";
-            to: "";
+            from: string;
+            to: string;
         }>
     >;
 };
@@ -100,7 +100,7 @@ function CurrencyList({
     rates,
 }: {
     setOpen: (open: boolean) => void;
-    setSelectedUnit: React.Dispatch<React.SetStateAction<{ from: ""; to: "" }>>;
+    setSelectedUnit: React.Dispatch<React.SetStateAction<{ from: string; to: string }>>;
     type: string;
     rates: {
         [key: string]: number;

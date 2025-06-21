@@ -9,13 +9,13 @@ import { ConvertCurrency } from "@/lib/currency-converter/convert";
 
 export default function CurrencyConverter() {
     const [amount, setAmount] = useState("");
-    const [selectedValue, setSelectedValue] = useState<{ from: ""; to: "" }>({
-        from: "",
-        to: "",
-    });
     const [countryCodes, setCountryCodes] = useState<{ [key: string]: number }>({});
     const [result, setResult] = useState<number | null>(null);
     const [error, setError] = useState<string>("");
+    const [selectedValue, setSelectedValue] = useState<{ from: string; to: string }>({
+        from: "",
+        to: "",
+    });
 
     const ClearUnits = () => {
         setSelectedValue({ from: "", to: "" });
