@@ -34,6 +34,7 @@ export default function NewNote({
         content: "",
         id: "",
         createdAt: "",
+        category: "",
         completed: false,
     });
 
