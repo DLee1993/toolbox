@@ -3,17 +3,17 @@
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { CircleAlert, CircleX } from "lucide-react";
+import { ArrowRightLeft, CircleAlert, CircleX } from "lucide-react";
 import { SelectCurrency } from "@/components/currency-converter/SelectCurrency";
 import { ConvertCurrency } from "@/lib/currency-converter/convert";
 
 export default function CurrencyConverter() {
-    const [amount, setAmount] = useState("");
+    const [amount, setAmount] = useState("1");
     const [countryCodes, setCountryCodes] = useState<{ [key: string]: number }>({});
     const [result, setResult] = useState<number | null>(null);
     const [error, setError] = useState<string>("");
     const [selectedValue, setSelectedValue] = useState<{ from: string; to: string }>({
-        from: "",
+        from: "GBP",
         to: "",
     });
 
@@ -22,6 +22,14 @@ export default function CurrencyConverter() {
         setAmount("");
         setResult(null);
         setError("");
+    };
+
+    const AddPunctuation = (value: string) => {
+        const formattedValue = value.replace(/,/g, "");
+
+        if (Number(formattedValue)) {
+            setAmount(Number(formattedValue).toLocaleString());
+        }
     };
 
     useEffect(() => {
@@ -42,18 +50,18 @@ export default function CurrencyConverter() {
     }, []);
 
     return (
-        <section className="flex flex-col py-10">
+        <section className="height flex flex-col justify-between items-start space-y-5 md:space-y-10 py-5 md:py-10">
             <article className="space-y-3">
                 <h1 className="text-2xl md:text-3xl font-semibold">Currency converter.</h1>
                 <p className="max-w-lg w-11/12">
                     This free conversion calculator converts between global currencies.
                 </p>
+                <p className="text-[10px] text-muted-foreground mt-2">
+                    Powered by -{" "}
+                    <a href="https://www.exchangerate-api.com">Rates By Exchange Rate API</a>
+                </p>
             </article>
-            <p className="text-[10px] text-muted-foreground mt-2">
-                Powered by -{" "}
-                <a href="https://www.exchangerate-api.com">Rates By Exchange Rate API</a>
-            </p>
-            <section className="my-10 space-y-5">
+            <section className="flex flex-col md:flex-row justify-between items-start md:items-center gap-5 md:gap-10 max-w-6xl">
                 <div className="flex flex-col gap-2">
                     <h2 className="text-sm font-semibold text-muted-foreground">From</h2>
                     <div className="flex gap-2">
@@ -66,13 +74,17 @@ export default function CurrencyConverter() {
                         <Input
                             value={amount}
                             id="amount"
-                            onChange={(e) => setAmount(e.target.value)}
+                            onChange={(e) => {
+                                setAmount(e.target.value);
+                                AddPunctuation(e.target.value);
+                            }}
                             className="max-w-52 sm:text-center"
                             placeholder="Amount"
-                            type="number"
+                            type="text"
                         />
                     </div>
                 </div>
+                <ArrowRightLeft />
                 <div className="flex flex-col gap-2">
                     <h2 className="text-sm font-semibold text-muted-foreground">To</h2>
                     <div className="flex gap-2">
@@ -84,6 +96,7 @@ export default function CurrencyConverter() {
                         />
                         <Input
                             readOnly
+                            type="text"
                             id="result"
                             value={result !== null ? Number(result).toLocaleString() : ""}
                             className="max-w-52 sm:text-center"
@@ -112,7 +125,7 @@ export default function CurrencyConverter() {
                 <Button
                     onClick={() => {
                         ConvertCurrency({
-                            amount: Number(amount),
+                            amount: amount,
                             to: selectedValue.to,
                             rates: countryCodes,
                             setResult,
