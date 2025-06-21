@@ -247,10 +247,10 @@ export default function FileConverterDropzone() {
     // returns
     if (actions.length) {
         return (
-            <section className="w-full max-w-4xl mx-auto space-y-10 py-5">
-                <div className="flex w-full justify-end">
+            <section className="space-y-10 py-5">
+                <div className="flex justify-end">
                     {is_done ? (
-                        <div className="space-y-4 w-fit">
+                        <div className="flex gap-4 w-fit">
                             {actions.length > 1 && (
                                 <Button onClick={downloadAll}>
                                     Download All
@@ -267,11 +267,11 @@ export default function FileConverterDropzone() {
                         </Button>
                     )}
                 </div>
-                <section className="px-1 overflow-y-auto">
+                <section className="px-1 overflow-y-auto space-y-2">
                     {actions.map((action: Action, i: any) => (
                         <div
                             key={i}
-                            className="flex flex-wrap justify-between items-center border-b border-border mx-auto py-5 gap-5 md:gap-0 text-sm"
+                            className="flex flex-wrap justify-between items-center border border-border mx-auto py-5 px-3 gap-10 md:gap-0 text-sm rounded-lg shadow-sm"
                         >
                             {!is_loaded && (
                                 <Skeleton className="h-full w-full -ml-10 cursor-progress absolute rounded-xl" />
@@ -280,9 +280,7 @@ export default function FileConverterDropzone() {
                                 <span className="text-teal-600">
                                     {fileToIcon(action.file_type)}
                                 </span>
-                                <span className="w-40 overflow-x-hidden">
-                                    {compressFileName(action.file_name)}
-                                </span>
+                                <span>{compressFileName(action.file_name)}</span>
                                 <span className="text-muted-foreground">
                                     ({bytesToSize(action.file_size)})
                                 </span>
@@ -366,7 +364,7 @@ export default function FileConverterDropzone() {
                 {({ getRootProps, getInputProps }) => (
                     <div
                         {...getRootProps()}
-                        className="w-full h-[calc(100vh-20vh)] flex justify-center items-center cursor-pointer border border-dotted border-muted-foreground"
+                        className="w-full h-[calc(100vh-15vh)] lg:h-[calc(100vh-20vh)] flex justify-center items-center cursor-pointer border border-dotted border-muted-foreground"
                     >
                         <input {...getInputProps()} />
 
