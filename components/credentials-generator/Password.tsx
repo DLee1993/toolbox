@@ -12,8 +12,8 @@ export default function Password() {
     const passwordInput = useRef<HTMLInputElement>(null);
 
     return (
-        <TabsContent value="password" className="absolute top-10 left-0 w-full h-80 flex flex-col justify-evenly items-center">
-            <div className="w-full max-w-2xl mx-auto space-y-28">
+        <TabsContent value="password" className="h-80">
+            <div className="w-full h-full flex flex-col justify-center items-center max-w-2xl mx-auto space-y-28">
                 <Input
                     readOnly
                     ref={passwordInput}
@@ -21,7 +21,7 @@ export default function Password() {
                     placeholder="]-[vPW}~'1=>"
                     className="min-h-20 !text-2xl text-center border-x-0 border-t-0 shadow-none"
                 ></Input>
-                <div className="flex justify-between gap-2">
+                <div className="w-full flex justify-between gap-2">
                     <SelectLength type="password" setPwLength={setPwLength} />
                     <Button
                         id="password"
