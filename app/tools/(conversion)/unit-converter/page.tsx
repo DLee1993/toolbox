@@ -6,7 +6,7 @@ import { ConvertUnits } from "@/lib/unit-conversion/convertUnits";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SelectUnit } from "@/components/unit-converter/SelectUnit";
-import { CircleAlert, CircleX } from "lucide-react";
+import { ArrowRightLeft, CircleAlert, CircleX } from "lucide-react";
 
 export default function UnitConverter() {
     const [amount, setAmount] = useState("");
@@ -25,14 +25,14 @@ export default function UnitConverter() {
     };
 
     return (
-        <section className="flex flex-col py-10">
+        <section className="height flex flex-col justify-between items-start space-y-5 md:space-y-10 py-5 md:py-10">
             <article className="space-y-3">
                 <h1 className="text-2xl md:text-3xl font-semibold">Unit converter.</h1>
                 <p className="max-w-lg w-11/12">
                     This free conversion calculator converts between common units of measurement.
                 </p>
             </article>
-            <section className="my-10 space-y-5">
+            <section className="flex flex-col md:flex-row justify-between items-start md:items-center gap-5 md:gap-10 max-w-6xl">
                 <div className="flex flex-col gap-2">
                     <h2 className="text-sm font-semibold text-muted-foreground">From</h2>
                     <div className="flex gap-2">
@@ -51,6 +51,7 @@ export default function UnitConverter() {
                         />
                     </div>
                 </div>
+                <ArrowRightLeft size={16} className="mt-5" />
                 <div className="flex flex-col gap-2">
                     <h2 className="text-sm font-semibold text-muted-foreground">To</h2>
                     <div className="flex gap-2">

@@ -84,7 +84,7 @@ export default function CurrencyConverter() {
                         />
                     </div>
                 </div>
-                <ArrowRightLeft />
+                <ArrowRightLeft size={16} className="mt-5" />
                 <div className="flex flex-col gap-2">
                     <h2 className="text-sm font-semibold text-muted-foreground">To</h2>
                     <div className="flex gap-2">
