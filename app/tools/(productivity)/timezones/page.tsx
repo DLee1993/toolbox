@@ -26,6 +26,7 @@ export default function TimeZones() {
         name: "",
     });
 
+
     useEffect(() => {
         if (!currentTz) return;
         const label = currentTz?.value;
@@ -60,12 +61,12 @@ export default function TimeZones() {
     }, [tz]);
 
     return (
-        <section className="flex flex-col justify-start items-center py-10 space-y-20">
+        <section className="flex flex-col justify-start items-center py-10 space-y-14">
             <h1 className="text-2xl md:text-3xl font-semibold max-w-2xl text-center">
                 Never lose track of time — anywhere, any zone, any moment.{" "}
             </h1>
             <TimezoneSelect tz={tz} setTz={setTz} setCurrentTz={setCurrentTz} />
-            <section className="flex flex-col gap-10 w-11/12 sm:w-full">
+            <section className="flex flex-col gap-10">
                 {tz ? (
                     <section className="space-y-10">
                         <article className="space-y-2">
@@ -103,6 +104,7 @@ export default function TimeZones() {
                 ) : (
                     <section className="space-y-10">
                         <article className="space-y-2">
+                            <sup className="font-semibold">Current timezone</sup>
                             <h2 className="text-2xl font-bold">{currentTimezone.location}</h2>
                             <span className="flex space-x-5 text-sm">
                                 <p>{currentTimezone.date}</p>
