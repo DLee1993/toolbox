@@ -64,7 +64,7 @@ export default function Home() {
                         </div>
                     </article>
                 </div>
-                <section className="flex flex-wrap justify-center max-w-6xl">
+                <section className="flex flex-wrap justify-center max-w-6xl mx-auto">
                     {extendedArray.map((item) =>
                         item?.items.map((subItem: { [key: string]: string }, i: number) => (
                             <ToolLink tool={subItem} index={i} key={i} />
