@@ -22,7 +22,7 @@ import ChangeTheme from "@/components/global/ThemeToggle";
 
 export function AppSidebar() {
     const pathname = usePathname();
-    const { open, isMobile } = useSidebar();
+    const { open, isMobile, setOpen } = useSidebar();
 
     return (
         <Sidebar collapsible="icon">
@@ -57,6 +57,7 @@ export function AppSidebar() {
                                 tooltip="Dashboard"
                                 isActive={pathname === "/" ? true : false}
                                 className="min-h-9 min-w-9 hover:bg-muted"
+                                onClick={() => setOpen(false)}
                             >
                                 <Link
                                     href="/"
@@ -80,6 +81,7 @@ export function AppSidebar() {
                                 asChild
                                 tooltip="Request a tool"
                                 className="min-h-9 min-w-9 hover:bg-muted"
+                                onClick={() => setOpen(false)}
                             >
                                 <Link href="https://github.com/DLee1993/toolbox" target="_blank">
                                     <FolderGit2 size={15} className="ml-0.5" />
@@ -110,6 +112,7 @@ export function AppSidebar() {
                                         tooltip={item.title}
                                         isActive={pathname === item.url ? true : false}
                                         className="min-h-9 min-w-9 hover:bg-muted"
+                                        onClick={() => setOpen(false)}
                                     >
                                         <Link
                                             href={item.url}
