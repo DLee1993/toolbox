@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { GenerateCode } from "@/lib/credentials-generator/generate-credentials";
+import { GeneratePin } from "@/lib/credentials-generator/generate-credentials";
 import { TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -8,8 +8,15 @@ import SelectLength from "@/components/credentials-generator/SelectLength";
 import { CopyIcon, RefreshCcwIcon } from "lucide-react";
 
 export default function Pin() {
-    const [pcLength, setPcLength] = useState<number>(4);
+    const [pcLength, setPcLength] = useState<number>(6);
     const codeInput = useRef<HTMLInputElement>(null);
+
+    function GenerateCredentials(length: number) {
+        const pin = GeneratePin(length);
+        if (codeInput.current) {
+            codeInput.current.value = pin;
+        }
+    }
 
     return (
         <TabsContent value="code" className="h-80">
@@ -18,19 +25,14 @@ export default function Pin() {
                     readOnly
                     ref={codeInput}
                     name="code input"
-                    placeholder="49302"
+                    placeholder="493028"
                     className="min-h-20 !text-2xl text-center border-x-0 border-t-0 shadow-none"
                 ></Input>
                 <div className="w-full flex justify-between gap-2">
                     <SelectLength type="code" setPcLength={setPcLength} />
                     <Button
                         id="password"
-                        onClick={() =>
-                            GenerateCode({
-                                input: codeInput,
-                                length: pcLength,
-                            })
-                        }
+                        onClick={() => GenerateCredentials(pcLength)}
                         aria-label="click to generate code"
                         className="clickAnim w-fit flex-1"
                         type="button"

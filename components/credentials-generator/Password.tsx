@@ -11,12 +11,20 @@ export default function Password() {
     const [pwLength, setPwLength] = useState<number>(8);
     const passwordInput = useRef<HTMLInputElement>(null);
 
+    function generateCredentials(length: number) {
+        const password = GeneratePassword(length);
+        if (passwordInput.current) {
+            passwordInput.current.value = password;
+        }
+    }
+
     return (
         <TabsContent value="password" className="h-80">
             <div className="w-full h-full flex flex-col justify-center items-center max-w-2xl mx-auto space-y-28">
                 <Input
                     readOnly
                     ref={passwordInput}
+                    autoComplete="new-password"
                     name="password input"
                     placeholder="]-[vPW}~'1=>"
                     className="min-h-20 !text-2xl text-center border-x-0 border-t-0 shadow-none"
@@ -25,12 +33,7 @@ export default function Password() {
                     <SelectLength type="password" setPwLength={setPwLength} />
                     <Button
                         id="password"
-                        onClick={() =>
-                            GeneratePassword({
-                                input: passwordInput,
-                                length: pwLength,
-                            })
-                        }
+                        onClick={() => generateCredentials(pwLength)}
                         aria-label="click to generate password"
                         className="clickAnim w-fit flex-1"
                         type="button"
