@@ -16,7 +16,7 @@ interface LengthProps {
 
 export default function SelectLength({ type, setPwLength, setPcLength }: LengthProps) {
     const pwLengthOptions = Array.from({ length: 30 - 8 + 1 }, (_, i) => i + 8);
-    const pcLengthOptions = Array.from({ length: 16 - 4 + 1 }, (_, i) => i + 4);
+    const pcLengthOptions = Array.from({ length: 16 - 6 + 1 }, (_, i) => i + 6);
 
     return (
         <Select
