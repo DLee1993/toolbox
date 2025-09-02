@@ -1,52 +1,52 @@
-// generate a password
-export const GeneratePassword = ({
-    input,
-    length = 8,
-}: {
-    input: React.RefObject<HTMLInputElement | null>;
-    length?: number;
-}) => {
-    if (!input.current) {
-        console.log("not found");
-        return;
-    }
+export const GeneratePassword = (length: number = 12) => {
+    const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const lower = "abcdefghijklmnopqrstuvwxyz";
+    const digits = "0123456789";
+    const special = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
 
-    const password = Array.from({ length }, () => String.fromCharCode(getCharCode())).join("");
+    const allChars = upper + lower + digits + special;
 
-    input.current.value = password;
+    // Ensure at least one of each type
+    const required = [
+        randomChar(upper),
+        randomChar(lower),
+        randomChar(digits),
+        randomChar(special),
+    ];
 
-    return password;
+    const remainingLength = length - required.length;
+    const randomChars = Array.from({ length: remainingLength }, () => randomChar(allChars));
+
+    const passwordArray = [...required, ...randomChars];
+    shuffleArray(passwordArray);
+
+    return passwordArray.join("");
 };
 
 // Generate a pin code
-export const GenerateCode = ({
-    input,
-    length = 4,
-}: {
-    input: React.RefObject<HTMLInputElement | null>;
-    length?: number;
-}) => {
-    if (!input.current) return;
+export const GeneratePin = (length: number = 6) => {
 
-    const pin = Array.from({ length: Number(length) }, () => Math.floor(Math.random() * 10)).join(
-        ""
-    );
+    const digits = "0123456789";
+    let pin = "";
 
-    input.current.value = pin;
+    for (let i = 0; i < length; i++) {
+        const array = new Uint32Array(1);
+        crypto.getRandomValues(array);
+        pin += digits[array[0] % digits.length];
+    }
+
+    return pin;
 };
 
-// Pre-flatten the ranges into a single array
-const preFlattenedCharCodes = [
-    ...Array.from({ length: 10 }, (_, i) => 48 + i), // Numbers 0-9
-    ...Array.from({ length: 26 }, (_, i) => 65 + i), // Uppercase A-Z
-    ...Array.from({ length: 26 }, (_, i) => 97 + i), // Lowercase a-z
-    ...Array.from({ length: 15 }, (_, i) => 33 + i), // Special characters !"#$%&'()*+,-./
-    ...Array.from({ length: 7 }, (_, i) => 58 + i), // Special characters :;<=>?@
-    ...Array.from({ length: 6 }, (_, i) => 91 + i), // Special characters [\]^_`
-    ...Array.from({ length: 4 }, (_, i) => 123 + i), // Special characters {|}~
-];
+function randomChar(charset: string): string {
+    const array = new Uint32Array(1);
+    crypto.getRandomValues(array);
+    return charset[array[0] % charset.length];
+}
 
-// Generate a character
-function getCharCode() {
-    return preFlattenedCharCodes[Math.floor(Math.random() * preFlattenedCharCodes.length)];
+function shuffleArray(array: string[]) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor((crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32) * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
 }
