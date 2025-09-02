@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { ArrowDown } from "lucide-react";
 import { sidebarItems } from "@/components/global/navigation/app-sidebar-item-list";
-import Footer from "@/components/global/Footer";
 import ToolLink from "@/components/root/ToolLink";
 
 export default function Home() {
@@ -72,7 +71,6 @@ export default function Home() {
                     )}
                 </section>
             </section>
-            <Footer />
         </section>
     );
 }
