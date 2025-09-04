@@ -7,7 +7,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppSidebar } from "@/components/global/navigation/app-sidebar";
 import Header from "@/components/global/Header";
-import Footer from "@/components/global/Footer";
 
 const inter = Inter({
     weight: ["300", "400", "600", "700", "800"],
@@ -42,7 +41,6 @@ export default function RootLayout({
                             <div className="w-full relative">
                                 <Header />
                                 <main>{children}</main>
-                                <Footer />
                             </div>
                         </TooltipProvider>
                     </SidebarProvider>
