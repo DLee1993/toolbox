@@ -12,13 +12,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
-import {
     Table,
     TableBody,
     TableCell,
@@ -97,6 +90,9 @@ export function NotepadTable({
                     )}
                 </div>
             ),
+            meta: {
+                className: "hidden md:table-cell",
+            },
         },
         {
             accessorKey: "completed",
@@ -159,105 +155,134 @@ export function NotepadTable({
         },
     });
 
+    const pageCount = table.getPageCount(); // Total number of pages
+    const currentPage = table.getState().pagination.pageIndex;
+
+    const pageButtons = Array.from({ length: pageCount }, (_, i) => (
+        <Button
+            key={i}
+            onClick={() => table.setPageIndex(i)}
+            variant={currentPage === i ? "default" : "outline"}
+        >
+            {i + 1}
+        </Button>
+    ));
+
     return (
-        <div className="w-full">
-            <div className="flex flex-col-reverse sm:flex-row justify-between sm:items-center py-4 gap-4">
-                <Input
-                    placeholder="Filter by title..."
-                    value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-                    onChange={(event) =>
-                        table.getColumn("title")?.setFilterValue(event.target.value)
-                    }
-                    name="title filter"
-                    className="max-w-xs"
-                />
-                <div className="flex flex-1 sm:justify-between gap-2">
-                    <FilterCategory table={table} />
-                    <NewNote setCurrentNotes={setCurrentNotes} />
+        <section className="px-2">
+            <div className="w-full h-[80vh] sm:h-[85vh] overflow-y-scroll">
+                <div className="sticky top-0 py-4 gap-2 bg-background z-10 flex justify-between">
+                    <div className="flex gap-2">
+                        <Input
+                            placeholder="Filter by title..."
+                            value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+                            onChange={(event) =>
+                                table.getColumn("title")?.setFilterValue(event.target.value)
+                            }
+                            name="title filter"
+                            className="w-36"
+                        />
+                        <FilterCategory table={table} />
+                        <NewNote setCurrentNotes={setCurrentNotes} />
+                    </div>
+                    <section className="hidden sm:flex flex-wrap justify-between items-center gap-2">
+                        <div className="flex justify-center items-center space-x-2">
+                            <p className="text-sm text-muted-foreground flex gap-2">
+                                {table.getState().pagination.pageIndex + 1}
+                                <span>of</span>
+                                {table.getPageCount()}
+                            </p>
+                            <Button
+                                variant="outline"
+                                onClick={() => table.previousPage()}
+                                disabled={!table.getCanPreviousPage()}
+                                aria-label="previous page"
+                            >
+                                <ChevronsLeft />
+                            </Button>
+                            {pageButtons}
+                            <Button
+                                variant="outline"
+                                onClick={() => table.nextPage()}
+                                disabled={!table.getCanNextPage()}
+                                aria-label="next page"
+                            >
+                                <ChevronsRight />
+                            </Button>
+                        </div>
+                    </section>
                 </div>
-            </div>
-            <div className="rounded-md border mt-5 sm:mt-0">
-                <Table>
-                    <TableHeader>
-                        {table.getHeaderGroups().map((headerGroup) => (
-                            <TableRow key={headerGroup.id}>
-                                {headerGroup.headers.map((header) => {
-                                    return (
-                                        <TableHead
-                                            key={header.id}
-                                            className={cn(
-                                                header.column.columnDef.meta?.className,
-                                                "font-semibold"
-                                            )}
-                                        >
-                                            {header.isPlaceholder
-                                                ? null
-                                                : flexRender(
-                                                      header.column.columnDef.header,
-                                                      header.getContext()
-                                                  )}
-                                        </TableHead>
-                                    );
-                                })}
-                            </TableRow>
-                        ))}
-                    </TableHeader>
-                    <TableBody>
-                        {table.getRowModel().rows?.length ? (
-                            table.getRowModel().rows.map((row) => (
-                                <TableRow
-                                    key={row.id}
-                                    data-state={row.getIsSelected() && "selected"}
-                                >
-                                    {row.getVisibleCells().map((cell) => (
-                                        <TableCell
-                                            key={cell.id}
-                                            className={cn(
-                                                cell.column.columnDef.meta?.className,
-                                                ""
-                                            )}
-                                        >
-                                            {flexRender(
-                                                cell.column.columnDef.cell,
-                                                cell.getContext()
-                                            )}
-                                        </TableCell>
-                                    ))}
+                <div>
+                    <Table>
+                        <TableHeader>
+                            {table.getHeaderGroups().map((headerGroup) => (
+                                <TableRow key={headerGroup.id}>
+                                    {headerGroup.headers.map((header) => {
+                                        return (
+                                            <TableHead
+                                                key={header.id}
+                                                className={cn(
+                                                    header.column.columnDef.meta?.className,
+                                                    "border-y-0"
+                                                )}
+                                            >
+                                                {header.isPlaceholder
+                                                    ? null
+                                                    : flexRender(
+                                                          header.column.columnDef.header,
+                                                          header.getContext()
+                                                      )}
+                                            </TableHead>
+                                        );
+                                    })}
                                 </TableRow>
-                            ))
-                        ) : (
-                            <TableRow>
-                                <TableCell colSpan={columns.length} className="h-24 text-center">
-                                    No notes found.
-                                </TableCell>
-                            </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
-            </div>
-            <section className="flex flex-wrap justify-between items-center mt-7 gap-2">
-                <div className="hidden md:flex items-center gap-2 text-sm">
-                    <p>rows per page</p>
-                    <Select
-                        value={`${table.getState().pagination.pageSize}`}
-                        onValueChange={(value) => {
-                            table.setPageSize(Number(value));
-                        }}
-                    >
-                        <SelectTrigger className="w-[70px]">
-                            <SelectValue placeholder={table.getState().pagination.pageSize} />
-                        </SelectTrigger>
-                        <SelectContent side="top">
-                            {[10, 20, 30, 40, 50].map((pageSize) => (
-                                <SelectItem key={pageSize} value={`${pageSize}`}>
-                                    {pageSize}
-                                </SelectItem>
                             ))}
-                        </SelectContent>
-                    </Select>
+                        </TableHeader>
+                        <TableBody>
+                            {table.getRowModel().rows?.length ? (
+                                table.getRowModel().rows.map((row) => (
+                                    <TableRow
+                                        key={row.id}
+                                        data-state={row.getIsSelected() && "selected"}
+                                    >
+                                        {row.getVisibleCells().map((cell) => (
+                                            <TableCell
+                                                key={cell.id}
+                                                className={cn(
+                                                    cell.column.columnDef.meta?.className,
+                                                    ""
+                                                )}
+                                            >
+                                                {flexRender(
+                                                    cell.column.columnDef.cell,
+                                                    cell.getContext()
+                                                )}
+                                            </TableCell>
+                                        ))}
+                                    </TableRow>
+                                ))
+                            ) : (
+                                <TableRow>
+                                    <TableCell
+                                        colSpan={columns.length}
+                                        className="h-24 text-center"
+                                    >
+                                        No notes found.
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
                 </div>
-                {/* PAGINATION SECTION  */}
+            </div>
+            {/* PAGINATION SECTION  */}
+            <section className="flex flex-wrap justify-between items-center gap-2 py-1 sm:hidden border-t border-border">
                 <div className="flex justify-center items-center space-x-2">
+                    <p className="text-sm text-muted-foreground flex gap-2">
+                        {table.getState().pagination.pageIndex + 1}
+                        <span>of</span>
+                        {table.getPageCount()}
+                    </p>
                     <Button
                         variant="outline"
                         onClick={() => table.previousPage()}
@@ -266,11 +291,7 @@ export function NotepadTable({
                     >
                         <ChevronsLeft />
                     </Button>
-                    <p className="text-sm text-muted-foreground flex gap-2">
-                        {table.getState().pagination.pageIndex + 1}
-                        <span>of</span>
-                        {table.getPageCount()}
-                    </p>
+                    {pageButtons}
                     <Button
                         variant="outline"
                         onClick={() => table.nextPage()}
@@ -281,6 +302,6 @@ export function NotepadTable({
                     </Button>
                 </div>
             </section>
-        </div>
+        </section>
     );
 }

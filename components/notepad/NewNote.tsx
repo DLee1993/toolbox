@@ -62,7 +62,7 @@ export default function NewNote({
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
                 <Button className="w-fit hover:bg-foreground hover:text-background">
-                    New Note <PlusIcon />
+                    <span className="hidden sm:block">New Note</span> <PlusIcon />
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">

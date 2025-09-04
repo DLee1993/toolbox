@@ -33,7 +33,7 @@ export default function FilterCategory({ table }: { table: Table<NotepadNoteValu
                 value={(table.getColumn("category")?.getFilterValue() as string) ?? "All"}
                 name="category filter"
             >
-                <SelectTrigger className="w-[150px]">
+                <SelectTrigger className="w-[75px]">
                     <SelectValue placeholder="Filter by Category" />
                 </SelectTrigger>
                 <SelectContent>
@@ -54,7 +54,7 @@ export default function FilterCategory({ table }: { table: Table<NotepadNoteValu
                         className="cursor-pointer text-sm"
                         onClick={() => table.getColumn("category")?.setFilterValue(undefined)}
                     >
-                        Reset
+                        <span className="hidden sm:block">Reset</span>
                         <CircleX />
                     </Button>
                 )}
