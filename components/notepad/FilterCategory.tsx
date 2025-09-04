@@ -40,7 +40,7 @@ export default function FilterCategory({ table }: { table: Table<NotepadNoteValu
                     <SelectGroup>
                         <SelectLabel>Categories</SelectLabel>
                         {cats.map((cat: NotepadCategoryValues) => (
-                            <SelectItem key={cat.categoryName} value={cat.categoryName}>
+                            <SelectItem key={cat.categoryName} value={cat.categoryName} className="hover:bg-muted-foreground cursor-pointer">
                                 {cat.categoryName}
                             </SelectItem>
                         ))}

@@ -52,12 +52,6 @@ export function NotepadTable({
         pageIndex: 0, //initial page index
         pageSize: 10, //default page size
     });
-
-    function deleteData(id: string) {
-        const updatedNotes = deleteNote(id);
-        setCurrentNotes(updatedNotes);
-    }
-
     const columns: ColumnDef<NotepadNoteValues>[] = [
         {
             accessorKey: "title",
@@ -133,7 +127,6 @@ export function NotepadTable({
             },
         },
     ];
-
     const table = useReactTable({
         data: data.sort(
             (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
@@ -167,6 +160,11 @@ export function NotepadTable({
             {i + 1}
         </Button>
     ));
+
+    function deleteData(id: string) {
+        const updatedNotes = deleteNote(id);
+        setCurrentNotes(updatedNotes);
+    }
 
     return (
         <section className="px-2">
