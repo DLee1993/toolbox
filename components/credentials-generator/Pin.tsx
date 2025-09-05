@@ -41,13 +41,13 @@ export default function Pin() {
                 </InputOTP>
 
                 {/* Password Controls */}
-                <div className="flex gap-2">
+                <div className="flex gap-4">
                     <SelectLength type="code" pcLength={pcLength} setPcLength={setPcLength} />
                     <Button
                         id="code"
                         onClick={() => GenerateCredentials(pcLength)}
                         aria-label="click to generate password"
-                        className="clickAnim w-fit"
+                        className="clickAnim w-40"
                         type="button"
                     >
                         Generate <RefreshCcwIcon />
@@ -56,10 +56,10 @@ export default function Pin() {
                         className="clickAnim w-fit"
                         variant="outline"
                         onClick={() => Copy({ input: codeInput || "" })}
-                        aria-label="click to copy password"
+                        aria-label="click to copy pin code"
                         type="button"
                     >
-                        Copy <CopyIcon size={16} />
+                        <CopyIcon size={16} />
                     </Button>
                 </div>
             </div>

@@ -5,11 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Copy } from "@/lib/global/copy-to-clipboard";
 import SelectLength from "@/components/credentials-generator/SelectLength";
 import { CopyIcon, RefreshCcwIcon } from "lucide-react";
-import {
-    InputOTP,
-    InputOTPGroup,
-    InputOTPSlot,
-} from "@/components/ui/input-otp";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 
 export default function Password() {
     const [pwLength, setPwLength] = useState<number>(8);
@@ -45,13 +41,13 @@ export default function Password() {
                 </InputOTP>
 
                 {/* Password Controls */}
-                <div className="flex gap-2">
+                <div className="flex gap-4">
                     <SelectLength type="password" pwLength={pwLength} setPwLength={setPwLength} />
                     <Button
                         id="password"
                         onClick={() => GenerateCredentials(pwLength)}
                         aria-label="click to generate password"
-                        className="clickAnim w-fit"
+                        className="clickAnim w-40"
                         type="button"
                     >
                         Generate <RefreshCcwIcon />
@@ -63,7 +59,7 @@ export default function Password() {
                         aria-label="click to copy password"
                         type="button"
                     >
-                        Copy <CopyIcon size={16} />
+                        <CopyIcon size={16} />
                     </Button>
                 </div>
             </div>
