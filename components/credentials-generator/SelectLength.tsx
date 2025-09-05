@@ -10,19 +10,19 @@ import {
 
 interface LengthProps {
     type: string;
+    pwLength?: number;
+    pcLength?: number;
     setPwLength?: React.Dispatch<React.SetStateAction<number>>;
     setPcLength?: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function SelectLength({ type, setPwLength, setPcLength }: LengthProps) {
+export default function SelectLength({ type, pwLength, pcLength, setPwLength, setPcLength }: LengthProps) {
     const pwLengthOptions = Array.from({ length: 30 - 8 + 1 }, (_, i) => i + 8);
     const pcLengthOptions = Array.from({ length: 16 - 6 + 1 }, (_, i) => i + 6);
 
     return (
         <Select
-            defaultValue={
-                type === "password" ? pwLengthOptions[0].toString() : pcLengthOptions[0].toString()
-            }
+            defaultValue={type === "password" ? pwLength?.toString() : pcLength?.toString()}
             onValueChange={(value) => {
                 if (type === "password" && setPwLength) {
                     setPwLength(Number(value));

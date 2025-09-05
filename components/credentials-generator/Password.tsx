@@ -1,41 +1,57 @@
-import { useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { GeneratePassword } from "@/lib/credentials-generator/generate-credentials";
 import { TabsContent } from "@/components/ui/tabs";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Copy } from "@/lib/global/copy-to-clipboard";
 import SelectLength from "@/components/credentials-generator/SelectLength";
 import { CopyIcon, RefreshCcwIcon } from "lucide-react";
+import {
+    InputOTP,
+    InputOTPGroup,
+    InputOTPSlot,
+} from "@/components/ui/input-otp";
 
 export default function Password() {
     const [pwLength, setPwLength] = useState<number>(8);
-    const passwordInput = useRef<HTMLInputElement>(null);
+    const [passwordInput, setPasswordInput] = useState<string>("");
+    const inputs = Array.from({ length: pwLength }, (_, i) => passwordInput[i] || "");
 
-    function generateCredentials(length: number) {
+    function GenerateCredentials(length: number) {
         const password = GeneratePassword(length);
-        if (passwordInput.current) {
-            passwordInput.current.value = password;
+        if (password) {
+            setPasswordInput(password);
         }
     }
 
+    useEffect(() => {
+        setPasswordInput("");
+    }, [pwLength]);
+
     return (
-        <TabsContent value="password" className="h-80">
-            <div className="w-full h-full flex flex-col justify-center items-center max-w-2xl mx-auto space-y-28">
-                <Input
-                    readOnly
-                    ref={passwordInput}
-                    autoComplete="new-password"
-                    name="password input"
-                    placeholder="]-[vPW}~'1=>"
-                    className="min-h-20 !text-2xl text-center border-x-0 border-t-0 shadow-none"
-                ></Input>
-                <div className="w-full flex justify-between gap-2">
-                    <SelectLength type="password" setPwLength={setPwLength} />
+        <TabsContent value="password">
+            <div className="min-h-80 flex flex-col justify-center items-center max-w-[550px] mx-auto space-y-20">
+                <InputOTP maxLength={pwLength} readOnly value={passwordInput}>
+                    <InputOTPGroup className="gap-1 flex flex-wrap justify-center">
+                        {inputs.map((char, index) => (
+                            <InputOTPSlot
+                                index={index}
+                                key={index}
+                                className="border h-12 w-12 rounded text-lg font-medium"
+                            >
+                                {char}
+                            </InputOTPSlot>
+                        ))}
+                    </InputOTPGroup>
+                </InputOTP>
+
+                {/* Password Controls */}
+                <div className="flex gap-2">
+                    <SelectLength type="password" pwLength={pwLength} setPwLength={setPwLength} />
                     <Button
                         id="password"
-                        onClick={() => generateCredentials(pwLength)}
+                        onClick={() => GenerateCredentials(pwLength)}
                         aria-label="click to generate password"
-                        className="clickAnim w-fit flex-1"
+                        className="clickAnim w-fit"
                         type="button"
                     >
                         Generate <RefreshCcwIcon />
@@ -43,7 +59,7 @@ export default function Password() {
                     <Button
                         className="clickAnim w-fit"
                         variant="outline"
-                        onClick={() => Copy({ input: passwordInput.current?.value || "" })}
+                        onClick={() => Copy({ input: passwordInput || "" })}
                         aria-label="click to copy password"
                         type="button"
                     >

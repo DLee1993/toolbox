@@ -1,40 +1,53 @@
-import { useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { GeneratePin } from "@/lib/credentials-generator/generate-credentials";
 import { TabsContent } from "@/components/ui/tabs";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Copy } from "@/lib/global/copy-to-clipboard";
 import SelectLength from "@/components/credentials-generator/SelectLength";
 import { CopyIcon, RefreshCcwIcon } from "lucide-react";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 
 export default function Pin() {
     const [pcLength, setPcLength] = useState<number>(6);
-    const codeInput = useRef<HTMLInputElement>(null);
+    const [codeInput, setCodeInput] = useState<string>("");
+    const inputs = Array.from({ length: pcLength }, (_, i) => codeInput[i] || "");
 
     function GenerateCredentials(length: number) {
         const pin = GeneratePin(length);
-        if (codeInput.current) {
-            codeInput.current.value = pin;
+        if (pin) {
+            setCodeInput(pin);
         }
     }
 
+    useEffect(() => {
+        setCodeInput("");
+    }, [pcLength]);
+
     return (
-        <TabsContent value="code" className="h-80">
-            <div className="w-full h-full flex flex-col justify-center items-center max-w-2xl mx-auto space-y-28">
-                <Input
-                    readOnly
-                    ref={codeInput}
-                    name="code input"
-                    placeholder="493028"
-                    className="min-h-20 !text-2xl text-center border-x-0 border-t-0 shadow-none"
-                ></Input>
-                <div className="w-full flex justify-between gap-2">
-                    <SelectLength type="code" setPcLength={setPcLength} />
+        <TabsContent value="code">
+            <div className="min-h-80 flex flex-col justify-center items-center max-w-[450px] mx-auto space-y-20">
+                <InputOTP maxLength={pcLength} readOnly value={codeInput}>
+                    <InputOTPGroup className="gap-1 flex flex-wrap justify-center">
+                        {inputs.map((char, index) => (
+                            <InputOTPSlot
+                                index={index}
+                                key={index}
+                                className="border h-12 w-12 rounded text-lg font-medium"
+                            >
+                                {char}
+                            </InputOTPSlot>
+                        ))}
+                    </InputOTPGroup>
+                </InputOTP>
+
+                {/* Password Controls */}
+                <div className="flex gap-2">
+                    <SelectLength type="code" pcLength={pcLength} setPcLength={setPcLength} />
                     <Button
-                        id="password"
+                        id="code"
                         onClick={() => GenerateCredentials(pcLength)}
-                        aria-label="click to generate code"
-                        className="clickAnim w-fit flex-1"
+                        aria-label="click to generate password"
+                        className="clickAnim w-fit"
                         type="button"
                     >
                         Generate <RefreshCcwIcon />
@@ -42,8 +55,8 @@ export default function Pin() {
                     <Button
                         className="clickAnim w-fit"
                         variant="outline"
-                        onClick={() => Copy({ input: codeInput.current?.value || "" })}
-                        aria-label="click to copy code"
+                        onClick={() => Copy({ input: codeInput || "" })}
+                        aria-label="click to copy password"
                         type="button"
                     >
                         Copy <CopyIcon size={16} />
