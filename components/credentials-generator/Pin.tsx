@@ -25,14 +25,14 @@ export default function Pin() {
 
     return (
         <TabsContent value="code">
-            <div className="min-h-80 flex flex-col justify-center items-center max-w-[450px] mx-auto space-y-20">
+            <div className="min-h-80 w-11/12 flex flex-col justify-around items-center mx-auto py-2 space-y-16">
                 <InputOTP maxLength={pcLength} readOnly value={codeInput}>
                     <InputOTPGroup className="gap-1 flex flex-wrap justify-center">
                         {inputs.map((char, index) => (
                             <InputOTPSlot
                                 index={index}
                                 key={index}
-                                className="border h-12 w-12 rounded text-lg font-medium"
+                                className="border h-14 w-14 rounded text-lg font-medium"
                             >
                                 {char}
                             </InputOTPSlot>

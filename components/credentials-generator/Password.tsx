@@ -25,20 +25,20 @@ export default function Password() {
 
     return (
         <TabsContent value="password">
-            <div className="min-h-80 flex flex-col justify-center items-center max-w-[550px] mx-auto space-y-20">
+            <div className="min-h-80 w-11/12 flex flex-col justify-around items-center mx-auto py-2 space-y-16">
                 <InputOTP maxLength={pwLength} readOnly value={passwordInput}>
-                    <InputOTPGroup className="gap-1 flex flex-wrap justify-center">
+                    <InputOTPGroup className="flex flex-wrap justify-center items-center gap-1">
                         {inputs.map((char, index) => (
                             <InputOTPSlot
                                 index={index}
                                 key={index}
-                                className="border h-12 w-12 rounded text-lg font-medium"
+                                className="border h-14 w-14 rounded text-lg font-medium"
                             >
                                 {char}
                             </InputOTPSlot>
                         ))}
                     </InputOTPGroup>
-                </InputOTP>
+                </InputOTP> 
 
                 {/* Password Controls */}
                 <div className="flex gap-4">
