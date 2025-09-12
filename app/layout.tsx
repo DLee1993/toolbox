@@ -19,7 +19,7 @@ const azeretMono = Azeret_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "Toolbox | Tools for everyone",
+    title: "Your Digital Toolbox",
     description: "A hub for essential tools",
     icons: {
         icon: "/images/logo.svg",
