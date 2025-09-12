@@ -303,10 +303,7 @@ export default function FileConverterDropzone() {
                                     </div>
                                 ) : (
                                     <div className="space-y-2 flex flex-col justify-center items-center text-center">
-                                        <h1 className="text-2xl font-semibold">
-                                            Free, Unlimited File converter
-                                        </h1>
-                                        <p className="text-sm">Drop your files here</p>
+                                        <h1 className="text-sm">Drop your files here to start</h1>
                                     </div>
                                 )}
                             </article>
