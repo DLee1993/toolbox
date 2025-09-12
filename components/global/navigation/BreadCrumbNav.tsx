@@ -66,7 +66,7 @@ export default function BreadCrumbNav() {
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
-                        <BreadcrumbPage className="capitalize">{slug}</BreadcrumbPage>
+                        <BreadcrumbPage className="capitalize">{slug.split("-").join(" ")}</BreadcrumbPage>
                     </BreadcrumbItem>
                 </BreadcrumbList>
             )}
