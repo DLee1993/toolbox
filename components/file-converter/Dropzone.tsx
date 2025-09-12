@@ -1,28 +1,29 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-// imports
 import { useState, useEffect, useRef, useCallback } from "react";
 import { NotifyUser } from "@/lib/global/NotifyUser";
-
-// import loadFfmpeg from "@/lib/file-conversion/load-ffmpeg";
 import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { toBlobURL } from "@ffmpeg/util";
 import ReactDropzone from "react-dropzone";
 import bytesToSize from "@/lib/file-conversion/bites-to-size";
-import fileToIcon from "@/lib/file-conversion/file-to-icon";
 import convertFile from "@/lib/file-conversion/convert";
 import compressFileName from "@/lib/file-conversion/compress-filename";
-
-import { FiUploadCloud } from "react-icons/fi";
-import { LuFileSymlink } from "react-icons/lu";
-import { MdDone } from "react-icons/md";
-import { HiOutlineDownload } from "react-icons/hi";
-import { BiError } from "react-icons/bi";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import {
+    FiClock,
+    FiCheckCircle,
+    FiAlertCircle,
+    FiDownload,
+    FiSend,
+    FiTrash,
+    FiMinus,
+} from "react-icons/fi";
+
 import {
     Select,
     SelectContent,
@@ -31,8 +32,24 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { Download, Trash } from "lucide-react";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table";
 
 const extensions = {
     image: ["jpg", "jpeg", "png", "gif", "bmp", "webp", "ico", "tif", "tiff", "svg", "raw", "tga"],
@@ -162,24 +179,25 @@ export default function FileConverterDropzone() {
 
     const handleUpload = (data: Array<any>): void => {
         handleExitHover();
-        setFiles(data);
 
-        const tmp: Action[] = [];
+        // Append new files to existing ones
+        setFiles((prev) => [...prev, ...data]);
 
-        data.forEach((file: any) => {
-            tmp.push({
-                file_name: file.name,
-                file_size: file.size,
-                from: file.name.slice(((file.name.lastIndexOf(".") - 1) >>> 0) + 2),
-                to: null,
-                file_type: file.type,
-                file,
-                is_converted: false,
-                is_converting: false,
-                is_error: false,
-            });
-        });
-        setActions(tmp);
+        // Generate new actions from uploaded files
+        const newActions: Action[] = data.map((file: any) => ({
+            file_name: file.name,
+            file_size: file.size,
+            from: file.name.slice(((file.name.lastIndexOf(".") - 1) >>> 0) + 2),
+            to: null,
+            file_type: file.type,
+            file,
+            is_converted: false,
+            is_converting: false,
+            is_error: false,
+        }));
+
+        // Append new actions to existing ones
+        setActions((prev) => [...prev, ...newActions]);
     };
 
     const handleHover = (): void => setIsHover(true);
@@ -244,67 +262,101 @@ export default function FileConverterDropzone() {
         setIsLoaded(true);
     };
 
-    // returns
-    if (actions.length) {
-        return (
-            <section className="space-y-10 py-5">
-                <div className="flex justify-end">
-                    {is_done ? (
-                        <div className="flex gap-4 w-fit">
-                            {actions.length > 1 && (
-                                <Button onClick={downloadAll}>
-                                    Download All
-                                    <HiOutlineDownload />
-                                </Button>
-                            )}
-                            <Button onClick={reset} variant="outline">
-                                Convert Another File(s)
-                            </Button>
-                        </div>
-                    ) : (
-                        <Button disabled={!is_ready || is_converting} onClick={convert}>
-                            {is_converting ? <span>Please wait</span> : <span>Convert</span>}
-                        </Button>
-                    )}
-                </div>
-                <section className="px-1 overflow-y-auto space-y-2">
-                    {actions.map((action: Action, i: any) => (
+    return (
+        <section className="space-y-5 py-2 px-4">
+            {/* Files Dropzone */}
+            <section className="flex justify-center items-center">
+                <ReactDropzone
+                    onDrop={handleUpload}
+                    onDragEnter={handleHover}
+                    onDragLeave={handleExitHover}
+                    accept={accepted_files}
+                    onDropRejected={() => {
+                        handleExitHover();
+                        NotifyUser({
+                            type: "destructive",
+                            message:
+                                "Error uploading your file(s), Allowed Files: Audio, Video and Images.",
+                        });
+                    }}
+                    onError={() => {
+                        handleExitHover();
+                        NotifyUser({
+                            type: "destructive",
+                            message:
+                                "Error uploading your file(s), Allowed Files: Audio, Video and Images.",
+                        });
+                    }}
+                >
+                    {({ getRootProps, getInputProps }) => (
                         <div
-                            key={i}
-                            className="flex flex-wrap justify-between items-center border border-border mx-auto py-5 px-3 gap-10 md:gap-0 text-sm rounded-lg shadow-sm"
+                            {...getRootProps()}
+                            className="w-full h-80 flex justify-center items-center cursor-pointer border border-dashed border-muted-foreground rounded-sm"
                         >
-                            {!is_loaded && (
-                                <Skeleton className="h-full w-full -ml-10 cursor-progress absolute rounded-xl" />
-                            )}
-                            <div className="flex gap-4 items-center text-sm">
-                                <span className="text-teal-600">
-                                    {fileToIcon(action.file_type)}
-                                </span>
-                                <span>{compressFileName(action.file_name)}</span>
-                                <span className="text-muted-foreground">
-                                    ({bytesToSize(action.file_size)})
-                                </span>
-                            </div>
+                            <input {...getInputProps()} />
 
-                            {action.is_error && (
-                                <Badge variant="destructive" className="flex gap-2">
-                                    <span>Conversion Failed</span>
-                                    <BiError />
-                                </Badge>
-                            )}
-                            {action.is_converting && (
-                                <Badge variant="default" className="flex gap-2">
-                                    <span>Converting</span>
-                                </Badge>
-                            )}
-                            {action.is_converted && (
-                                <Badge variant="default" className="flex gap-2 bg-teal-600">
-                                    <span>Done</span>
-                                    <MdDone />
-                                </Badge>
-                            )}
-
-                            <div className="flex justify-center items-center gap-2">
+                            <article className="h-full flex flex-col justify-evenly items-center">
+                                {is_hover ? (
+                                    <div>
+                                        <FiSend className="text-2xl" />
+                                        <h3>Send it</h3>
+                                    </div>
+                                ) : (
+                                    <div className="space-y-2 flex flex-col justify-center items-center text-center">
+                                        <h1 className="text-2xl font-semibold">
+                                            Free, Unlimited File converter
+                                        </h1>
+                                        <p className="text-sm">Drop your files here</p>
+                                    </div>
+                                )}
+                            </article>
+                        </div>
+                    )}
+                </ReactDropzone>
+            </section>
+            {/* CTA */}
+            <div className="flex justify-end">
+                <div className="w-full min-[500px]:w-fit flex justify-center items-center gap-4">
+                    <Button size="sm" variant="destructive" onClick={reset} disabled={!is_done}>
+                        Clear
+                    </Button>
+                    <Button size="sm" onClick={downloadAll} disabled={!is_done}>
+                        Download All
+                        <FiDownload />
+                    </Button>
+                    <Button size="sm" disabled={!is_ready || is_converting} onClick={convert}>
+                        <span>Convert All</span>
+                    </Button>
+                </div>
+            </div>
+            {/* File table / conversion selector */}
+            {!is_loaded && (
+                <Skeleton className="h-full w-full -ml-10 cursor-progress absolute rounded-xl" />
+            )}
+            <Table>
+                {actions.length < 1 && <TableCaption>Add a file to start</TableCaption>}
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>Filename</TableHead>
+                        <TableHead className="hidden sm:table-cell">Type</TableHead>
+                        <TableHead className="hidden sm:table-cell">Convert to</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead className="text-right">Action</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {actions.map((action: Action, i: number) => (
+                        <TableRow key={i}>
+                            <TableCell className="flex flex-col space-y-2">
+                                <span className="font-semibold">
+                                    {compressFileName(action.file_name)}
+                                </span>
+                                <sub> ({bytesToSize(action.file_size)})</sub>
+                            </TableCell>
+                            <TableCell className="hidden sm:table-cell">
+                                {action.file_type.split("/")[0]}
+                            </TableCell>
+                            <TableCell className="hidden sm:table-cell">
                                 {action.file_type.includes("image") && (
                                     <ImageSelect action={action} updateAction={updateAction} />
                                 )}
@@ -314,81 +366,167 @@ export default function FileConverterDropzone() {
                                 {action.file_type.includes("audio") && (
                                     <AudioSelect action={action} updateAction={updateAction} />
                                 )}
-                                <Button
-                                    variant="outline"
-                                    aria-label="download converted file"
-                                    disabled={!action.is_converted}
-                                    onClick={() => download(action)}
-                                >
-                                    <Download />
-                                </Button>
-                                <Button
-                                    variant="destructive"
-                                    aria-label="remove converted file"
-                                    onClick={() => deleteAction(action)}
-                                >
-                                    <Trash size={18} />
-                                </Button>
-                            </div>
-                        </div>
+                            </TableCell>
+                            <TableCell>
+                                {(!action.is_error &&
+                                    !action.is_converting &&
+                                    !action.is_converted) && (
+                                    <Badge variant="default" className="w-fit flex gap-2">
+                                        <span className="hidden sm:block">Pending</span>
+                                        <FiMinus />
+                                    </Badge>
+                                )}
+                                {action.is_error && (
+                                    <Badge variant="destructive" className="w-fit flex gap-2">
+                                        <span className="hidden sm:block">Failed</span>
+                                        <FiAlertCircle />
+                                    </Badge>
+                                )}
+                                {action.is_converting && (
+                                    <Badge variant="default" className="w-fit flex gap-2">
+                                        <span className="hidden sm:block">Converting</span>
+                                        <FiClock />
+                                    </Badge>
+                                )}
+                                {action.is_converted && (
+                                    <Badge
+                                        variant="default"
+                                        className="w-fit flex gap-2 bg-teal-600"
+                                    >
+                                        <span className="hidden sm:block">Completed</span>
+                                        <FiCheckCircle />
+                                    </Badge>
+                                )}
+                            </TableCell>
+                            <TableCell className="w-10 text-center">
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger aria-label="click to open actions menu">
+                                        <span>...</span>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent>
+                                        <DropdownMenuGroup className="space-y-1">
+                                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                            <DropdownMenuSeparator />
+                                            <DropdownMenuItem
+                                                aria-label="Download File"
+                                                onClick={() => download(action)}
+                                                className="flex justify-between items-center"
+                                            >
+                                                <span>Download file</span>
+                                                <FiDownload />
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem
+                                                aria-label="Delete File"
+                                                onClick={() => deleteAction(action)}
+                                                className="flex justify-between items-center bg-destructive text-destructive-foreground"
+                                            >
+                                                <span>Delete file</span>
+                                                <FiTrash />
+                                            </DropdownMenuItem>
+                                        </DropdownMenuGroup>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuGroup className="sm:hidden">
+                                            <DropdownMenuLabel>Convert to</DropdownMenuLabel>
+                                            <DropdownMenuItem className="focus:bg-transparent">
+                                                {action.file_type.includes("image") && (
+                                                    <ul className="grid grid-cols-4 w-60 gap-1">
+                                                        {extensions.image
+                                                            .filter(
+                                                                (elt) =>
+                                                                    elt !==
+                                                                    action.file_type.split("/")[1]
+                                                            )
+                                                            .map((elt, i) => (
+                                                                <li
+                                                                    key={i}
+                                                                    value={elt}
+                                                                    onClick={() =>
+                                                                        updateAction(
+                                                                            action.file_name,
+                                                                            elt
+                                                                        )
+                                                                    }
+                                                                    aria-label={`click to select ${elt}`}
+                                                                    className={`w-14 h-8 flex justify-center items-center uppercase text-xs rounded-sm border-[1px] border-border ${
+                                                                        elt === action.to
+                                                                            ? "bg-foreground text-background"
+                                                                            : "bg-card hover:bg-muted"
+                                                                    }`}
+                                                                >
+                                                                    {elt}
+                                                                </li>
+                                                            ))}
+                                                    </ul>
+                                                )}
+                                                {action.file_type.includes("video") && (
+                                                    <ul className="grid grid-cols-4 w-60 gap-1">
+                                                        {extensions.video
+                                                            .filter(
+                                                                (elt) =>
+                                                                    elt !==
+                                                                    action.file_type.split("/")[1]
+                                                            )
+                                                            .map((elt, i) => (
+                                                                <li
+                                                                    key={i}
+                                                                    value={elt}
+                                                                    onClick={() =>
+                                                                        updateAction(
+                                                                            action.file_name,
+                                                                            elt
+                                                                        )
+                                                                    }
+                                                                    aria-label={`click to select ${elt}`}
+                                                                    className={`w-14 h-8 flex justify-center items-center uppercase text-xs rounded-sm border-[1px] border-border ${
+                                                                        elt === action.to
+                                                                            ? "bg-foreground text-background"
+                                                                            : "bg-card hover:bg-muted"
+                                                                    }`}
+                                                                >
+                                                                    {elt}
+                                                                </li>
+                                                            ))}
+                                                    </ul>
+                                                )}
+                                                {action.file_type.includes("audio") && (
+                                                    <ul className="grid grid-cols-4 w-60 gap-1">
+                                                        {extensions.audio
+                                                            .filter(
+                                                                (elt) =>
+                                                                    elt !==
+                                                                    action.file_type.split("/")[1]
+                                                            )
+                                                            .map((elt, i) => (
+                                                                <li
+                                                                    key={i}
+                                                                    value={elt}
+                                                                    onClick={() =>
+                                                                        updateAction(
+                                                                            action.file_name,
+                                                                            elt
+                                                                        )
+                                                                    }
+                                                                    aria-label={`click to select ${elt}`}
+                                                                    className={`w-14 h-8 flex justify-center items-center uppercase text-xs rounded-sm border-[1px] border-border ${
+                                                                        elt === action.to
+                                                                            ? "bg-foreground text-background"
+                                                                            : "bg-card hover:bg-muted"
+                                                                    }`}
+                                                                >
+                                                                    {elt}
+                                                                </li>
+                                                            ))}
+                                                    </ul>
+                                                )}
+                                            </DropdownMenuItem>
+                                        </DropdownMenuGroup>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            </TableCell>
+                        </TableRow>
                     ))}
-                </section>
-            </section>
-        );
-    }
-
-    return (
-        <section className="p-3 flex justify-center items-center">
-            <ReactDropzone
-                onDrop={handleUpload}
-                onDragEnter={handleHover}
-                onDragLeave={handleExitHover}
-                accept={accepted_files}
-                onDropRejected={() => {
-                    handleExitHover();
-                    NotifyUser({
-                        type: "destructive",
-                        message:
-                            "Error uploading your file(s), Allowed Files: Audio, Video and Images.",
-                    });
-                }}
-                onError={() => {
-                    handleExitHover();
-                    NotifyUser({
-                        type: "destructive",
-                        message:
-                            "Error uploading your file(s), Allowed Files: Audio, Video and Images.",
-                    });
-                }}
-            >
-                {({ getRootProps, getInputProps }) => (
-                    <div
-                        {...getRootProps()}
-                        className="w-full h-[calc(100vh-15vh)] lg:h-[calc(100vh-20vh)] flex justify-center items-center cursor-pointer border border-dotted border-muted-foreground"
-                    >
-                        <input {...getInputProps()} />
-
-                        <article className="h-full flex flex-col justify-evenly items-center">
-                            {is_hover ? (
-                                <div>
-                                    <LuFileSymlink className="text-2xl" />
-                                    <h3>Send it</h3>
-                                </div>
-                            ) : (
-                                <div className="space-y-10 flex flex-col justify-center items-center">
-                                    <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold">
-                                        Free, Unlimited File converter
-                                    </h1>
-                                    <FiUploadCloud size={20} />
-                                    <h3 className="text-sm sm:text-base">
-                                        Select by clicking, or drop your files here
-                                    </h3>
-                                </div>
-                            )}
-                        </article>
-                    </div>
-                )}
-            </ReactDropzone>
+                </TableBody>
+            </Table>
         </section>
     );
 }
@@ -410,23 +548,25 @@ const ImageSelect = ({
             }}
             value={imageSelected}
         >
-            <SelectTrigger className="w-32">
+            <SelectTrigger className="w-24 border-0 shadow-none uppercase">
                 <SelectValue
                     aria-placeholder="Select type to convert to"
-                    placeholder="Convert to"
+                    placeholder={action.from.toUpperCase()}
                 />
             </SelectTrigger>
             <SelectContent className="grid grid-cols-2 h-fit w-52">
                 <SelectGroup>
-                    {extensions.image.map((elt, i) => (
-                        <SelectItem
-                            key={i}
-                            value={elt}
-                            className="!flex !justify-between !items-center"
-                        >
-                            {elt}
-                        </SelectItem>
-                    ))}
+                    {extensions.image
+                        .filter((elt) => elt !== action.file_type.split("/")[1])
+                        .map((elt, i) => (
+                            <SelectItem
+                                key={i}
+                                value={elt}
+                                className="!flex !justify-between !items-center uppercase"
+                            >
+                                {elt}
+                            </SelectItem>
+                        ))}
                 </SelectGroup>
             </SelectContent>
         </Select>
