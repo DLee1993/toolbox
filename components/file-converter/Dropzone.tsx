@@ -263,7 +263,7 @@ export default function FileConverterDropzone() {
     };
 
     return (
-        <section className="space-y-5 py-2 px-4">
+        <section className="space-y-5 py-2 px-2">
             {/* Files Dropzone */}
             <section className="flex justify-center items-center">
                 <ReactDropzone
@@ -316,9 +316,9 @@ export default function FileConverterDropzone() {
             </section>
             {/* CTA */}
             <div className="flex justify-end">
-                <div className="w-full min-[500px]:w-fit flex justify-center items-center gap-4">
-                    <Button size="sm" variant="destructive" onClick={reset} disabled={!is_done}>
-                        Clear
+                <div className="w-full min-[500px]:w-fit flex justify-center items-center gap-3">
+                    <Button size="sm" variant="destructive" onClick={reset}>
+                        Clear All
                     </Button>
                     <Button size="sm" onClick={downloadAll} disabled={!is_done}>
                         Download All
@@ -333,49 +333,37 @@ export default function FileConverterDropzone() {
             {!is_loaded && (
                 <Skeleton className="h-full w-full -ml-10 cursor-progress absolute rounded-xl" />
             )}
-            <Table>
+            <Table id="fileConversionTable">
                 {actions.length < 1 && <TableCaption>Add a file to start</TableCaption>}
                 <TableHeader>
                     <TableRow>
-                        <TableHead>Filename</TableHead>
-                        <TableHead className="hidden sm:table-cell">Type</TableHead>
-                        <TableHead className="hidden sm:table-cell">Convert to</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead className="text-right">Action</TableHead>
+                        <TableHead className="min-w-32">Filename</TableHead>
+                        <TableHead className="min-w-20">Status</TableHead>
+                        <TableHead>Convert to</TableHead>
+                        <TableHead className="min-w-20">Type</TableHead>
+                        <TableHead className="text-right sticky top-0 right-0 bg-background">
+                            Action
+                        </TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     {actions.map((action: Action, i: number) => (
                         <TableRow key={i}>
-                            <TableCell className="flex flex-col space-y-2">
+                            <TableCell className="min-w-44 flex flex-col space-y-2">
                                 <span className="font-semibold">
                                     {compressFileName(action.file_name)}
                                 </span>
                                 <sub> ({bytesToSize(action.file_size)})</sub>
                             </TableCell>
-                            <TableCell className="hidden sm:table-cell">
-                                {action.file_type.split("/")[0]}
-                            </TableCell>
-                            <TableCell className="hidden sm:table-cell">
-                                {action.file_type.includes("image") && (
-                                    <ImageSelect action={action} updateAction={updateAction} />
-                                )}
-                                {action.file_type.includes("video") && (
-                                    <VideoSelect action={action} updateAction={updateAction} />
-                                )}
-                                {action.file_type.includes("audio") && (
-                                    <AudioSelect action={action} updateAction={updateAction} />
-                                )}
-                            </TableCell>
                             <TableCell>
-                                {(!action.is_error &&
+                                {!action.is_error &&
                                     !action.is_converting &&
-                                    !action.is_converted) && (
-                                    <Badge variant="default" className="w-fit flex gap-2">
-                                        <span className="hidden sm:block">Pending</span>
-                                        <FiMinus />
-                                    </Badge>
-                                )}
+                                    !action.is_converted && (
+                                        <Badge variant="default" className="w-fit flex gap-2">
+                                            <span className="hidden sm:block">Pending</span>
+                                            <FiMinus />
+                                        </Badge>
+                                    )}
                                 {action.is_error && (
                                     <Badge variant="destructive" className="w-fit flex gap-2">
                                         <span className="hidden sm:block">Failed</span>
@@ -398,7 +386,19 @@ export default function FileConverterDropzone() {
                                     </Badge>
                                 )}
                             </TableCell>
-                            <TableCell className="w-10 text-center">
+                            <TableCell>
+                                {action.file_type.includes("image") && (
+                                    <ImageSelect action={action} updateAction={updateAction} />
+                                )}
+                                {action.file_type.includes("video") && (
+                                    <VideoSelect action={action} updateAction={updateAction} />
+                                )}
+                                {action.file_type.includes("audio") && (
+                                    <AudioSelect action={action} updateAction={updateAction} />
+                                )}
+                            </TableCell>
+                            <TableCell>{action.file_type.split("/")[0]}</TableCell>
+                            <TableCell className="w-10 text-center sticky top-0 right-0 bg-background">
                                 <DropdownMenu>
                                     <DropdownMenuTrigger aria-label="click to open actions menu">
                                         <span>...</span>
@@ -422,102 +422,6 @@ export default function FileConverterDropzone() {
                                             >
                                                 <span>Delete file</span>
                                                 <FiTrash />
-                                            </DropdownMenuItem>
-                                        </DropdownMenuGroup>
-                                        <DropdownMenuSeparator />
-                                        <DropdownMenuGroup className="sm:hidden">
-                                            <DropdownMenuLabel>Convert to</DropdownMenuLabel>
-                                            <DropdownMenuItem className="focus:bg-transparent">
-                                                {action.file_type.includes("image") && (
-                                                    <ul className="grid grid-cols-4 w-60 gap-1">
-                                                        {extensions.image
-                                                            .filter(
-                                                                (elt) =>
-                                                                    elt !==
-                                                                    action.file_type.split("/")[1]
-                                                            )
-                                                            .map((elt, i) => (
-                                                                <li
-                                                                    key={i}
-                                                                    value={elt}
-                                                                    onClick={() =>
-                                                                        updateAction(
-                                                                            action.file_name,
-                                                                            elt
-                                                                        )
-                                                                    }
-                                                                    aria-label={`click to select ${elt}`}
-                                                                    className={`w-14 h-8 flex justify-center items-center uppercase text-xs rounded-sm border-[1px] border-border ${
-                                                                        elt === action.to
-                                                                            ? "bg-foreground text-background"
-                                                                            : "bg-card hover:bg-muted"
-                                                                    }`}
-                                                                >
-                                                                    {elt}
-                                                                </li>
-                                                            ))}
-                                                    </ul>
-                                                )}
-                                                {action.file_type.includes("video") && (
-                                                    <ul className="grid grid-cols-4 w-60 gap-1">
-                                                        {extensions.video
-                                                            .filter(
-                                                                (elt) =>
-                                                                    elt !==
-                                                                    action.file_type.split("/")[1]
-                                                            )
-                                                            .map((elt, i) => (
-                                                                <li
-                                                                    key={i}
-                                                                    value={elt}
-                                                                    onClick={() =>
-                                                                        updateAction(
-                                                                            action.file_name,
-                                                                            elt
-                                                                        )
-                                                                    }
-                                                                    aria-label={`click to select ${elt}`}
-                                                                    className={`w-14 h-8 flex justify-center items-center uppercase text-xs rounded-sm border-[1px] border-border ${
-                                                                        elt === action.to
-                                                                            ? "bg-foreground text-background"
-                                                                            : "bg-card hover:bg-muted"
-                                                                    }`}
-                                                                >
-                                                                    {elt}
-                                                                </li>
-                                                            ))}
-                                                    </ul>
-                                                )}
-                                                {action.file_type.includes("audio") && (
-                                                    <ul className="grid grid-cols-4 w-60 gap-1">
-                                                        {extensions.audio
-                                                            .filter(
-                                                                (elt) =>
-                                                                    elt !==
-                                                                    action.file_type.split("/")[1]
-                                                            )
-                                                            .map((elt, i) => (
-                                                                <li
-                                                                    key={i}
-                                                                    value={elt}
-                                                                    onClick={() =>
-                                                                        updateAction(
-                                                                            action.file_name,
-                                                                            elt
-                                                                        )
-                                                                    }
-                                                                    aria-label={`click to select ${elt}`}
-                                                                    className={`w-14 h-8 flex justify-center items-center uppercase text-xs rounded-sm border-[1px] border-border ${
-                                                                        elt === action.to
-                                                                            ? "bg-foreground text-background"
-                                                                            : "bg-card hover:bg-muted"
-                                                                    }`}
-                                                                >
-                                                                    {elt}
-                                                                </li>
-                                                            ))}
-                                                    </ul>
-                                                )}
                                             </DropdownMenuItem>
                                         </DropdownMenuGroup>
                                     </DropdownMenuContent>
