@@ -3,6 +3,8 @@
 import * as React from "react";
 
 import { useMediaQuery } from "@/lib/global/use-media-query";
+import rateNames from '@/lib/currency-converter/rateNames.json';
+import CurrencyFlag from 'react-currency-flags';
 import { Button } from "@/components/ui/button";
 import {
     Command,
@@ -50,13 +52,13 @@ export function SelectCurrency({ type, selectedValue, setSelectedValue, countryC
                 <PopoverTrigger asChild>
                     <Button
                         variant="outline"
-                        className="w-[150px] flex justify-between items-center"
+                        className="flex justify-between items-center"
                     >
-                        {selectedValue[type] ? selectedValue[type] : `Select currency`}
+                        {selectedValue[type] ? (<><CurrencyFlag currency={selectedValue[type]} /> {selectedValue[type]}</>) : `Select currency`}
                         <ChevronDown className={`${open ? "rotate-180" : "rotate-0"}`} />
                     </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-[200px] h-60 p-0" align="start">
+                <PopoverContent align="start" className="w-80 p-1">
                     <CurrencyList
                         setOpen={setOpen}
                         setSelectedUnit={setSelectedValue}
@@ -71,11 +73,11 @@ export function SelectCurrency({ type, selectedValue, setSelectedValue, countryC
     return (
         <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger asChild>
-                <Button variant="outline" className="w-[150px] justify-start">
-                    {selectedValue[type] ? selectedValue[type] : `Select currency`}
+                <Button variant="outline" className="w-full">
+                    {selectedValue[type] ? (<span className="flex justify-start items-center w-full gap-2"><CurrencyFlag currency={selectedValue[type]} /> {selectedValue[type]}</span>) : `Select currency`}
                 </Button>
             </DrawerTrigger>
-            <DrawerContent>
+            <DrawerContent className="p-1">
                 <div className="mt-4 border-t">
                     <DrawerHeader>
                         <DrawerTitle>Select a currency</DrawerTitle>
@@ -107,7 +109,7 @@ function CurrencyList({
     };
 }) {
     return (
-        <Command>
+        <Command className="">
             <CommandInput placeholder="Filter currencies..." autoFocus />
             <CommandList>
                 <CommandEmpty>No results found.</CommandEmpty>
@@ -122,7 +124,7 @@ function CurrencyList({
                                 setOpen(false);
                             }}
                         >
-                            {rate}
+                            <CurrencyFlag currency={rate} /> {rate} ({rateNames[rate as keyof typeof rateNames]})
                         </CommandItem>
                     </CommandGroup>
                 ))}

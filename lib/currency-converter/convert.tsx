@@ -12,8 +12,6 @@ export function ConvertCurrency({ amount, to, rates, setResult, setError }: Prop
     const formattedValue = amount.replace(/,/g, "");
     const numberFormat = Number(formattedValue);
 
-    console.log(numberFormat)
-
     // Ensure the exchange rate exists for the target currency
     if (!(to in rates)) {
         setError(`Exchange rate for ${to} not found.`);
@@ -24,6 +22,7 @@ export function ConvertCurrency({ amount, to, rates, setResult, setError }: Prop
 
     // Calculate the converted amount
     const convertedAmount = numberFormat * exchangeRate;
+    
 
     // Return the formatted result
     return setResult(convertedAmount);
