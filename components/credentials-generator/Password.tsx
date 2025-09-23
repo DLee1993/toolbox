@@ -32,7 +32,7 @@ export default function Password() {
                             <InputOTPSlot
                                 index={index}
                                 key={index}
-                                className="border border-foreground h-20 w-14 rounded text-2xl font-medium"
+                                className="border border-border h-20 w-14 rounded text-2xl font-medium"
                             >
                                 {char}
                             </InputOTPSlot>
