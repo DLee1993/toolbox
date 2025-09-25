@@ -3,12 +3,14 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { NotifyUser } from "@/lib/global/NotifyUser";
-import { FFmpeg } from "@ffmpeg/ffmpeg";
-import { toBlobURL } from "@ffmpeg/util";
-import ReactDropzone from "react-dropzone";
+import { cn } from "@/lib/utils";
 import bytesToSize from "@/lib/file-conversion/bites-to-size";
 import convertFile from "@/lib/file-conversion/convert";
 import compressFileName from "@/lib/file-conversion/compress-filename";
+
+import { FFmpeg } from "@ffmpeg/ffmpeg";
+import { toBlobURL } from "@ffmpeg/util";
+import ReactDropzone from "react-dropzone";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
@@ -22,6 +24,8 @@ import {
     FiSend,
     FiTrash,
     FiMinus,
+    FiChevronLeft,
+    FiChevronRight,
 } from "react-icons/fi";
 import {
     Select,
@@ -43,12 +47,26 @@ import {
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import {
+    ColumnDef,
+    RowData,
+    flexRender,
+    getCoreRowModel,
+    getPaginationRowModel,
+    useReactTable,
+} from "@tanstack/react-table";
+
+declare module "@tanstack/react-table" {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    interface ColumnMeta<TData extends RowData, TValue> {
+        className?: string;
+    }
+}
 
 const extensions = {
     image: ["jpg", "jpeg", "png", "gif", "bmp", "webp", "ico", "tif", "tiff", "svg", "raw", "tga"],
@@ -73,6 +91,139 @@ const extensions = {
     audio: ["mp3", "wav", "ogg", "aac", "wma", "flac", "m4a"],
 };
 
+const ImageSelect = ({
+    updateAction,
+    action,
+}: {
+    updateAction: (file_name: string, to: string) => void;
+    action: Action;
+}) => {
+    console.log(action);
+    return (
+        <Select
+            onValueChange={(value) => {
+                updateAction(action.file_name, value);
+            }}
+            value={action.to && action.to.length > 1 ? action.to : action.from}
+        >
+            <SelectTrigger className="w-24 border-0 shadow-none uppercase">
+                <SelectValue
+                    aria-placeholder="Select type to convert to"
+                    placeholder={action.from.toUpperCase()}
+                />
+            </SelectTrigger>
+            <SelectContent className="grid grid-cols-2 h-fit w-52">
+                <SelectGroup>
+                    {extensions.image.map((elt, i) => (
+                        <SelectItem
+                            key={i}
+                            value={elt}
+                            className="!flex !justify-between !items-center uppercase"
+                        >
+                            {elt}
+                        </SelectItem>
+                    ))}
+                </SelectGroup>
+            </SelectContent>
+        </Select>
+    );
+};
+
+const VideoSelect = ({
+    updateAction,
+    action,
+}: {
+    updateAction: (file_name: string, to: string) => void;
+    action: Action;
+}) => {
+    return (
+        <Select
+            onValueChange={(value) => {
+                updateAction(action.file_name, value);
+            }}
+            value={action.to || action.from}
+        >
+            <SelectTrigger className="w-32">
+                <SelectValue
+                    aria-placeholder="Select type to convert to"
+                    placeholder="Convert to"
+                />
+            </SelectTrigger>
+            <SelectContent className="grid grid-cols-2 h-fit w-52">
+                <Tabs defaultValue="video" className="w-full">
+                    <TabsList className="w-full">
+                        <TabsTrigger value="video" className="w-full">
+                            Video
+                        </TabsTrigger>
+                        <TabsTrigger value="audio" className="w-full">
+                            Audio
+                        </TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="video">
+                        <div className="grid grid-cols-3 gap-2 w-fit">
+                            {extensions.video.map((elt, i) => (
+                                <div key={i} className="col-span-1 text-center">
+                                    <SelectItem value={elt} className="mx-auto">
+                                        {elt}
+                                    </SelectItem>
+                                </div>
+                            ))}
+                        </div>
+                    </TabsContent>
+                    <TabsContent value="audio">
+                        <div className="grid grid-cols-3 gap-2 w-fit">
+                            {extensions.audio.map((elt, i) => (
+                                <div key={i} className="col-span-1 text-center">
+                                    <SelectItem value={elt} className="mx-auto">
+                                        {elt}
+                                    </SelectItem>
+                                </div>
+                            ))}
+                        </div>
+                    </TabsContent>
+                </Tabs>
+            </SelectContent>
+        </Select>
+    );
+};
+
+const AudioSelect = ({
+    updateAction,
+    action,
+}: {
+    updateAction: (file_name: string, to: string) => void;
+    action: Action;
+}) => {
+    return (
+        <Select
+            onValueChange={(value) => {
+                updateAction(action.file_name, value);
+            }}
+            value={action.to || action.from}
+        >
+            <SelectTrigger className="w-32">
+                <SelectValue
+                    aria-placeholder="Select type to convert to"
+                    placeholder="Convert to"
+                />
+            </SelectTrigger>
+            <SelectContent className="grid grid-cols-2 h-fit w-52">
+                <SelectGroup>
+                    {extensions.audio.map((elt, i) => (
+                        <SelectItem
+                            key={i}
+                            value={elt}
+                            className="!flex !justify-between !items-center"
+                        >
+                            {elt}
+                        </SelectItem>
+                    ))}
+                </SelectGroup>
+            </SelectContent>
+        </Select>
+    );
+};
+
 export default function FileConverterDropzone() {
     // variables & hooks
     const ffmpegRef = useRef(new FFmpeg());
@@ -83,7 +234,11 @@ export default function FileConverterDropzone() {
     const [is_loaded, setIsLoaded] = useState<boolean>(false);
     const [is_converting, setIsConverting] = useState<boolean>(false);
     const [is_done, setIsDone] = useState<boolean>(false);
-
+    const [rowSelection, setRowSelection] = useState({});
+    const [pagination, setPagination] = useState({
+        pageIndex: 0, //initial page index
+        pageSize: 10, //default page size
+    });
     // Accepted File formats
     const accepted_files = {
         "image/*": [
@@ -103,19 +258,171 @@ export default function FileConverterDropzone() {
         "video/*": [],
     };
 
+    const columns: ColumnDef<Action>[] = [
+        {
+            accessorKey: "file_name",
+            header: "Filename",
+            cell: ({ row }) => {
+                const action = row.original;
+                return (
+                    <div className="min-w-44 flex flex-col space-y-2">
+                        <span className="font-semibold">{compressFileName(action.file_name)}</span>
+                        <sub>{bytesToSize(action.file_size)}</sub>
+                    </div>
+                );
+            },
+        },
+        {
+            accessorKey: "status",
+            header: "Status",
+            cell: ({ row }) => {
+                const action = row.original;
+                return (
+                    <>
+                        {!action.is_error && !action.is_converting && !action.is_converted && (
+                            <Badge variant="default" className="w-fit flex gap-2">
+                                <span className="hidden sm:block">Pending</span>
+                                <FiMinus />
+                            </Badge>
+                        )}
+                        {action.is_error && (
+                            <Badge variant="destructive" className="w-fit flex gap-2">
+                                <span className="hidden sm:block">Failed</span>
+                                <FiAlertCircle />
+                            </Badge>
+                        )}
+                        {action.is_converting && (
+                            <Badge variant="default" className="w-fit flex gap-2">
+                                <span className="hidden sm:block">Converting</span>
+                                <FiClock />
+                            </Badge>
+                        )}
+                        {action.is_converted && (
+                            <Badge variant="default" className="w-fit flex gap-2 bg-teal-600">
+                                <span className="hidden sm:block">Completed</span>
+                                <FiCheckCircle />
+                            </Badge>
+                        )}
+                    </>
+                );
+            },
+        },
+        {
+            accessorKey: "convert_to",
+            header: "Convert to",
+            cell: ({ row }) => {
+                const action = row.original;
+                return (
+                    <>
+                        {action.file_type.includes("image") && (
+                            <ImageSelect action={action} updateAction={updateAction} />
+                        )}
+                        {action.file_type.includes("video") && (
+                            <VideoSelect action={action} updateAction={updateAction} />
+                        )}
+                        {action.file_type.includes("audio") && (
+                            <AudioSelect action={action} updateAction={updateAction} />
+                        )}
+                    </>
+                );
+            },
+        },
+        {
+            accessorKey: "type",
+            header: "Type",
+            cell: ({ row }) => {
+                const action = row.original;
+                return <div>{action.file_type.split("/")[0]}</div>;
+            },
+        },
+        {
+            accessorKey: "action",
+            header: "Action",
+            cell: ({ row }) => {
+                const action = row.original;
+                return (
+                    <DropdownMenu>
+                        <DropdownMenuTrigger aria-label="click to open actions menu">
+                            <span>...</span>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuGroup className="space-y-1">
+                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem
+                                    aria-label="Download File"
+                                    onClick={() => download(action)}
+                                    className="flex justify-between items-center"
+                                >
+                                    <span>Download file</span>
+                                    <FiDownload />
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
+                                    aria-label="Delete File"
+                                    onClick={() => deleteAction(action)}
+                                    className="flex justify-between items-center bg-destructive text-destructive-foreground"
+                                >
+                                    <span>Delete file</span>
+                                    <FiTrash />
+                                </DropdownMenuItem>
+                            </DropdownMenuGroup>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                );
+            },
+        },
+    ];
+
+    const table = useReactTable({
+        data: actions,
+        columns,
+        getCoreRowModel: getCoreRowModel(),
+        onRowSelectionChange: setRowSelection,
+        getPaginationRowModel: getPaginationRowModel(),
+        onPaginationChange: setPagination,
+        state: {
+            rowSelection,
+            pagination,
+        },
+    });
+
+    const pageCount = table.getPageCount();
+    const currentPage = table.getState().pagination.pageIndex;
+
+    const pageButtons = Array.from({ length: pageCount }, (_, i) => (
+        <Button
+            key={i}
+            onClick={() => table.setPageIndex(i)}
+            variant={currentPage === i ? "default" : "outline"}
+        >
+            {i + 1}
+        </Button>
+    ));
+
     // functions
+
+    const load = async () => {
+        const baseURL = "https://unpkg.com/@ffmpeg/core@0.12.2/dist/umd";
+        const ffmpeg = ffmpegRef.current;
+        ffmpeg?.on("log", ({ message }) => {
+            console.log(message);
+        });
+        // toBlobURL is used to bypass CORS issue, urls with the same
+        // domain can be used directly.
+        await ffmpeg.load({
+            coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, "text/javascript"),
+            wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, "application/wasm"),
+        });
+
+        setIsLoaded(true);
+    };
+
     const reset = () => {
         setIsDone(false);
         setActions([]);
         setFiles([]);
         setIsReady(false);
         setIsConverting(false);
-    };
-
-    const downloadAll = (): void => {
-        for (const action of actions) {
-            if (!action.is_error) download(action);
-        }
     };
 
     const download = (action: Action) => {
@@ -132,6 +439,12 @@ export default function FileConverterDropzone() {
             URL.revokeObjectURL(action.url);
         }
         document.body.removeChild(a);
+    };
+
+    const downloadAll = (): void => {
+        for (const action of actions) {
+            if (!action.is_error) download(action);
+        }
     };
 
     const convert = async (): Promise<any> => {
@@ -205,11 +518,18 @@ export default function FileConverterDropzone() {
 
     const handleExitHover = (): void => setIsHover(false);
 
+    const checkIsReady = useCallback((): void => {
+        let tmp_is_ready = true;
+        actions.forEach((action: Action) => {
+            if (!action.to) tmp_is_ready = false;
+        });
+        setIsReady(tmp_is_ready);
+    }, [actions]);
+
     const updateAction = (file_name: string, to: string) => {
         setActions(
             actions.map((action): Action => {
                 if (action.file_name === file_name) {
-                    console.log("FOUND");
                     return {
                         ...action,
                         to,
@@ -220,14 +540,6 @@ export default function FileConverterDropzone() {
             })
         );
     };
-
-    const checkIsReady = useCallback((): void => {
-        let tmp_is_ready = true;
-        actions.forEach((action: Action) => {
-            if (!action.to) tmp_is_ready = false;
-        });
-        setIsReady(tmp_is_ready);
-    }, [actions]);
 
     const deleteAction = (action: Action): void => {
         setActions(actions.filter((elt) => elt !== action));
@@ -246,22 +558,6 @@ export default function FileConverterDropzone() {
     useEffect(() => {
         load();
     }, []);
-
-    const load = async () => {
-        const baseURL = "https://unpkg.com/@ffmpeg/core@0.12.2/dist/umd";
-        const ffmpeg = ffmpegRef.current;
-        ffmpeg?.on("log", ({ message }) => {
-            console.log(message);
-        });
-        // toBlobURL is used to bypass CORS issue, urls with the same
-        // domain can be used directly.
-        await ffmpeg.load({
-            coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, "text/javascript"),
-            wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, "application/wasm"),
-        });
-
-        setIsLoaded(true);
-    };
 
     return (
         <section className="space-y-5 py-2 px-2">
@@ -313,7 +609,33 @@ export default function FileConverterDropzone() {
                 </ReactDropzone>
             </section>
             {/* CTA */}
-            <div className="flex justify-end">
+            <div className="flex justify-between items-center">
+                <section className="hidden sm:flex flex-wrap justify-between items-center gap-2">
+                    <div className="flex justify-center items-center space-x-2">
+                        <p className="text-sm text-muted-foreground flex gap-2">
+                            {table.getState().pagination.pageIndex + 1}
+                            <span>of</span>
+                            {table.getPageCount()}
+                        </p>
+                        <Button
+                            variant="outline"
+                            onClick={() => table.previousPage()}
+                            disabled={!table.getCanPreviousPage()}
+                            aria-label="previous page"
+                        >
+                            <FiChevronLeft />
+                        </Button>
+                        {pageButtons}
+                        <Button
+                            variant="outline"
+                            onClick={() => table.nextPage()}
+                            disabled={!table.getCanNextPage()}
+                            aria-label="next page"
+                        >
+                            <FiChevronRight />
+                        </Button>
+                    </div>
+                </section>
                 <div className="w-full min-[500px]:w-fit flex justify-center items-center gap-3">
                     <Button size="sm" variant="destructive" onClick={reset}>
                         Clear All
@@ -331,247 +653,54 @@ export default function FileConverterDropzone() {
             {!is_loaded && (
                 <Skeleton className="h-full w-full -ml-10 cursor-progress absolute rounded-xl" />
             )}
-            <Table id="fileConversionTable">
-                {actions.length < 1 && <TableCaption>Add a file to start</TableCaption>}
+            <Table>
                 <TableHeader>
-                    <TableRow>
-                        <TableHead className="min-w-32">Filename</TableHead>
-                        <TableHead className="min-w-20">Status</TableHead>
-                        <TableHead>Convert to</TableHead>
-                        <TableHead className="min-w-20">Type</TableHead>
-                        <TableHead className="text-right sticky top-0 right-0 bg-background">
-                            Action
-                        </TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {actions.map((action: Action, i: number) => (
-                        <TableRow key={i}>
-                            <TableCell className="min-w-44 flex flex-col space-y-2">
-                                <span className="font-semibold">
-                                    {compressFileName(action.file_name)}
-                                </span>
-                                <sub> ({bytesToSize(action.file_size)})</sub>
-                            </TableCell>
-                            <TableCell>
-                                {!action.is_error &&
-                                    !action.is_converting &&
-                                    !action.is_converted && (
-                                        <Badge variant="default" className="w-fit flex gap-2">
-                                            <span className="hidden sm:block">Pending</span>
-                                            <FiMinus />
-                                        </Badge>
-                                    )}
-                                {action.is_error && (
-                                    <Badge variant="destructive" className="w-fit flex gap-2">
-                                        <span className="hidden sm:block">Failed</span>
-                                        <FiAlertCircle />
-                                    </Badge>
-                                )}
-                                {action.is_converting && (
-                                    <Badge variant="default" className="w-fit flex gap-2">
-                                        <span className="hidden sm:block">Converting</span>
-                                        <FiClock />
-                                    </Badge>
-                                )}
-                                {action.is_converted && (
-                                    <Badge
-                                        variant="default"
-                                        className="w-fit flex gap-2 bg-teal-600"
+                    {table.getHeaderGroups().map((headerGroup) => (
+                        <TableRow key={headerGroup.id}>
+                            {headerGroup.headers.map((header) => {
+                                return (
+                                    <TableHead
+                                        key={header.id}
+                                        className={cn(
+                                            header.column.columnDef.meta?.className,
+                                            "border-y-0"
+                                        )}
                                     >
-                                        <span className="hidden sm:block">Completed</span>
-                                        <FiCheckCircle />
-                                    </Badge>
-                                )}
-                            </TableCell>
-                            <TableCell>
-                                {action.file_type.includes("image") && (
-                                    <ImageSelect action={action} updateAction={updateAction} />
-                                )}
-                                {action.file_type.includes("video") && (
-                                    <VideoSelect action={action} updateAction={updateAction} />
-                                )}
-                                {action.file_type.includes("audio") && (
-                                    <AudioSelect action={action} updateAction={updateAction} />
-                                )}
-                            </TableCell>
-                            <TableCell>{action.file_type.split("/")[0]}</TableCell>
-                            <TableCell className="w-10 text-center sticky top-0 right-0 bg-background">
-                                <DropdownMenu>
-                                    <DropdownMenuTrigger aria-label="click to open actions menu">
-                                        <span>...</span>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent>
-                                        <DropdownMenuGroup className="space-y-1">
-                                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                            <DropdownMenuSeparator />
-                                            <DropdownMenuItem
-                                                aria-label="Download File"
-                                                onClick={() => download(action)}
-                                                className="flex justify-between items-center"
-                                            >
-                                                <span>Download file</span>
-                                                <FiDownload />
-                                            </DropdownMenuItem>
-                                            <DropdownMenuItem
-                                                aria-label="Delete File"
-                                                onClick={() => deleteAction(action)}
-                                                className="flex justify-between items-center bg-destructive text-destructive-foreground"
-                                            >
-                                                <span>Delete file</span>
-                                                <FiTrash />
-                                            </DropdownMenuItem>
-                                        </DropdownMenuGroup>
-                                    </DropdownMenuContent>
-                                </DropdownMenu>
-                            </TableCell>
+                                        {header.isPlaceholder
+                                            ? null
+                                            : flexRender(
+                                                  header.column.columnDef.header,
+                                                  header.getContext()
+                                              )}
+                                    </TableHead>
+                                );
+                            })}
                         </TableRow>
                     ))}
+                </TableHeader>
+                <TableBody>
+                    {table.getRowModel().rows?.length ? (
+                        table.getRowModel().rows.map((row) => (
+                            <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                                {row.getVisibleCells().map((cell) => (
+                                    <TableCell
+                                        key={cell.id}
+                                        className={cn(cell.column.columnDef.meta?.className, "")}
+                                    >
+                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        ))
+                    ) : (
+                        <TableRow>
+                            <TableCell colSpan={columns.length} className="text-center">
+                                Add a file to start
+                            </TableCell>
+                        </TableRow>
+                    )}
                 </TableBody>
             </Table>
         </section>
     );
 }
-
-const ImageSelect = ({
-    updateAction,
-    action,
-}: {
-    updateAction: (file_name: string, to: string) => void;
-    action: Action;
-}) => {
-    const [imageSelected, setImageSelected] = useState<string>("");
-
-    return (
-        <Select
-            onValueChange={(value) => {
-                setImageSelected(value);
-                updateAction(action.file_name, value);
-            }}
-            value={imageSelected}
-        >
-            <SelectTrigger className="w-24 border-0 shadow-none uppercase">
-                <SelectValue
-                    aria-placeholder="Select type to convert to"
-                    placeholder={action.from.toUpperCase()}
-                />
-            </SelectTrigger>
-            <SelectContent className="grid grid-cols-2 h-fit w-52">
-                <SelectGroup>
-                    {extensions.image
-                        .filter((elt) => elt !== action.file_type.split("/")[1])
-                        .map((elt, i) => (
-                            <SelectItem
-                                key={i}
-                                value={elt}
-                                className="!flex !justify-between !items-center uppercase"
-                            >
-                                {elt}
-                            </SelectItem>
-                        ))}
-                </SelectGroup>
-            </SelectContent>
-        </Select>
-    );
-};
-
-const VideoSelect = ({
-    updateAction,
-    action,
-}: {
-    updateAction: (file_name: string, to: string) => void;
-    action: Action;
-}) => {
-    const [videoSelected, setVideoSelected] = useState<string>("");
-
-    return (
-        <Select
-            onValueChange={(value) => {
-                setVideoSelected(value);
-                updateAction(action.file_name, value);
-            }}
-            value={videoSelected}
-        >
-            <SelectTrigger className="w-32">
-                <SelectValue
-                    aria-placeholder="Select type to convert to"
-                    placeholder="Convert to"
-                />
-            </SelectTrigger>
-            <SelectContent className="grid grid-cols-2 h-fit w-52">
-                <Tabs defaultValue="video" className="w-full">
-                    <TabsList className="w-full">
-                        <TabsTrigger value="video" className="w-full">
-                            Video
-                        </TabsTrigger>
-                        <TabsTrigger value="audio" className="w-full">
-                            Audio
-                        </TabsTrigger>
-                    </TabsList>
-                    <TabsContent value="video">
-                        <div className="grid grid-cols-3 gap-2 w-fit">
-                            {extensions.video.map((elt, i) => (
-                                <div key={i} className="col-span-1 text-center">
-                                    <SelectItem value={elt} className="mx-auto">
-                                        {elt}
-                                    </SelectItem>
-                                </div>
-                            ))}
-                        </div>
-                    </TabsContent>
-                    <TabsContent value="audio">
-                        <div className="grid grid-cols-3 gap-2 w-fit">
-                            {extensions.audio.map((elt, i) => (
-                                <div key={i} className="col-span-1 text-center">
-                                    <SelectItem value={elt} className="mx-auto">
-                                        {elt}
-                                    </SelectItem>
-                                </div>
-                            ))}
-                        </div>
-                    </TabsContent>
-                </Tabs>
-            </SelectContent>
-        </Select>
-    );
-};
-
-const AudioSelect = ({
-    updateAction,
-    action,
-}: {
-    updateAction: (file_name: string, to: string) => void;
-    action: Action;
-}) => {
-    const [audioSelected, setAudioSelected] = useState<string>("");
-
-    return (
-        <Select
-            onValueChange={(value) => {
-                setAudioSelected(value);
-                updateAction(action.file_name, value);
-            }}
-            value={audioSelected}
-        >
-            <SelectTrigger className="w-32">
-                <SelectValue
-                    aria-placeholder="Select type to convert to"
-                    placeholder="Convert to"
-                />
-            </SelectTrigger>
-            <SelectContent className="grid grid-cols-2 h-fit w-52">
-                <SelectGroup>
-                    {extensions.audio.map((elt, i) => (
-                        <SelectItem
-                            key={i}
-                            value={elt}
-                            className="!flex !justify-between !items-center"
-                        >
-                            {elt}
-                        </SelectItem>
-                    ))}
-                </SelectGroup>
-            </SelectContent>
-        </Select>
-    );
-};
