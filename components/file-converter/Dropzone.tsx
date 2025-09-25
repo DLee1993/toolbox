@@ -23,7 +23,6 @@ import {
     FiTrash,
     FiMinus,
 } from "react-icons/fi";
-
 import {
     Select,
     SelectContent,
@@ -122,14 +121,16 @@ export default function FileConverterDropzone() {
     const download = (action: Action) => {
         const a = document.createElement("a");
         a.style.display = "none";
-        a.href = action.url;
-        a.download = action.output;
+        a.href = action.url || "";
+        a.download = action.output || "";
 
         document.body.appendChild(a);
         a.click();
 
         // Clean up after download
-        URL.revokeObjectURL(action.url);
+        if (action.url) {
+            URL.revokeObjectURL(action.url);
+        }
         document.body.removeChild(a);
     };
 
