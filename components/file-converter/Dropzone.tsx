@@ -593,7 +593,7 @@ export default function FileConverterDropzone() {
                     {({ getRootProps, getInputProps }) => (
                         <div
                             {...getRootProps()}
-                            className="w-full h-80 flex justify-center items-center cursor-pointer border border-dashed border-muted-foreground rounded-sm"
+                            className="w-full h-60 flex justify-center items-center cursor-pointer border border-dashed border-muted-foreground rounded-sm"
                         >
                             <input {...getInputProps()} />
 
@@ -699,7 +699,7 @@ export default function FileConverterDropzone() {
                         ))
                     ) : (
                         <TableRow>
-                            <TableCell colSpan={columns.length} className="text-center">
+                            <TableCell colSpan={columns.length} className="text-center h-14">
                                 Add a file to start
                             </TableCell>
                         </TableRow>
