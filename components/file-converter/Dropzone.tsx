@@ -98,7 +98,6 @@ const ImageSelect = ({
     updateAction: (file_name: string, to: string) => void;
     action: Action;
 }) => {
-    console.log(action);
     return (
         <Select
             onValueChange={(value) => {
@@ -265,7 +264,7 @@ export default function FileConverterDropzone() {
             cell: ({ row }) => {
                 const action = row.original;
                 return (
-                    <div className="min-w-44 flex flex-col space-y-2">
+                    <div className="flex flex-col space-y-2">
                         <span className="font-semibold">{compressFileName(action.file_name)}</span>
                         <sub>{bytesToSize(action.file_size)}</sub>
                     </div>
@@ -306,6 +305,9 @@ export default function FileConverterDropzone() {
                     </>
                 );
             },
+            meta: {
+                className: "hidden sm:table-cell",
+            }
         },
         {
             accessorKey: "convert_to",
@@ -334,6 +336,9 @@ export default function FileConverterDropzone() {
                 const action = row.original;
                 return <div>{action.file_type.split("/")[0]}</div>;
             },
+            meta: {
+                className: "hidden sm:table-cell",
+            }
         },
         {
             accessorKey: "action",
