@@ -54,7 +54,7 @@ export function AppSidebar() {
                         <SidebarMenuItem>
                             <SidebarMenuButton
                                 asChild
-                                tooltip="Dashboard"
+                                tooltip="Home"
                                 isActive={pathname === "/" ? true : false}
                                 className="min-h-9 min-w-9 hover:bg-muted"
                                 onClick={() => setOpen(false)}
@@ -69,7 +69,7 @@ export function AppSidebar() {
                                             !open && !isMobile && "opacity-0"
                                         }`}
                                     >
-                                        Dashboard
+                                        Home
                                     </p>
                                     {pathname === "/" && <Dot className="ml-auto" />}
                                 </Link>
