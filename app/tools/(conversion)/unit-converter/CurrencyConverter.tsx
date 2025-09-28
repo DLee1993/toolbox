@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { Input } from "@/components/ui/input";
-import { SelectCurrency } from "@/components/currency-converter/SelectCurrency";
+import { SelectCurrency } from "@/components/unit-converter/SelectCurrency";
 import { ConvertCurrency } from "@/lib/currency-converter/convert";
 
 interface CurrencyConverterProps {

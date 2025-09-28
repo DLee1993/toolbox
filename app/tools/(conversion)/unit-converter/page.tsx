@@ -1,5 +1,18 @@
 "use client";
 
+{/*
+    const res = await fetch("https://open.er-api.com/v6/latest/GBP", {
+        next: { revalidate: 86400 }, // ISR: once per day
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to fetch exchange rates");
+    }
+
+    const data = await res.json();
+    
+    */}
+
 import { useState } from "react";
 import { Unit } from "convert-units";
 import { ConvertUnits } from "@/lib/unit-conversion/convertUnits";
