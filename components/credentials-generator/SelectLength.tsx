@@ -1,12 +1,4 @@
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
+import { Slider } from "@/components/ui/slider";
 
 interface LengthProps {
     type: string;
@@ -16,40 +8,59 @@ interface LengthProps {
     setPcLength?: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function SelectLength({ type, pwLength, pcLength, setPwLength, setPcLength }: LengthProps) {
-    const pwLengthOptions = Array.from({ length: 30 - 8 + 1 }, (_, i) => i + 8);
-    const pcLengthOptions = Array.from({ length: 16 - 6 + 1 }, (_, i) => i + 6);
+export default function SelectLength({
+    type,
+    pwLength,
+    pcLength,
+    setPwLength,
+    setPcLength,
+}: LengthProps) {
+    const sliderLength = type === "password" ? 30 : 16;
 
     return (
-        <Select
-            defaultValue={type === "password" ? pwLength?.toString() : pcLength?.toString()}
-            onValueChange={(value) => {
-                if (type === "password" && setPwLength) {
-                    setPwLength(Number(value));
-                } else if (type === "code" && setPcLength) {
-                    setPcLength(Number(value));
-                }
-            }}
-        >
-            <SelectTrigger className="w-16 capitalize">
-                <SelectValue placeholder={`${type} Length`} />
-            </SelectTrigger>
-            <SelectContent className="h-80">
-                <SelectGroup>
-                    <SelectLabel>Select Length Required</SelectLabel>
-                    {type === "password"
-                        ? pwLengthOptions.map((option, i) => (
-                              <SelectItem key={i} value={option.toString()}>
-                                  {option}
-                              </SelectItem>
-                          ))
-                        : pcLengthOptions.map((option, i) => (
-                              <SelectItem key={i} value={option.toString()}>
-                                  {option}
-                              </SelectItem>
-                          ))}
-                </SelectGroup>
-            </SelectContent>
-        </Select>
+        <div className="flex gap-10">
+            <Slider
+                className="w-full"
+                min={0}
+                max={sliderLength}
+                step={1}
+                defaultValue={type === "password" ? [pwLength || 8] : [pcLength || 4]}
+                onValueChange={(value) => {
+                    if (type === "password" && setPwLength) {
+                        setPwLength(Number(value));
+                    } else if (type === "code" && setPcLength) {
+                        setPcLength(Number(value));
+                    }
+                }}
+            />
+            <p className="w-14 text-center text-background bg-background/10 rounded-sm">
+                {type === "password" ? pwLength : pcLength}
+            </p>
+        </div>
     );
+
+    // <Select
+    //     defaultValue={type === "password" ? pwLength?.toString() : pcLength?.toString()}
+
+    // >
+    //     <SelectTrigger className="w-16 capitalize">
+    //         <SelectValue placeholder={`${type} Length`} />
+    //     </SelectTrigger>
+    //     <SelectContent className="h-80">
+    //         <SelectGroup>
+    //             <SelectLabel>Select Length Required</SelectLabel>
+    //             {type === "password"
+    //                 ? pwLengthOptions.map((option, i) => (
+    //                       <SelectItem key={i} value={option.toString()}>
+    //                           {option}
+    //                       </SelectItem>
+    //                   ))
+    //                 : pcLengthOptions.map((option, i) => (
+    //                       <SelectItem key={i} value={option.toString()}>
+    //                           {option}
+    //                       </SelectItem>
+    //                   ))}
+    //         </SelectGroup>
+    //     </SelectContent>
+    // </Select>
 }
