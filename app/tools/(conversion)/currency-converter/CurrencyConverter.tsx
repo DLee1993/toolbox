@@ -96,9 +96,8 @@ export default function CurrencyConverter({ initialRates }: CurrencyConverterPro
                         </div>
                     </section>
                 </section>
-                <section>exchange rates table</section>
             </section>
-            <p className="text-sm w-full text-muted-foreground mt-2 fixed bottom-1 left-0 px-1 text-center sm:text-right">
+            <p className="text-sm w-full text-muted-foreground mt-2 absolute bottom-1 left-0 px-1 text-center sm:text-right">
                 Powered by -{" "}
                 <a href="https://www.exchangerate-api.com">Rates By Exchange Rate API</a>
             </p>
