@@ -6,7 +6,6 @@ import {
     Network,
     ArrowLeftRight,
     Map,
-    DollarSign,
     QrCode,
 } from "lucide-react";
 
@@ -31,12 +30,6 @@ export const sidebarItems = [
                 url: "/tools/file-converter",
                 icon: Combine,
                 description: "Convert files between different formats.",
-            },
-            {
-                title: "Currency",
-                url: "/tools/currency-converter",
-                icon: DollarSign,
-                description: "Convert between different currencies.",
             },
             {
                 title: "Units",
