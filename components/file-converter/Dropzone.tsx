@@ -60,6 +60,7 @@ import {
     getPaginationRowModel,
     useReactTable,
 } from "@tanstack/react-table";
+import { UploadCloud } from "lucide-react";
 
 declare module "@tanstack/react-table" {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -111,13 +112,13 @@ const ImageSelect = ({
                     placeholder={action.from.toUpperCase()}
                 />
             </SelectTrigger>
-            <SelectContent className="grid grid-cols-2 h-fit w-52">
-                <SelectGroup>
+            <SelectContent>
+                <SelectGroup className="grid grid-cols-3 h-fit w-52">
                     {extensions.image.map((elt, i) => (
                         <SelectItem
                             key={i}
                             value={elt}
-                            className="!flex !justify-between !items-center uppercase"
+                            className="!flex !justify-between !items-center uppercase cursor-pointer"
                         >
                             {elt}
                         </SelectItem>
@@ -142,13 +143,13 @@ const VideoSelect = ({
             }}
             value={action.to || action.from}
         >
-            <SelectTrigger className="w-32">
+            <SelectTrigger className="w-32 uppercase">
                 <SelectValue
                     aria-placeholder="Select type to convert to"
                     placeholder="Convert to"
                 />
             </SelectTrigger>
-            <SelectContent className="grid grid-cols-2 h-fit w-52">
+            <SelectContent>
                 <Tabs defaultValue="video" className="w-full">
                     <TabsList className="w-full">
                         <TabsTrigger value="video" className="w-full">
@@ -159,10 +160,10 @@ const VideoSelect = ({
                         </TabsTrigger>
                     </TabsList>
                     <TabsContent value="video">
-                        <div className="grid grid-cols-3 gap-2 w-fit">
+                        <div className="grid grid-cols-3 h-fit w-52">
                             {extensions.video.map((elt, i) => (
                                 <div key={i} className="col-span-1 text-center">
-                                    <SelectItem value={elt} className="mx-auto">
+                                    <SelectItem value={elt} className="uppercase cursor-pointer">
                                         {elt}
                                     </SelectItem>
                                 </div>
@@ -170,10 +171,10 @@ const VideoSelect = ({
                         </div>
                     </TabsContent>
                     <TabsContent value="audio">
-                        <div className="grid grid-cols-3 gap-2 w-fit">
+                        <div className="grid grid-cols-2 h-fit w-52">
                             {extensions.audio.map((elt, i) => (
                                 <div key={i} className="col-span-1 text-center">
-                                    <SelectItem value={elt} className="mx-auto">
+                                    <SelectItem value={elt} className="mx-auto cursor-pointer">
                                         {elt}
                                     </SelectItem>
                                 </div>
@@ -200,19 +201,19 @@ const AudioSelect = ({
             }}
             value={action.to || action.from}
         >
-            <SelectTrigger className="w-32">
+            <SelectTrigger className="w-32 uppercase">
                 <SelectValue
                     aria-placeholder="Select type to convert to"
                     placeholder="Convert to"
                 />
             </SelectTrigger>
-            <SelectContent className="grid grid-cols-2 h-fit w-52">
-                <SelectGroup>
+            <SelectContent>
+                <SelectGroup className="grid grid-cols-3 h-fit w-52">
                     {extensions.audio.map((elt, i) => (
                         <SelectItem
                             key={i}
                             value={elt}
-                            className="!flex !justify-between !items-center"
+                            className="!flex !justify-between !items-center uppercase cursor-pointer"
                         >
                             {elt}
                         </SelectItem>
@@ -236,7 +237,7 @@ export default function FileConverterDropzone() {
     const [rowSelection, setRowSelection] = useState({});
     const [pagination, setPagination] = useState({
         pageIndex: 0, //initial page index
-        pageSize: 10, //default page size
+        pageSize: 5, //default page size
     });
     // Accepted File formats
     const accepted_files = {
@@ -280,25 +281,25 @@ export default function FileConverterDropzone() {
                     <>
                         {!action.is_error && !action.is_converting && !action.is_converted && (
                             <Badge variant="default" className="w-fit flex gap-2">
-                                <span className="hidden sm:block">Pending</span>
+                                <span className="sr-only">Pending</span>
                                 <FiMinus />
                             </Badge>
                         )}
                         {action.is_error && (
                             <Badge variant="destructive" className="w-fit flex gap-2">
-                                <span className="hidden sm:block">Failed</span>
+                                <span className="sr-only">Failed</span>
                                 <FiAlertCircle />
                             </Badge>
                         )}
                         {action.is_converting && (
                             <Badge variant="default" className="w-fit flex gap-2">
-                                <span className="hidden sm:block">Converting</span>
+                                <span className="sr-only">Converting</span>
                                 <FiClock />
                             </Badge>
                         )}
                         {action.is_converted && (
                             <Badge variant="default" className="w-fit flex gap-2 bg-teal-600">
-                                <span className="hidden sm:block">Completed</span>
+                                <span className="sr-only">Completed</span>
                                 <FiCheckCircle />
                             </Badge>
                         )}
@@ -307,7 +308,7 @@ export default function FileConverterDropzone() {
             },
             meta: {
                 className: "hidden sm:table-cell",
-            }
+            },
         },
         {
             accessorKey: "convert_to",
@@ -328,21 +329,13 @@ export default function FileConverterDropzone() {
                     </>
                 );
             },
-        },
-        {
-            accessorKey: "type",
-            header: "Type",
-            cell: ({ row }) => {
-                const action = row.original;
-                return <div>{action.file_type.split("/")[0]}</div>;
-            },
             meta: {
-                className: "hidden sm:table-cell",
-            }
+                className: "w-32",
+            },
         },
         {
             accessorKey: "action",
-            header: "Action",
+            header: "",
             cell: ({ row }) => {
                 const action = row.original;
                 return (
@@ -375,6 +368,9 @@ export default function FileConverterDropzone() {
                     </DropdownMenu>
                 );
             },
+            meta: {
+                className: "text-right w-10",
+            },
         },
     ];
 
@@ -390,19 +386,6 @@ export default function FileConverterDropzone() {
             pagination,
         },
     });
-
-    const pageCount = table.getPageCount();
-    const currentPage = table.getState().pagination.pageIndex;
-
-    const pageButtons = Array.from({ length: pageCount }, (_, i) => (
-        <Button
-            key={i}
-            onClick={() => table.setPageIndex(i)}
-            variant={currentPage === i ? "default" : "outline"}
-        >
-            {i + 1}
-        </Button>
-    ));
 
     // functions
 
@@ -565,7 +548,19 @@ export default function FileConverterDropzone() {
     }, []);
 
     return (
-        <section className="space-y-5 py-2 px-2">
+        <section className="flex-1 min-w-96 rounded-2xl space-y-5">
+            <div className="w-full sticky top-16 min-h-16 flex justify-end items-center gap-3 bg-background">
+                <Button size="sm" variant="link" onClick={reset} disabled={files.length === 0}>
+                    Clear All
+                </Button>
+                <Button size="sm" onClick={downloadAll} disabled={!is_done}>
+                    Download All
+                    <FiDownload />
+                </Button>
+                <Button size="sm" disabled={!is_ready || is_converting} onClick={convert}>
+                    <span>Convert All</span>
+                </Button>
+            </div>
             {/* Files Dropzone */}
             <section className="flex justify-center items-center">
                 <ReactDropzone
@@ -593,7 +588,7 @@ export default function FileConverterDropzone() {
                     {({ getRootProps, getInputProps }) => (
                         <div
                             {...getRootProps()}
-                            className="w-full h-60 flex justify-center items-center cursor-pointer border border-dashed border-muted-foreground rounded-sm"
+                            className="w-full h-40 flex justify-center items-center cursor-pointer border border-dashed border-accent-foreground rounded-sm bg-accent"
                         >
                             <input {...getInputProps()} />
 
@@ -605,7 +600,10 @@ export default function FileConverterDropzone() {
                                     </div>
                                 ) : (
                                     <div className="space-y-2 flex flex-col justify-center items-center text-center">
-                                        <h1 className="text-sm">Drop your files here to start</h1>
+                                        <h1 className="text-sm flex flex-col justify-center items-center gap-5">
+                                            <UploadCloud size={40} />
+                                            Drop your files here to start
+                                        </h1>
                                     </div>
                                 )}
                             </article>
@@ -614,46 +612,35 @@ export default function FileConverterDropzone() {
                 </ReactDropzone>
             </section>
             {/* CTA */}
-            <div className="flex justify-between items-center">
-                <section className="hidden sm:flex flex-wrap justify-between items-center gap-2">
-                    <div className="flex justify-center items-center space-x-2">
-                        <p className="text-sm text-muted-foreground flex gap-2">
-                            {table.getState().pagination.pageIndex + 1}
-                            <span>of</span>
-                            {table.getPageCount()}
-                        </p>
-                        <Button
-                            variant="outline"
-                            onClick={() => table.previousPage()}
-                            disabled={!table.getCanPreviousPage()}
-                            aria-label="previous page"
-                        >
-                            <FiChevronLeft />
-                        </Button>
-                        {pageButtons}
-                        <Button
-                            variant="outline"
-                            onClick={() => table.nextPage()}
-                            disabled={!table.getCanNextPage()}
-                            aria-label="next page"
-                        >
-                            <FiChevronRight />
-                        </Button>
-                    </div>
-                </section>
-                <div className="w-full min-[500px]:w-fit flex justify-center items-center gap-3">
-                    <Button size="sm" variant="destructive" onClick={reset}>
-                        Clear All
-                    </Button>
-                    <Button size="sm" onClick={downloadAll} disabled={!is_done}>
-                        Download All
-                        <FiDownload />
-                    </Button>
-                    <Button size="sm" disabled={!is_ready || is_converting} onClick={convert}>
-                        <span>Convert All</span>
-                    </Button>
+            {files.length > 0 && (
+                <div className="flex justify-between items-center">
+                    <section className="flex flex-wrap justify-between items-center gap-2">
+                        <div className="flex justify-center items-center space-x-2">
+                            <Button
+                                variant="outline"
+                                onClick={() => table.previousPage()}
+                                disabled={!table.getCanPreviousPage()}
+                                aria-label="previous page"
+                            >
+                                <FiChevronLeft />
+                            </Button>
+                            <p className="text-sm text-muted-foreground flex gap-2">
+                                {table.getState().pagination.pageIndex + 1}
+                                <span>of</span>
+                                {table.getPageCount()}
+                            </p>
+                            <Button
+                                variant="outline"
+                                onClick={() => table.nextPage()}
+                                disabled={!table.getCanNextPage()}
+                                aria-label="next page"
+                            >
+                                <FiChevronRight />
+                            </Button>
+                        </div>
+                    </section>
                 </div>
-            </div>
+            )}
             {/* File table / conversion selector */}
             {!is_loaded && (
                 <Skeleton className="h-full w-full -ml-10 cursor-progress absolute rounded-xl" />
