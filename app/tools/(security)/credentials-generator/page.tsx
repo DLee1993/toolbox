@@ -6,8 +6,8 @@ import Pin from "@/components/credentials-generator/Pin";
 
 export default function CredentialsGenerator() {
     return (
-        <section className="flex justify-between items-start gap-10 p-5 flex-wrap">
-            <article className="flex-1 min-w-96 space-y-5">
+        <section className="flex justify-between items-start gap-10 px-5 flex-wrap">
+            <article className="flex-1 min-w-96 space-y-5 p-2 md:p-5">
                 <h1 className="font-medium text-3xl sm:text-4xl">Strong. Secure. Fast.</h1>
                 <p className="text-sm">
                     Generate secure credentials in seconds — choose between strong passwords and
