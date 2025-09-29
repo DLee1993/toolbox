@@ -33,34 +33,9 @@ export default function SelectLength({
                     }
                 }}
             />
-            <p className="w-14 text-center text-background bg-background/10 rounded-sm">
+            <p className="h-7 w-14 text-center bg-foreground/20 rounded-sm grid place-content-center">
                 {type === "password" ? pwLength : pcLength}
             </p>
         </div>
     );
-
-    // <Select
-    //     defaultValue={type === "password" ? pwLength?.toString() : pcLength?.toString()}
-
-    // >
-    //     <SelectTrigger className="w-16 capitalize">
-    //         <SelectValue placeholder={`${type} Length`} />
-    //     </SelectTrigger>
-    //     <SelectContent className="h-80">
-    //         <SelectGroup>
-    //             <SelectLabel>Select Length Required</SelectLabel>
-    //             {type === "password"
-    //                 ? pwLengthOptions.map((option, i) => (
-    //                       <SelectItem key={i} value={option.toString()}>
-    //                           {option}
-    //                       </SelectItem>
-    //                   ))
-    //                 : pcLengthOptions.map((option, i) => (
-    //                       <SelectItem key={i} value={option.toString()}>
-    //                           {option}
-    //                       </SelectItem>
-    //                   ))}
-    //         </SelectGroup>
-    //     </SelectContent>
-    // </Select>
 }
