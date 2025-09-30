@@ -9,7 +9,7 @@ export default function CredentialsGenerator() {
         <section className="height flex justify-between items-start gap-10 flex-wrap">
             <article className="flex-1 space-y-10">
                 <div className="space-y-2.5">
-                    <h1 className="font-medium text-3xl sm:text-4xl">Strong. Secure. Fast.</h1>
+                    <h1 className="font-semibold text-2xl">Strong. Secure. Fast.</h1>
                     <p className="text-sm">
                         Generate secure credentials in seconds — choose between strong passwords and
                         numeric PINs. PINs are short, digit-only codes ideal for simpler
