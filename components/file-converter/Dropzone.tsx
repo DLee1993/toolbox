@@ -237,7 +237,7 @@ export default function FileConverterDropzone() {
     const [rowSelection, setRowSelection] = useState({});
     const [pagination, setPagination] = useState({
         pageIndex: 0, //initial page index
-        pageSize: 5, //default page size
+        pageSize: 4, //default page size
     });
     // Accepted File formats
     const accepted_files = {
@@ -548,19 +548,7 @@ export default function FileConverterDropzone() {
     }, []);
 
     return (
-        <section className="flex-1 min-w-96 rounded-2xl space-y-5">
-            <div className="w-full sticky top-16 min-h-16 flex justify-end items-center gap-3 bg-background">
-                <Button size="sm" variant="link" onClick={reset} disabled={files.length === 0}>
-                    Clear All
-                </Button>
-                <Button size="sm" onClick={downloadAll} disabled={!is_done}>
-                    Download All
-                    <FiDownload />
-                </Button>
-                <Button size="sm" disabled={!is_ready || is_converting} onClick={convert}>
-                    <span>Convert All</span>
-                </Button>
-            </div>
+        <section className="flex-1 min-w-80 sm:min-w-96 rounded-2xl space-y-4">
             {/* Files Dropzone */}
             <section className="flex justify-center items-center">
                 <ReactDropzone
@@ -613,33 +601,56 @@ export default function FileConverterDropzone() {
             </section>
             {/* CTA */}
             {files.length > 0 && (
-                <div className="flex justify-between items-center">
-                    <section className="flex flex-wrap justify-between items-center gap-2">
-                        <div className="flex justify-center items-center space-x-2">
-                            <Button
-                                variant="outline"
-                                onClick={() => table.previousPage()}
-                                disabled={!table.getCanPreviousPage()}
-                                aria-label="previous page"
-                            >
-                                <FiChevronLeft />
-                            </Button>
-                            <p className="text-sm text-muted-foreground flex gap-2">
-                                {table.getState().pagination.pageIndex + 1}
-                                <span>of</span>
-                                {table.getPageCount()}
-                            </p>
-                            <Button
-                                variant="outline"
-                                onClick={() => table.nextPage()}
-                                disabled={!table.getCanNextPage()}
-                                aria-label="next page"
-                            >
-                                <FiChevronRight />
-                            </Button>
-                        </div>
-                    </section>
-                </div>
+                <section className="flex justify-between items-center">
+                    <div className="flex justify-between items-center sm:gap-1 bg-background">
+                        <Button
+                            size="sm"
+                            variant="link"
+                            onClick={reset}
+                            disabled={files.length === 0}
+                        >
+                            Clear
+                        </Button>
+                        <p className="text-foreground/50">|</p>
+                        <Button size="sm" variant="link" onClick={downloadAll} disabled={!is_done}>
+                           <span>Download</span>
+                        </Button>
+                        <p className="text-foreground/50">|</p>
+                        <Button
+                            size="sm"
+                            variant="link"
+                            disabled={!is_ready || is_converting}
+                            onClick={convert}
+                        >
+                            <span>Convert</span>
+                        </Button>
+                    </div>
+                    <div className="flex justify-center items-center gap-1">
+                        <Button
+                            size="icon"
+                            variant="link"
+                            onClick={() => table.previousPage()}
+                            disabled={!table.getCanPreviousPage()}
+                            aria-label="previous page"
+                        >
+                            <FiChevronLeft />
+                        </Button>
+                        <p className="hidden sm:flex text-xs text-muted-foreground gap-1">
+                            <span>{table.getState().pagination.pageIndex + 1}</span>
+                            <span>of</span>
+                            <span>{table.getPageCount()}</span>
+                        </p>
+                        <Button
+                            size="icon"
+                            variant="link"
+                            onClick={() => table.nextPage()}
+                            disabled={!table.getCanNextPage()}
+                            aria-label="next page"
+                        >
+                            <FiChevronRight />
+                        </Button>
+                    </div>
+                </section>
             )}
             {/* File table / conversion selector */}
             {!is_loaded && (
