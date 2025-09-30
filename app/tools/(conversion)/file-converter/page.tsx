@@ -18,16 +18,22 @@ export default function FileConverter() {
                     </div>
                     <ul className="list-disc list-inside space-y-2">
                         <li>
-                            <span className="font-semibold">Audio:</span> MP3, WAV, AAC, FLAC, and
-                            more
+                            Audio
+                            <span className="text-xs font-bold">
+                                (MP3, WAV, AAC, FLAC, and more)
+                            </span>
                         </li>
                         <li>
-                            <span className="font-semibold">Video:</span> MP4, AVI, MOV, MKV, and
-                            more
+                            Video
+                            <span className="text-xs font-bold">
+                                (MP4, AVI, MOV, MKV, and more)
+                            </span>
                         </li>
                         <li>
-                            <span className="font-semibold">Images:</span> JPG, PNG, GIF, BMP, and
-                            more
+                            Images
+                            <span className="text-xs font-bold">
+                                (JPG, PNG, GIF, BMP, and more)
+                            </span>
                         </li>
                     </ul>
                     <p className="font-semibold w-10/12">

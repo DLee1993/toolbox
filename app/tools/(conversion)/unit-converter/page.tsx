@@ -5,31 +5,37 @@ import UnitsConverter from "@/app/tools/(conversion)/unit-converter/UnitsConvert
 import CurrencyConverter from "@/app/tools/(conversion)/unit-converter/CurrencyConverter";
 
 export default function UnitConverter() {
-    
     return (
         <section className="flex justify-between items-start gap-10 flex-wrap">
-            <article className="flex-1 min-w-96 space-y-10">
+            <article className="flex-1 min-w-96 space-y-10 text-sm">
                 <div className="space-y-2.5">
-                    <h1 className="font-medium text-3xl sm:text-4xl">Strong. Secure. Fast.</h1>
-                    <p className="text-sm">
-                        Generate secure credentials in seconds — choose between strong passwords and
-                        numeric PINs. PINs are short, digit-only codes ideal for simpler
-                        authentication. Our passwords are complex, combining:
+                    <h1 className="font-semibold text-2xl">Convert Currency and Measurements.</h1>
+                    <p>
+                        Convert Currency and Measurements with ease — switch between global
+                        currencies, metric and imperial units, and even time zones. Whether you&apos;re
+                        planning a trip or working across borders, our converter ensures accurate,
+                        real-time results.
                     </p>
                 </div>
-                <ul className="list-disc list-inside space-y-1 text-sm">
+                <ul className="list-disc list-inside space-y-1">
                     <li>
-                        Letters <span>(A-Z, a-z)</span>
+                        Currency <span className="text-xs font-bold">(160+ currencies)</span>
                     </li>
                     <li>
-                        Numbers <span>(0-9)</span>
+                        Lengths <span className="text-xs font-bold">(Inches, centimeters, meters, feet, miles, and more)</span>
                     </li>
                     <li>
-                        Special Characters <span>(@, #, $, %, &, *)</span>
+                        Weight <span className="text-xs font-bold">(Grams, kilograms, pounds, ounces)</span>
+                    </li>
+                    <li>
+                        Temperature <span className="text-xs font-bold">(Celsius, Fahrenheit, Kelvin)</span>
+                    </li>
+                    <li>
+                        Volume <span className="text-xs font-bold">(Litres, gallons, cups, millilitres)</span>
                     </li>
                 </ul>
 
-                <p className="text-sm font-semibold">
+                <p className="font-semibold">
                     All generation happens locally, and no data is stored.
                 </p>
             </article>

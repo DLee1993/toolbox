@@ -18,13 +18,13 @@ export default function CredentialsGenerator() {
                 </div>
                 <ul className="list-disc list-inside space-y-1 text-sm">
                     <li>
-                        Letters <span>(A-Z, a-z)</span>
+                        Letters <span className="text-xs font-bold">(A-Z, a-z)</span>
                     </li>
                     <li>
-                        Numbers <span>(0-9)</span>
+                        Numbers <span className="text-xs font-bold">(0-9)</span>
                     </li>
                     <li>
-                        Special Characters <span>(@, #, $, %, &, *)</span>
+                        Special Characters <span className="text-xs font-bold">(@, #, $, %, &, *)</span>
                     </li>
                 </ul>
 
