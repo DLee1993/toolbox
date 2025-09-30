@@ -23,7 +23,7 @@ function LinkPreview() {
     const decoded_data = decodeData(data!);
 
     return (
-        <section className="flex flex-col justify-center items-center gap-10 py-10">
+        <section className="flex flex-col justify-center items-center gap-10">
             {decoded_data.photo && (
                 <img
                     src={decoded_data.photo}

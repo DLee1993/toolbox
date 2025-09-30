@@ -27,7 +27,7 @@ export default function QRCodeGenerator() {
     };
 
     return (
-        <section className="relative py-10 flex justify-between flex-wrap gap-10">
+        <section className="relative flex justify-between flex-wrap gap-10">
             <Tabs defaultValue="Type" className="w-full max-w-xl">
                 <TabsList className="grid w-full h-fit grid-cols-2 bg-muted/50">
                     <TabsTrigger

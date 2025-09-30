@@ -61,7 +61,7 @@ export default function TimeZones() {
     }, [tz]);
 
     return (
-        <section className="flex flex-col justify-start items-center py-10 space-y-14">
+        <section className="flex flex-col justify-start items-center space-y-14">
             <h1 className="text-2xl md:text-3xl font-semibold max-w-2xl text-center">
                 Never lose track of time — anywhere, any zone, any moment.{" "}
             </h1>

@@ -49,7 +49,7 @@ export function SelectUnit({ type, selectedValue, setSelectedValue }: Props) {
                 <PopoverTrigger asChild>
                     <Button
                         variant="outline"
-                        className="w-[150px] flex justify-between items-center"
+                        className="flex justify-between items-center"
                     >
                         {selectedValue[type] ? selectedValue[type] : `Select unit`}
                         <ChevronDown className={`${open ? "rotate-180" : "rotate-0"}`} />
@@ -65,7 +65,7 @@ export function SelectUnit({ type, selectedValue, setSelectedValue }: Props) {
     return (
         <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger asChild>
-                <Button variant="outline" className="w-[150px] justify-start">
+                <Button variant="outline" className="sm:w-[150px]">
                     {selectedValue[type] ? selectedValue[type] : `Convert ${type}`}
                 </Button>
             </DrawerTrigger>

@@ -4,14 +4,13 @@ import { useEffect, useState, useCallback } from "react";
 import { Input } from "@/components/ui/input";
 import { SelectCurrency } from "@/components/unit-converter/SelectCurrency";
 import { ConvertCurrency } from "@/lib/currency-converter/convert";
+import { TabsContent } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { CircleAlert, CircleX } from "lucide-react";
 
-interface CurrencyConverterProps {
-    initialRates: { [key: string]: number };
-}
-
-export default function CurrencyConverter({ initialRates }: CurrencyConverterProps) {
+export default function CurrencyConverter() {
     const [amount, setAmount] = useState("1");
-    const [countryCodes, setCountryCodes] = useState<{ [key: string]: number }>(initialRates || {});
+    const [countryCodes, setCountryCodes] = useState<{ [key: string]: number }>({});
     const [result, setResult] = useState<number | null>(null);
     const [error, setError] = useState<string>("");
     const [selectedValue, setSelectedValue] = useState<{ from: string; to: string }>({
@@ -39,68 +38,108 @@ export default function CurrencyConverter({ initialRates }: CurrencyConverterPro
     }, [amount, selectedValue.to, countryCodes, setResult, setError]);
 
     useEffect(() => {
-        if (initialRates) {
-            setCountryCodes(initialRates);
+        async function fetchCurrency() {
+            try {
+                const exchangeRates = await fetch("https://open.er-api.com/v6/latest/GBP", {
+                    method: "GET",
+                });
+                const data = await exchangeRates.json();
+
+                setCountryCodes(data.rates);
+            } catch (error) {
+                console.log(error);
+            }
         }
-        SubmitConversion();
-    }, [initialRates, SubmitConversion]);
+
+        fetchCurrency();
+    }, []);
+
+    const ClearUnits = () => {
+        setSelectedValue({ from: "GBP", to: "USD" });
+        setAmount("1");
+        setResult(null);
+        setError("");
+    };
 
     return (
-        <>
-            <section className="px-2">
-                <section className="flex justify-center items-center min-h-40 gap-5">
-                    <section className="w-fit space-y-2">
-                        <h2 className="text-sm font-semibold text-muted-foreground">From</h2>
-                        <div className="flex gap-2 flex-wrap">
-                            <SelectCurrency
-                                type="from"
-                                selectedValue={selectedValue}
-                                setSelectedValue={setSelectedValue}
-                                countryCodes={countryCodes}
-                            />
-                            <Input
-                                value={amount}
-                                id="amount"
-                                onChange={(e) => {
-                                    setAmount(e.target.value);
-                                    AddPunctuation(e.target.value);
-                                    SubmitConversion();
-                                }}
-                                placeholder="Enter currency amount"
-                                type="text"
-                            />
-                        </div>
-                    </section>
-                    <section className="w-fit space-y-2">
-                        <h2 className="text-sm font-semibold text-muted-foreground">To</h2>
-                        <div className="flex gap-2 flex-wrap">
-                            <SelectCurrency
-                                type="to"
-                                selectedValue={selectedValue}
-                                setSelectedValue={setSelectedValue}
-                                countryCodes={countryCodes}
-                            />
-                            <Input
-                                readOnly
-                                type="text"
-                                id="result"
-                                value={
-                                    result !== null
-                                        ? Number(result).toLocaleString()
-                                        : error
-                                        ? error
-                                        : ""
-                                }
-                                className={`${error ? "text-red-500 font-medium" : ""}`}
-                            />
-                        </div>
-                    </section>
-                </section>
+        <TabsContent value="currency" className="pb-10">
+            <section className="flex flex-col justify-between items-start h-60">
+                <div className="flex flex-col gap-2">
+                    <h2 className="text-sm font-semibold text-muted-foreground">From</h2>
+                    <div className="flex gap-2">
+                        <SelectCurrency
+                            type="from"
+                            selectedValue={selectedValue}
+                            setSelectedValue={setSelectedValue}
+                            countryCodes={countryCodes}
+                        />
+                        <Input
+                            value={amount}
+                            id="amount"
+                            onChange={(e) => {
+                                setAmount(e.target.value);
+                                AddPunctuation(e.target.value);
+                            }}
+                            placeholder="Enter currency amount"
+                            type="text"
+                        />
+                    </div>
+                </div>
+                <div className="flex flex-col gap-2">
+                    <h2 className="text-sm font-semibold text-muted-foreground">To</h2>
+                    <div className="flex gap-2">
+                        <SelectCurrency
+                            type="to"
+                            selectedValue={selectedValue}
+                            setSelectedValue={setSelectedValue}
+                            countryCodes={countryCodes}
+                        />
+                        <Input
+                            readOnly
+                            type="text"
+                            id="result"
+                            value={
+                                result !== null
+                                    ? Number(result).toLocaleString()
+                                    : error
+                                    ? error
+                                    : ""
+                            }
+                            className={`${error ? "text-red-500 font-medium" : ""}`}
+                        />
+                    </div>
+                </div>
+                <p className="min-h-5 text-red-600 text-sm font-medium">
+                    {error && (
+                        <span className="flex items-center gap-2">
+                            <CircleAlert size={15} />
+                            {error}
+                        </span>
+                    )}
+                </p>
             </section>
-            <p className="text-sm w-full text-muted-foreground mt-2 absolute bottom-1 left-0 px-1 text-center sm:text-right">
+            <div className="flex gap-5">
+                <Button
+                    variant="secondary"
+                    className="cursor-pointer text-sm"
+                    onClick={() => ClearUnits()}
+                    disabled={!selectedValue.from}
+                >
+                    Reset
+                    <CircleX />
+                </Button>
+                <Button
+                    onClick={() => {
+                        SubmitConversion();
+                    }}
+                >
+                    Convert
+                </Button>
+            </div>
+            <p className="text-xs text-muted-foreground absolute -bottom-1 right-0">
                 Powered by -{" "}
                 <a href="https://www.exchangerate-api.com">Rates By Exchange Rate API</a>
             </p>
-        </>
+        </TabsContent>
     );
 }

@@ -167,7 +167,7 @@ export function NotepadTable({
     }
 
     return (
-        <section className="px-2">
+        <section>
             <div className="w-full h-[80vh] sm:h-[85vh] overflow-y-scroll">
                 <div className="sticky top-0 py-4 gap-2 bg-background z-10 flex justify-between">
                     <div className="flex gap-2">
