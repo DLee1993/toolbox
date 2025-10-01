@@ -548,7 +548,7 @@ export default function FileConverterDropzone() {
     }, []);
 
     return (
-        <section className="flex-1 min-w-80 sm:min-w-96 rounded-2xl space-y-4">
+        <section className="flex-1 min-w-80 sm:min-w-96 rounded-2xl space-y-3">
             {/* Files Dropzone */}
             <section className="flex justify-center items-center">
                 <ReactDropzone

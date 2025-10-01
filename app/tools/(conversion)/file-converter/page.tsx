@@ -6,11 +6,11 @@ import FileConverterDropzone from "@/components/file-converter/Dropzone";
 export default function FileConverter() {
     return (
         <NoSSRWrapper>
-            <section className="flex justify-between items-start gap-10 flex-wrap">
+            <section className="flex justify-between items-start gap-8 flex-wrap">
                 <article className="flex-1 min-w-80 sm:min-w-96 space-y-10 text-sm">
                     <div className="space-y-2.5">
                         <h1 className="font-semibold text-2xl">Convert Audio, Video and Images.</h1>
-                        <p>
+                        <p className="w-11/12">
                             A fast and easy tool for converting audio, video, and image files
                             between popular formats. No editing, no tweaking—just clean, reliable
                             format conversion.

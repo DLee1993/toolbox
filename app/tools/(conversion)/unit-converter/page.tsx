@@ -10,11 +10,9 @@ export default function UnitConverter() {
             <article className="flex-1 min-w-96 space-y-10 text-sm">
                 <div className="space-y-2.5">
                     <h1 className="font-semibold text-2xl">Convert Currency and Measurements.</h1>
-                    <p>
+                    <p className="w-11/12">
                         Convert Currency and Measurements with ease — switch between global
-                        currencies, metric and imperial units, and even time zones. Whether you&apos;re
-                        planning a trip or working across borders, our converter ensures accurate,
-                        real-time results.
+                        currencies, metric and imperial units.
                     </p>
                 </div>
                 <ul className="list-disc list-inside space-y-1">
@@ -34,7 +32,6 @@ export default function UnitConverter() {
                         Volume <span className="text-xs font-bold">(Litres, gallons, cups, millilitres)</span>
                     </li>
                 </ul>
-
                 <p className="font-semibold">
                     All generation happens locally, and no data is stored.
                 </p>
