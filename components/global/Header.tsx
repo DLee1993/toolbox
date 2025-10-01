@@ -9,21 +9,11 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 export default function Header() {
     const pathname = usePathname();
     const [greeting, setGreeting] = useState("");
-    const [dateTime, setDateTime] = useState("");
 
     useEffect(() => {
-        const updateGreeting = () => {
-            const locale = navigator.language;
-            const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            const { greeting, dateTime } = getLocalizedGreeting(locale, timeZone);
-            setGreeting(greeting);
-            setDateTime(dateTime);
-        };
-
-        updateGreeting(); // Initial call
-        const interval = setInterval(updateGreeting, 60_000); // Update every minute
-
-        return () => clearInterval(interval); // Cleanup on unmount
+        const locale = navigator.language;
+        const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        setGreeting(getLocalizedGreeting(locale, timeZone));
     }, []);
 
     return (
@@ -31,7 +21,6 @@ export default function Header() {
             <SidebarTrigger className="min-w-9 min-h-9 md:hidden" />
             {pathname !== "/" && <BreadCrumbNav />}
             {pathname === "/" && <h3>{greeting}</h3>}
-            {pathname === "/" && <p>{dateTime}</p>}
         </header>
     );
 }
