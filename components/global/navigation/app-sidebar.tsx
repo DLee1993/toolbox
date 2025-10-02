@@ -22,7 +22,12 @@ import ChangeTheme from "@/components/global/ThemeToggle";
 
 export function AppSidebar() {
     const pathname = usePathname();
-    const { open, isMobile, setOpen } = useSidebar();
+    const { open, isMobile, setOpen, setOpenMobile } = useSidebar();
+
+    const toggleMenu = (bool: boolean) => {
+        setOpen(bool);
+        setOpenMobile(bool);
+    };
 
     return (
         <Sidebar collapsible="icon">
@@ -57,7 +62,7 @@ export function AppSidebar() {
                                 tooltip="Home"
                                 isActive={pathname === "/" ? true : false}
                                 className="min-h-9 min-w-9 hover:bg-muted"
-                                onClick={() => setOpen(false)}
+                                onClick={() => toggleMenu(false)}
                             >
                                 <Link
                                     href="/"
@@ -81,7 +86,7 @@ export function AppSidebar() {
                                 asChild
                                 tooltip="Request a tool"
                                 className="min-h-9 min-w-9 hover:bg-muted"
-                                onClick={() => setOpen(false)}
+                                onClick={() => toggleMenu(false)}
                             >
                                 <Link href="https://github.com/DLee1993/toolbox" target="_blank">
                                     <FolderGit2 size={15} className="ml-0.5" />
@@ -112,7 +117,7 @@ export function AppSidebar() {
                                         tooltip={item.title}
                                         isActive={pathname === item.url ? true : false}
                                         className="min-h-9 min-w-9 hover:bg-muted"
-                                        onClick={() => setOpen(false)}
+                                        onClick={() => toggleMenu(false)}
                                     >
                                         <Link
                                             href={item.url}
@@ -141,7 +146,7 @@ export function AppSidebar() {
                             tooltip="Settings"
                             isActive={pathname === "/settings" ? true : false}
                             className="min-h-9 min-w-9 hover:bg-muted"
-                            onClick={() => setOpen(false)}
+                            onClick={() => toggleMenu(false)}
                         >
                             <Link
                                 href="/settings"
