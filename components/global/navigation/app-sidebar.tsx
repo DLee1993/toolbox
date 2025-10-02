@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import React from "react";
-import { Dot, Home, FolderGit2 } from "lucide-react";
+import { Dot, Home, FolderGit2, Settings } from "lucide-react";
 import { sidebarItems } from "@/components/global/navigation/app-sidebar-item-list";
 import {
     Sidebar,
@@ -134,6 +134,32 @@ export function AppSidebar() {
                         </SidebarMenu>
                     </SidebarGroup>
                 ))}
+                <SidebarMenu className="mt-auto">
+                    <SidebarMenuItem>
+                        <SidebarMenuButton
+                            asChild
+                            tooltip="Settings"
+                            isActive={pathname === "/settings" ? true : false}
+                            className="min-h-9 min-w-9 hover:bg-muted"
+                            onClick={() => setOpen(false)}
+                        >
+                            <Link
+                                href="/settings"
+                                className="data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
+                            >
+                                <Settings className="ml-0.5" />
+                                <p
+                                    className={`flex items-center gap-1 w-full min-w-32 ml-1 whitespace-nowrap ${
+                                        !open && !isMobile && "opacity-0"
+                                    }`}
+                                >
+                                    Settings
+                                </p>
+                                {pathname === "/setings" && <Dot className="ml-auto" />}
+                            </Link>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                </SidebarMenu>
             </SidebarContent>
         </Sidebar>
     );

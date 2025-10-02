@@ -19,8 +19,8 @@ export default function Header() {
     return (
         <header className="sticky top-0 z-50 flex justify-between items-center border-b border-border bg-background px-2 sm:px-5">
             <SidebarTrigger className="min-w-9 min-h-9 md:hidden" />
-            {pathname !== "/" && <BreadCrumbNav />}
-            {pathname === "/" && <h3>{greeting}</h3>}
+            {(pathname !== "/" && pathname !== "/settings") && <BreadCrumbNav />}
+            {(pathname === "/" || pathname === "/settings") && <h3>{greeting}</h3>}
         </header>
     );
 }
