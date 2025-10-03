@@ -67,13 +67,7 @@ export default function Home() {
             <section className="my-20">
                 <ul className="max-w-7xl flex justify-evenly items-center mx-auto">
                     <li>
-                        <Button variant="secondary">
-                            No Ads
-                        </Button>
-                    </li>
-                    <li>-</li>
-                    <li>
-                        <Button variant="secondary">No price plan</Button>
+                        <Button variant="secondary">No Ads</Button>
                     </li>
                     <li>-</li>
                     <li>
@@ -81,7 +75,7 @@ export default function Home() {
                     </li>
                     <li>-</li>
                     <li>
-                        <Button>Free Forever</Button>
+                        <Button variant="secondary">No price plan</Button>
                     </li>
                 </ul>
             </section>
