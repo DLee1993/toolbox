@@ -15,14 +15,15 @@ export default function SelectLength({
     setPwLength,
     setPcLength,
 }: LengthProps) {
-    const sliderLength = type === "password" ? 30 : 16;
+    const sliderMaxLength = type === "password" ? 30 : 16;
+    const sliderMinLength = type === "password" ? 8 : 4;
 
     return (
         <div className="flex gap-10">
             <Slider
                 className="w-full"
-                min={0}
-                max={sliderLength}
+                min={sliderMinLength}
+                max={sliderMaxLength}
                 step={1}
                 defaultValue={type === "password" ? [pwLength || 8] : [pcLength || 4]}
                 onValueChange={(value) => {
