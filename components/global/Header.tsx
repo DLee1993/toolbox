@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { getLocalizedGreeting } from "@/lib/global/GreetUser";
 import BreadCrumbNav from "@/components/global/navigation/BreadCrumbNav";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import HelpProvider from "@/components/global/HelpProvider";
 
 export default function Header() {
     const pathname = usePathname();
@@ -17,10 +18,13 @@ export default function Header() {
     }, []);
 
     return (
-        <header className="sticky top-0 z-50 flex justify-between items-center border-b border-border bg-background px-2 sm:px-5">
-            <SidebarTrigger className="min-w-9 min-h-9 md:hidden" />
-            {(pathname !== "/" && pathname !== "/settings") && <BreadCrumbNav />}
+        <header className="sticky top-0 z-50 flex justify-between items-center border-b border-border bg-background px-2 md:px-5">
+            <div className="w-full flex justify-start items-center gap-2">
+                <SidebarTrigger className="min-w-9 min-h-9 md:hidden" />
+                <div className="hidden min-[520px]:block">{pathname !== "/" && pathname !== "/settings" && <BreadCrumbNav />}</div>
+            </div>
             {(pathname === "/" || pathname === "/settings") && <h3>{greeting}</h3>}
+            <HelpProvider />
         </header>
     );
 }
