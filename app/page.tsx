@@ -37,8 +37,8 @@ export default function Home() {
                         Your Ultimate Digital Companion
                     </h1>
                     <p className="mt-8 font-medium max-w-lg text-pretty text-muted-foreground mx-auto">
-                        A versatile platform designed to simplify and enhance your daily tasks,
-                        bringing efficiency, and organization to your fingertips.
+                        A versatile minimalist platform designed to simplify and enhance your daily
+                        tasks, bringing efficiency, and organization to your fingertips.
                     </p>
                     <div className="mt-10 flex items-center justify-center gap-x-6">
                         <button
@@ -67,15 +67,30 @@ export default function Home() {
             <section className="my-20">
                 <ul className="max-w-7xl flex justify-evenly items-center mx-auto">
                     <li>
-                        <Button variant="secondary">No Ads</Button>
+                        <Button
+                            variant="secondary"
+                            className="hover:bg-secondary pointer-events-none"
+                        >
+                            No Ads
+                        </Button>
                     </li>
                     <li>-</li>
                     <li>
-                        <Button variant="secondary">No personal data stored</Button>
+                        <Button
+                            variant="secondary"
+                            className="hover:bg-secondary pointer-events-none"
+                        >
+                            No personal data stored
+                        </Button>
                     </li>
                     <li>-</li>
                     <li>
-                        <Button variant="secondary">No price plan</Button>
+                        <Button
+                            variant="secondary"
+                            className="hover:bg-secondary pointer-events-none"
+                        >
+                            No price plan
+                        </Button>
                     </li>
                 </ul>
             </section>
