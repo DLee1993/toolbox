@@ -12,7 +12,6 @@ import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { toBlobURL } from "@ffmpeg/util";
 import ReactDropzone from "react-dropzone";
 
-import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -231,7 +230,6 @@ export default function FileConverterDropzone() {
     const [actions, setActions] = useState<Action[]>([]);
     const [is_ready, setIsReady] = useState<boolean>(false);
     const [files, setFiles] = useState<Array<Action>>([]);
-    const [is_loaded, setIsLoaded] = useState<boolean>(false);
     const [is_converting, setIsConverting] = useState<boolean>(false);
     const [is_done, setIsDone] = useState<boolean>(false);
     const [rowSelection, setRowSelection] = useState({});
@@ -401,8 +399,6 @@ export default function FileConverterDropzone() {
             coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, "text/javascript"),
             wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, "application/wasm"),
         });
-
-        setIsLoaded(true);
     };
 
     const reset = () => {
@@ -600,70 +596,69 @@ export default function FileConverterDropzone() {
                 </ReactDropzone>
             </section>
             {/* CTA */}
-                <section className="flex justify-between items-center">
-                    <div className="flex justify-between items-center sm:gap-1 bg-background">
-                        <Button
-                            size="sm"
-                            variant="link"
-                            onClick={reset}
-                            disabled={files.length === 0}
-                            className="text-secondary-foreground"
-                        >
-                            Clear
-                        </Button>
-                        <p className="text-foreground/50">|</p>
-                        <Button
-                            size="sm"
-                            variant="link"
-                            disabled={!is_ready || is_converting}
-                            onClick={convert}
-                            className="text-secondary-foreground"
-                        >
-                            <span>Convert</span>
-                        </Button>
-                        <p className="text-foreground/50">|</p>
-                        <Button
-                            size="sm"
-                            variant="link"
-                            onClick={downloadAll}
-                            disabled={!is_done}
-                            className="text-secondary-foreground"
-                        >
-                            <span>Download all</span>
-                        </Button>
-                    </div>
-                    <div className="flex justify-center items-center gap-1">
-                        <Button
-                            size="icon"
-                            variant="link"
-                            onClick={() => table.previousPage()}
-                            disabled={!table.getCanPreviousPage()}
-                            aria-label="previous page"
-                            className="text-accent-foreground"
-                        >
-                            <FiChevronLeft />
-                        </Button>
-                        <p className="hidden sm:flex text-xs text-secondary-foreground gap-1">
-                            <span>{table.getPageCount() ? table.getState().pagination.pageIndex + 1 : 0}</span>
-                            <span>of</span>
-                            <span>{table.getPageCount()}</span>
-                        </p>
-                        <Button
-                            size="icon"
-                            variant="link"
-                            onClick={() => table.nextPage()}
-                            disabled={!table.getCanNextPage()}
-                            aria-label="next page"
-                            className="text-accent-foreground"
-                        >
-                            <FiChevronRight />
-                        </Button>
-                    </div>
-                </section>
+            <section className="flex justify-between items-center">
+                <div className="flex justify-between items-center sm:gap-1 bg-background">
+                    <Button
+                        size="sm"
+                        variant="link"
+                        onClick={reset}
+                        disabled={files.length === 0}
+                        className="text-secondary-foreground"
+                    >
+                        Clear
+                    </Button>
+                    <p className="text-foreground/50">|</p>
+                    <Button
+                        size="sm"
+                        variant="link"
+                        disabled={!is_ready || is_converting}
+                        onClick={convert}
+                        className="text-secondary-foreground"
+                    >
+                        <span>Convert</span>
+                    </Button>
+                    <p className="text-foreground/50">|</p>
+                    <Button
+                        size="sm"
+                        variant="link"
+                        onClick={downloadAll}
+                        disabled={!is_done}
+                        className="text-secondary-foreground"
+                    >
+                        <span>Download all</span>
+                    </Button>
+                </div>
+                <div className="flex justify-center items-center gap-1">
+                    <Button
+                        size="icon"
+                        variant="link"
+                        onClick={() => table.previousPage()}
+                        disabled={!table.getCanPreviousPage()}
+                        aria-label="previous page"
+                        className="text-accent-foreground"
+                    >
+                        <FiChevronLeft />
+                    </Button>
+                    <p className="hidden sm:flex text-xs text-secondary-foreground gap-1">
+                        <span>
+                            {table.getPageCount() ? table.getState().pagination.pageIndex + 1 : 0}
+                        </span>
+                        <span>of</span>
+                        <span>{table.getPageCount()}</span>
+                    </p>
+                    <Button
+                        size="icon"
+                        variant="link"
+                        onClick={() => table.nextPage()}
+                        disabled={!table.getCanNextPage()}
+                        aria-label="next page"
+                        className="text-accent-foreground"
+                    >
+                        <FiChevronRight />
+                    </Button>
+                </div>
+            </section>
             {/* File table / conversion selector */}
-            {!is_loaded && (
-                <Skeleton className="h-full w-full -ml-10 cursor-progress absolute rounded-xl" />
-            )}
             <Table className="w-full">
                 <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (
