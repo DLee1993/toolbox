@@ -2,12 +2,12 @@ export const HelpProviderContentList = [
     {
         title: "/tools/credentials-generator",
         description:
-            "Generate secure credentials in seconds — choose between strong passwords and numeric PINs. PINs are short, digit-only codes ideal for simpler authentication. Our passwords are complex, combining:",
-        declaration: "All generation happens locally, and no data is stored.",
+            "Here's a guide to using the credentials generator:",
         points: [
-            { text: "Letters", subText: "(A-Z, a-z)" },
-            { text: "Numbers", subText: "(0-9)" },
-            { text: "Special Characters", subText: "(@, #, $, %, &, *)" },
+            { text: "Select your type", subText: "(password or pin)" },
+            { text: "Select the length", subText: "(password: 8-30, pin: 4-16)" },
+            { text: "Click Generate Credential", subText: "" },
+            { text: "Copy to clipboard and use where you want", subText: "" },
         ],
     },
 ];

@@ -29,12 +29,11 @@ export default function HelpProvider() {
                                     {item.points.map((p, i) => (
                                         <li key={i}>
                                             {p.text}{" "}
-                                            <span className="text-xs font-bold">{p.subText}</span>
+                                            <span className="text-xs">{p.subText}</span>
                                         </li>
                                     ))}
                                 </ul>
 
-                                <p className="text-sm font-semibold">{item.declaration}</p>
                             </article>
                         )
                     )}
