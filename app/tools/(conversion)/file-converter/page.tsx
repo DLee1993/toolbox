@@ -41,6 +41,7 @@ export default function FileConverter() {
                         completely free.
                     </p>
                 </article>
+                <div className="w-full h-[1px] bg-border lg:hidden"></div>
                 <FileConverterDropzone />
             </section>
         </NoSSRWrapper>
