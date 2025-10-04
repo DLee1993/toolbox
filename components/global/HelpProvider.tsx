@@ -17,7 +17,7 @@ export default function HelpProvider() {
                     Help <MessageCircleQuestionIcon />
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-screen max-w-lg bg-popover/90 backdrop-blur-sm space-y-5">
+            <PopoverContent className="w-screen max-w-lg bg-popover/95 backdrop-blur-sm space-y-5">
                 <section>
                     {HelpProviderContentList.filter((item) => pathname === item.title).map(
                         (item, i) => (
