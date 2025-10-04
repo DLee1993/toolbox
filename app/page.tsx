@@ -80,7 +80,7 @@ export default function Home() {
                             variant="secondary"
                             className="hover:bg-secondary pointer-events-none"
                         >
-                            No personal data stored
+                            No personal data shared
                         </Button>
                     </li>
                     <li>-</li>
