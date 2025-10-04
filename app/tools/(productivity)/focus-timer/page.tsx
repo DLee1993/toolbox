@@ -22,6 +22,9 @@ export default function FocusTimer() {
     const [remainingTime, setRemainingTime] = useState(time);
     const [isRunning, setIsRunning] = useState(false);
     const [isFinished, setIsFinished] = useState(false);
+    const [shortBreak, setShortBreak] = useState(localStorage.getItem("short") || "1");
+    const [mediumBreak, setMediumBreak] = useState(localStorage.getItem("medium") || "5");
+    const [longBreak, setLongBreak] = useState(localStorage.getItem("long") || "30");
 
     useEffect(() => {
         let timer: string | number | NodeJS.Timeout | undefined;
@@ -75,13 +78,6 @@ export default function FocusTimer() {
         setIsRunning(false);
     };
 
-    const calculateArc = (percentage: number) => {
-        const radius = 150;
-        const circumference = 2 * Math.PI * radius;
-
-        return circumference - (percentage / 100) * circumference;
-    };
-
     const calculateTime = (newTime: number, isPreset = false) => {
         if (!isPreset) {
             setIsRunning(false);
@@ -94,21 +90,23 @@ export default function FocusTimer() {
         }
     };
 
-    const timePercentage = (remainingTime / time) * 100;
-
     const handlePresetClick = (newTime: number) => {
         if (!newTime) return;
         calculateTime(newTime, true);
         setIsOpen(false);
     };
 
-    const handleCustomTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleBreakTimeChange = (e: React.ChangeEvent<HTMLInputElement>, breakName: string) => {
         const value = e.target.value;
-        if (!value) return;
-        const numericValue = parseInt(value);
-        if (isNaN(numericValue)) return;
-        const time = numericValue * 60;
-        calculateTime(time);
+        localStorage.setItem(breakName, value);
+
+        if (breakName === "short") {
+            setShortBreak(value);
+        } else if (breakName === "medium") {
+            setMediumBreak(value);
+        } else {
+            setLongBreak(value);
+        }
     };
 
     const presets = [
@@ -121,90 +119,143 @@ export default function FocusTimer() {
         { label: "45 minutes", value: 45 },
         { label: "60 minutes", value: 60 },
         { label: "90 minutes", value: 90 },
-        { label: "120 minutes", value: 120 },
     ];
 
     return (
-        <section>
-            <section className="flex flex-col items-center justify-center space-y-10">
-                <div className="relative w-fit">
-                    <svg width="350" height="350">
-                        <circle
-                            cx="175"
-                            cy="175"
-                            r="150"
-                            stroke=""
-                            strokeWidth="2"
-                            fill="none"
-                            className="stroke-muted"
-                        />
-                        <circle
-                            cx="25"
-                            cy="175"
-                            r="150"
-                            strokeWidth="2"
-                            fill="none"
-                            strokeDasharray="942"
-                            strokeDashoffset={calculateArc(timePercentage)}
-                            strokeLinecap="round"
-                            transform="rotate(-90 100 100)"
-                            style={{ transition: "stroke-dashoffset 1s ease" }}
-                            className="stroke-foreground"
-                        />
-                    </svg>
-                    <p className="flex flex-col justify-center items-center space-y-2.5 mt-2.5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                        <span className="text-6xl w-52 text-center font-robotoMono font-medium">
+        <section className="height relative flex justify-center items-center gap-8">
+            <div className="height w-10/12 flex flex-col justify-center space-y-2">
+                <section className="w-full flex justify-between items-center gap-1 min-h-14 border-b border-border">
+                    <Button
+                        onClick={() => handlePresetClick(parseInt(shortBreak))}
+                        size="sm"
+                        className="w-1/3 rounded-sm"
+                    >
+                        Short
+                    </Button>
+                    <Button
+                        onClick={() => handlePresetClick(parseInt(mediumBreak))}
+                        size="sm"
+                        className="w-1/3 rounded-sm"
+                    >
+                        Medium
+                    </Button>
+                    <Button
+                        onClick={() => handlePresetClick(parseInt(longBreak))}
+                        size="sm"
+                        className="w-1/3 rounded-sm"
+                    >
+                        Long
+                    </Button>
+                </section>
+                <div className="relative">
+                    <div
+                        id="progress-bar"
+                        className="absolute z-10 top-0 left-0 h-full rounded-md transition-all duration-300"
+                        style={{ width: `${(remainingTime / time) * 100}%` }}
+                    ></div>
+
+                    <div className="h-72 flex justify-center items-center rounded-md bg-secondary">
+                        <p className="relative z-10 text-9xl md:text-[150px] w-full text-center font-medium font-mono">
                             {Math.floor(remainingTime / 60)
                                 .toString()
                                 .padStart(2, "0")}
                             :{(remainingTime % 60).toString().padStart(2, "0")}
-                        </span>
-                        <span className="min-h-6">
+                        </p>
+                        <p className="relative z-10 min-h-6">
                             {isFinished && (
                                 <span className="flex items-center gap-2 text-sm">
                                     Time&apos;s up!
                                     <BellRing size={15} className="animate-wiggle" />
                                 </span>
                             )}
-                        </span>
-                    </p>
+                        </p>
+                    </div>
+                </div>
+                <section className="w-full flex justify-between items-center min-h-14 border-t border-border gap-1">
+                    <Button
+                        onClick={startTimer}
+                        disabled={isRunning}
+                        size="sm"
+                        className="w-1/4 rounded-sm"
+                    >
+                        <span>Start</span>
+                        <Play size={15} />
+                    </Button>
+                    <Button
+                        onClick={pauseTimer}
+                        disabled={!isRunning}
+                        size="sm"
+                        className="w-1/4 rounded-sm"
+                    >
+                        <span>Pause</span>
+                        <Pause size={15} />
+                    </Button>
+                    <Button onClick={resetTimer} size="sm" className="w-1/4 rounded-sm">
+                        <span>Restart</span>
+                        <RotateCcw size={15} />
+                    </Button>
                     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-                        <DialogTrigger
-                            asChild
-                            className="absolute bottom-10 left-1/2 -translate-x-1/2"
-                        >
-                            <Button variant="ghost" size="icon">
-                                <span className="sr-only">Settings</span>
-                                <Settings2 className="!size-5" />
+                        <DialogTrigger asChild>
+                            <Button size="sm" className="w-1/4 rounded-sm">
+                                <span>Settings</span>
+                                <Settings2 className="!size-4" />
                             </Button>
                         </DialogTrigger>
                         <DialogContent className="sm:max-w-[425px]">
                             <DialogHeader>
-                                <DialogTitle>Timer options</DialogTitle>
+                                <DialogTitle>Settings</DialogTitle>
                                 <DialogDescription className="sr-only">
                                     Make changes to the timer settings here.
                                 </DialogDescription>
                             </DialogHeader>
-                            <section className="space-y-4">
-                                <p className="text-sm text-muted-foreground">Custom Time</p>
-                                <Input
-                                    type="number"
-                                    onChange={handleCustomTimeChange}
-                                    defaultValue={time / 60}
-                                    placeholder="Add time in minutes"
-                                    autoFocus
-                                />
+                            <section className="border-b border-border/50 space-y-2.5 py-5">
+                                <p className="text-sm font-semibold">Shortcuts</p>
+                                <section className=" grid grid-cols-3 gap-2">
+                                    <div>
+                                        <p className="text-xs">Short Break</p>
+                                        <Input
+                                            type="number"
+                                            onChange={(e) => handleBreakTimeChange(e, "short")}
+                                            defaultValue={shortBreak}
+                                            placeholder="Add time in minutes"
+                                            min={1}
+                                            max={5}
+                                        />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs">Medium Break</p>
+                                        <Input
+                                            type="number"
+                                            onChange={(e) => handleBreakTimeChange(e, "medium")}
+                                            defaultValue={mediumBreak}
+                                            placeholder="Add time in minutes"
+                                            min={5}
+                                            max={30}
+                                        />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs">Long Break</p>
+                                        <Input
+                                            type="number"
+                                            onChange={(e) => handleBreakTimeChange(e, "long")}
+                                            defaultValue={longBreak}
+                                            placeholder="Add time in minutes"
+                                            min={30}
+                                            max={90}
+                                        />
+                                    </div>
+                                </section>
                             </section>
-                            <section className="space-y-4">
-                                <p className="text-sm text-muted-foreground">Presets</p>
-                                <ul className="flex flex-wrap items-center gap-2">
+                            <section className="space-y-2.5">
+                                <p className="text-sm font-semibold">Presets</p>
+                                <ul className="grid grid-cols-3 gap-2">
                                     {presets.map((preset) => (
                                         <li key={preset.value}>
                                             <Button
                                                 variant="outline"
+                                                className="border border-border w-full"
                                                 onClick={() => handlePresetClick(preset.value)}
                                                 disabled={time / 60 === preset.value}
-                                                className="w-24 disabled:bg-transparent disabled:text-foreground disabled:border-[2px] disabled:shadow-none"
                                             >
                                                 {preset.label}
                                             </Button>
@@ -212,7 +263,6 @@ export default function FocusTimer() {
                                     ))}
                                 </ul>
                             </section>
-
                             <DialogFooter>
                                 <Button type="button" onClick={() => setIsOpen(false)}>
                                     close
@@ -220,22 +270,8 @@ export default function FocusTimer() {
                             </DialogFooter>
                         </DialogContent>
                     </Dialog>
-                </div>
-                <div className="space-x-4">
-                    <Button onClick={startTimer} disabled={isRunning}>
-                        <span>Start</span>
-                        <Play size={15} />
-                    </Button>
-                    <Button onClick={pauseTimer} disabled={!isRunning}>
-                        <span>Pause</span>
-                        <Pause size={15} />
-                    </Button>
-                    <Button onClick={resetTimer} disabled={!isRunning}>
-                        <span>Restart</span>
-                        <RotateCcw size={15} />
-                    </Button>
-                </div>
-            </section>
+                </section>
+            </div>
         </section>
     );
 }
