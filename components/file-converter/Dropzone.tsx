@@ -629,7 +629,7 @@ export default function FileConverterDropzone() {
                             disabled={!is_done}
                             className="text-secondary-foreground"
                         >
-                            <span>Download</span>
+                            <span>Download all</span>
                         </Button>
                     </div>
                     <div className="flex justify-center items-center gap-1">
