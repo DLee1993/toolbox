@@ -22,9 +22,15 @@ export default function FocusTimer() {
     const [remainingTime, setRemainingTime] = useState(time);
     const [isRunning, setIsRunning] = useState(false);
     const [isFinished, setIsFinished] = useState(false);
-    const [shortBreak, setShortBreak] = useState(localStorage.getItem("short") || "1");
-    const [mediumBreak, setMediumBreak] = useState(localStorage.getItem("medium") || "5");
-    const [longBreak, setLongBreak] = useState(localStorage.getItem("long") || "30");
+    const [shortBreak, setShortBreak] = useState("");
+    const [mediumBreak, setMediumBreak] = useState("");
+    const [longBreak, setLongBreak] = useState("");
+
+    useEffect(() => {
+        setShortBreak(getStoredOrDefault("short", "1"));
+        setMediumBreak(getStoredOrDefault("medium", "5"));
+        setLongBreak(getStoredOrDefault("long", "30"));
+    }, []);
 
     useEffect(() => {
         let timer: string | number | NodeJS.Timeout | undefined;
@@ -63,6 +69,9 @@ export default function FocusTimer() {
             }, 1000);
         }
     }, [remainingTime, isRunning, time]);
+
+    const getStoredOrDefault = (key: string, fallback: string) =>
+        localStorage.getItem(key) || fallback;
 
     const startTimer = () => {
         setIsRunning(true);
