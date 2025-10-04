@@ -600,7 +600,6 @@ export default function FileConverterDropzone() {
                 </ReactDropzone>
             </section>
             {/* CTA */}
-            {files.length > 0 && (
                 <section className="flex justify-between items-center">
                     <div className="flex justify-between items-center sm:gap-1 bg-background">
                         <Button
@@ -608,12 +607,9 @@ export default function FileConverterDropzone() {
                             variant="link"
                             onClick={reset}
                             disabled={files.length === 0}
+                            className="text-secondary-foreground"
                         >
                             Clear
-                        </Button>
-                        <p className="text-foreground/50">|</p>
-                        <Button size="sm" variant="link" onClick={downloadAll} disabled={!is_done}>
-                           <span>Download</span>
                         </Button>
                         <p className="text-foreground/50">|</p>
                         <Button
@@ -621,8 +617,19 @@ export default function FileConverterDropzone() {
                             variant="link"
                             disabled={!is_ready || is_converting}
                             onClick={convert}
+                            className="text-secondary-foreground"
                         >
                             <span>Convert</span>
+                        </Button>
+                        <p className="text-foreground/50">|</p>
+                        <Button
+                            size="sm"
+                            variant="link"
+                            onClick={downloadAll}
+                            disabled={!is_done}
+                            className="text-secondary-foreground"
+                        >
+                            <span>Download</span>
                         </Button>
                     </div>
                     <div className="flex justify-center items-center gap-1">
@@ -632,11 +639,12 @@ export default function FileConverterDropzone() {
                             onClick={() => table.previousPage()}
                             disabled={!table.getCanPreviousPage()}
                             aria-label="previous page"
+                            className="text-accent-foreground"
                         >
                             <FiChevronLeft />
                         </Button>
-                        <p className="hidden sm:flex text-xs text-muted-foreground gap-1">
-                            <span>{table.getState().pagination.pageIndex + 1}</span>
+                        <p className="hidden sm:flex text-xs text-secondary-foreground gap-1">
+                            <span>{table.getPageCount() ? table.getState().pagination.pageIndex + 1 : 0}</span>
                             <span>of</span>
                             <span>{table.getPageCount()}</span>
                         </p>
@@ -646,17 +654,17 @@ export default function FileConverterDropzone() {
                             onClick={() => table.nextPage()}
                             disabled={!table.getCanNextPage()}
                             aria-label="next page"
+                            className="text-accent-foreground"
                         >
                             <FiChevronRight />
                         </Button>
                     </div>
                 </section>
-            )}
             {/* File table / conversion selector */}
             {!is_loaded && (
                 <Skeleton className="h-full w-full -ml-10 cursor-progress absolute rounded-xl" />
             )}
-            <Table>
+            <Table className="w-full">
                 <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (
                         <TableRow key={headerGroup.id}>
