@@ -19,9 +19,8 @@ export default function SelectLength({
     const sliderMinLength = type === "password" ? 8 : 4;
 
     return (
-        <div className="flex gap-10">
+        <div className="flex gap-5 sm:gap-10">
             <Slider
-                className="w-full"
                 min={sliderMinLength}
                 max={sliderMaxLength}
                 step={1}

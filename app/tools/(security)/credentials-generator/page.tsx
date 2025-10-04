@@ -6,10 +6,10 @@ import Pin from "@/components/credentials-generator/Pin";
 
 export default function CredentialsGenerator() {
     return (
-        <section className="height flex justify-between items-start gap-10 flex-wrap">
-            <article className="flex-1 space-y-10">
+        <section className="flex justify-between items-start flex-wrap gap-10">
+            <article className="flex-1 min-w-80 sm:min-w-96 space-y-10">
                 <div className="space-y-2.5">
-                    <h1 className="font-semibold text-2xl">Strong. Secure. Fast.</h1>
+                    <h1 className="font-semibold text-3xl">Strong. Secure. Fast.</h1>
                     <p className="text-sm w-11/12">
                         Generate secure credentials in seconds — choose between strong passwords and
                         numeric PINs. PINs are short, digit-only codes ideal for simpler
@@ -32,7 +32,8 @@ export default function CredentialsGenerator() {
                     All generation happens locally, and no data is stored.
                 </p>
             </article>
-            <section className="flex-1 rounded-2xl space-y-5">
+            <div className="w-full h-[1px] bg-border lg:hidden"></div>
+            <section className="flex-1 min-w-80 sm:min-w-96 rounded-xl space-y-5 text-accent-foreground">
                 <h2>Choose password type</h2>
                 <Tabs defaultValue="password" className="relative flex flex-col space-y-10">
                     <TabsList className="relative h-10 justify-start gap-2 bg-background/10">

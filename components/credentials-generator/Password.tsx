@@ -33,7 +33,7 @@ export default function Password() {
                     maxLength={pwLength}
                     readOnly
                     value={passwordInput}
-                    className=" max-w-md !text-xl border-x-0 border-t-0 border-foreground/50 tracking-widest"
+                    className="!text-3xl text-accent-foreground border-x-0 border-t-0 border-border tracking-widest rounded-none"
                 ></Input>
 
                 {/* Password Controls */}
