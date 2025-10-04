@@ -45,7 +45,7 @@ export default function Password() {
                         className="clickAnim w-full"
                         type="button"
                     >
-                        Generate Password
+                        Generate Credential
                     </Button>
                     <Button
                         className="clickAnim w-full text-foreground"
@@ -54,7 +54,7 @@ export default function Password() {
                         aria-label="click to copy password"
                         type="button"
                     >
-                        Copy password
+                        Copy to clipboard
                         <CopyIcon size={16} />
                     </Button>
                 </div>

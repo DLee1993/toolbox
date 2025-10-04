@@ -45,7 +45,7 @@ export default function Pin() {
                         className="clickAnim w-full"
                         type="button"
                     >
-                        Generate Pin code
+                        Generate Credential
                     </Button>
                     <Button
                         className="clickAnim w-full text-foreground"
@@ -54,7 +54,7 @@ export default function Pin() {
                         aria-label="click to copy password"
                         type="button"
                     >
-                        Copy Pin code
+                        Copy to clipboard
                         <CopyIcon size={16} />
                     </Button>
                 </div>
