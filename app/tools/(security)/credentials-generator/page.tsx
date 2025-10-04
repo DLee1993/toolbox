@@ -10,13 +10,13 @@ export default function CredentialsGenerator() {
             <article className="flex-1 min-w-80 sm:min-w-96 space-y-10">
                 <div className="space-y-2.5">
                     <h1 className="font-semibold text-3xl">Strong. Secure. Fast.</h1>
-                    <p className="text-sm w-11/12">
+                    <p className="w-11/12">
                         Generate secure credentials in seconds — choose between strong passwords and
                         numeric PINs. PINs are short, digit-only codes ideal for simpler
                         authentication. Our passwords are complex, combining:
                     </p>
                 </div>
-                <ul className="list-disc list-inside space-y-1 text-sm">
+                <ul className="list-disc list-inside space-y-1">
                     <li>
                         Letters <span className="text-xs font-bold">(A-Z, a-z)</span>
                     </li>
@@ -28,7 +28,7 @@ export default function CredentialsGenerator() {
                     </li>
                 </ul>
 
-                <p className="text-sm font-semibold">
+                <p className="font-semibold">
                     All generation happens locally, and no data is stored.
                 </p>
             </article>

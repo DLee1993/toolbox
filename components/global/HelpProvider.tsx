@@ -38,7 +38,7 @@ export default function HelpProvider() {
                         )
                     )}
                 </section>
-                <section className="flex justify-center items-center border-t border-border pt-4">
+                <section className="flex justify-center items-center border-t border-border pt-4 text-sm">
                     <h4>Is there a problem? <Link href="/settings#report" className="underline">Report it here</Link></h4>
                 </section>
             </PopoverContent>

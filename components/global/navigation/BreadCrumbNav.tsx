@@ -40,7 +40,7 @@ export default function BreadCrumbNav() {
     return (
         <Breadcrumb suppressHydrationWarning>
             {path != "/" && (
-                <BreadcrumbList>
+                <BreadcrumbList className="text-sm">
                     <BreadcrumbItem>
                         <DropdownMenu>
                             <DropdownMenuTrigger className="flex items-center gap-1 capitalize">
@@ -66,7 +66,9 @@ export default function BreadCrumbNav() {
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
-                        <BreadcrumbPage className="capitalize">{slug?.split("-").join(" ")}</BreadcrumbPage>
+                        <BreadcrumbPage className="capitalize">
+                            {slug?.split("-").join(" ")}
+                        </BreadcrumbPage>
                     </BreadcrumbItem>
                 </BreadcrumbList>
             )}
