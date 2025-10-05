@@ -85,7 +85,7 @@ export function NotepadTable({
                 </div>
             ),
             meta: {
-                className: "hidden md:table-cell",
+                className: "hidden sm:table-cell",
             },
         },
         {
@@ -101,7 +101,7 @@ export function NotepadTable({
                 </div>
             ),
             meta: {
-                className: "hidden sm:table-cell",
+                className: "hidden min-[400px]:table-cell",
             },
         },
         {
@@ -117,7 +117,7 @@ export function NotepadTable({
                             variant="destructive"
                             size="icon"
                             aria-label="delete note"
-                            className="hidden sm:flex hover:bg-foreground hover:text-background"
+                            className="hover:bg-foreground hover:text-background"
                             onClick={() => deleteData(note.id)}
                         >
                             <Trash />
@@ -167,114 +167,99 @@ export function NotepadTable({
     }
 
     return (
-        <section>
-            <div className="w-full h-[80vh] sm:h-[85vh] overflow-y-scroll">
-                <div className="sticky top-0 py-4 gap-2 bg-background z-10 flex justify-between">
-                    <div className="flex gap-2">
-                        <Input
-                            placeholder="Filter by title..."
-                            value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-                            onChange={(event) =>
-                                table.getColumn("title")?.setFilterValue(event.target.value)
-                            }
-                            name="title filter"
-                            className="w-36"
-                        />
-                        <FilterCategory table={table} />
-                        <NewNote setCurrentNotes={setCurrentNotes} />
+        <section className="space-y-5">
+            <div className="h-16 sticky top-16 gap-2 bg-background z-10 flex justify-between">
+                <div className="flex items-center gap-2">
+                    <Input
+                        placeholder="Filter by title..."
+                        value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+                        onChange={(event) =>
+                            table.getColumn("title")?.setFilterValue(event.target.value)
+                        }
+                        name="title filter"
+                        className="w-36"
+                    />
+                    <FilterCategory table={table} />
+                    <NewNote setCurrentNotes={setCurrentNotes} />
+                </div>
+                <section className="hidden sm:flex flex-wrap justify-between items-center gap-2">
+                    <div className="flex justify-center items-center space-x-2">
+                        <p className="text-sm text-muted-foreground flex gap-2">
+                            {table.getState().pagination.pageIndex + 1}
+                            <span>of</span>
+                            {table.getPageCount()}
+                        </p>
+                        <Button
+                            variant="outline"
+                            onClick={() => table.previousPage()}
+                            disabled={!table.getCanPreviousPage()}
+                            aria-label="previous page"
+                        >
+                            <ChevronsLeft />
+                        </Button>
+                        {pageButtons}
+                        <Button
+                            variant="outline"
+                            onClick={() => table.nextPage()}
+                            disabled={!table.getCanNextPage()}
+                            aria-label="next page"
+                        >
+                            <ChevronsRight />
+                        </Button>
                     </div>
-                    <section className="hidden sm:flex flex-wrap justify-between items-center gap-2">
-                        <div className="flex justify-center items-center space-x-2">
-                            <p className="text-sm text-muted-foreground flex gap-2">
-                                {table.getState().pagination.pageIndex + 1}
-                                <span>of</span>
-                                {table.getPageCount()}
-                            </p>
-                            <Button
-                                variant="outline"
-                                onClick={() => table.previousPage()}
-                                disabled={!table.getCanPreviousPage()}
-                                aria-label="previous page"
-                            >
-                                <ChevronsLeft />
-                            </Button>
-                            {pageButtons}
-                            <Button
-                                variant="outline"
-                                onClick={() => table.nextPage()}
-                                disabled={!table.getCanNextPage()}
-                                aria-label="next page"
-                            >
-                                <ChevronsRight />
-                            </Button>
-                        </div>
-                    </section>
-                </div>
-                <div>
-                    <Table>
-                        <TableHeader>
-                            {table.getHeaderGroups().map((headerGroup) => (
-                                <TableRow key={headerGroup.id}>
-                                    {headerGroup.headers.map((header) => {
-                                        return (
-                                            <TableHead
-                                                key={header.id}
-                                                className={cn(
-                                                    header.column.columnDef.meta?.className,
-                                                    "border-y-0"
-                                                )}
-                                            >
-                                                {header.isPlaceholder
-                                                    ? null
-                                                    : flexRender(
-                                                          header.column.columnDef.header,
-                                                          header.getContext()
-                                                      )}
-                                            </TableHead>
-                                        );
-                                    })}
-                                </TableRow>
-                            ))}
-                        </TableHeader>
-                        <TableBody>
-                            {table.getRowModel().rows?.length ? (
-                                table.getRowModel().rows.map((row) => (
-                                    <TableRow
-                                        key={row.id}
-                                        data-state={row.getIsSelected() && "selected"}
-                                    >
-                                        {row.getVisibleCells().map((cell) => (
-                                            <TableCell
-                                                key={cell.id}
-                                                className={cn(
-                                                    cell.column.columnDef.meta?.className,
-                                                    ""
-                                                )}
-                                            >
-                                                {flexRender(
-                                                    cell.column.columnDef.cell,
-                                                    cell.getContext()
-                                                )}
-                                            </TableCell>
-                                        ))}
-                                    </TableRow>
-                                ))
-                            ) : (
-                                <TableRow>
-                                    <TableCell
-                                        colSpan={columns.length}
-                                        className="h-24 text-center"
-                                    >
-                                        No notes found.
-                                    </TableCell>
-                                </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
-                </div>
+                </section>
             </div>
+
+            <Table>
+                <TableHeader>
+                    {table.getHeaderGroups().map((headerGroup) => (
+                        <TableRow key={headerGroup.id}>
+                            {headerGroup.headers.map((header) => {
+                                return (
+                                    <TableHead
+                                        key={header.id}
+                                        className={cn(
+                                            header.column.columnDef.meta?.className,
+                                            "border-y-0"
+                                        )}
+                                    >
+                                        {header.isPlaceholder
+                                            ? null
+                                            : flexRender(
+                                                  header.column.columnDef.header,
+                                                  header.getContext()
+                                              )}
+                                    </TableHead>
+                                );
+                            })}
+                        </TableRow>
+                    ))}
+                </TableHeader>
+                <TableBody>
+                    {table.getRowModel().rows?.length ? (
+                        table.getRowModel().rows.map((row) => (
+                            <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                                {row.getVisibleCells().map((cell) => (
+                                    <TableCell
+                                        key={cell.id}
+                                        className={cn(cell.column.columnDef.meta?.className, "")}
+                                    >
+                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        ))
+                    ) : (
+                        <TableRow>
+                            <TableCell colSpan={columns.length} className="h-24 text-center">
+                                No notes found.
+                            </TableCell>
+                        </TableRow>
+                    )}
+                </TableBody>
+            </Table>
             {/* PAGINATION SECTION  */}
-            <section className="flex flex-wrap justify-between items-center gap-2 py-1 sm:hidden border-t border-border">
+            <section className="h-16 flex flex-wrap justify-between items-center gap-2 sm:hidden border-t border-border">
                 <div className="flex justify-center items-center space-x-2">
                     <p className="text-sm text-muted-foreground flex gap-2">
                         {table.getState().pagination.pageIndex + 1}
