@@ -62,7 +62,7 @@ export default function CurrencyConverter() {
     };
 
     return (
-        <TabsContent value="currency" className="pb-10">
+        <TabsContent value="currency">
             <section className="flex flex-col justify-between items-start h-60">
                 <div className="flex flex-col gap-2">
                     <h2 className="text-sm font-semibold text-muted-foreground">From</h2>
@@ -136,7 +136,7 @@ export default function CurrencyConverter() {
                     Convert
                 </Button>
             </div>
-            <p className="text-xs text-muted-foreground absolute -bottom-1 right-0">
+            <p className="text-xs text-muted-foreground absolute -bottom-8 right-0">
                 Powered by -{" "}
                 <a href="https://www.exchangerate-api.com">Rates By Exchange Rate API</a>
             </p>
