@@ -63,7 +63,7 @@ export default function CurrencyConverter() {
 
     return (
         <TabsContent value="currency">
-            <section className="flex flex-col justify-between items-start h-60">
+             <section className="space-y-10">
                 <div className="flex flex-col gap-2">
                     <h2 className="text-sm font-semibold text-muted-foreground">From</h2>
                     <div className="flex gap-2">
