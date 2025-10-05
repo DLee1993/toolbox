@@ -112,12 +112,12 @@ const ImageSelect = ({
                 />
             </SelectTrigger>
             <SelectContent>
-                <SelectGroup className="grid grid-cols-3 h-fit w-52">
+                <SelectGroup className="max-h-40">
                     {extensions.image.map((elt, i) => (
                         <SelectItem
                             key={i}
                             value={elt}
-                            className="!flex !justify-between !items-center uppercase cursor-pointer"
+                            className="uppercase cursor-pointer"
                         >
                             {elt}
                         </SelectItem>
@@ -159,7 +159,7 @@ const VideoSelect = ({
                         </TabsTrigger>
                     </TabsList>
                     <TabsContent value="video">
-                        <div className="grid grid-cols-3 h-fit w-52">
+                        <div className="max-h-40">
                             {extensions.video.map((elt, i) => (
                                 <div key={i} className="col-span-1 text-center">
                                     <SelectItem value={elt} className="uppercase cursor-pointer">
@@ -170,10 +170,10 @@ const VideoSelect = ({
                         </div>
                     </TabsContent>
                     <TabsContent value="audio">
-                        <div className="grid grid-cols-2 h-fit w-52">
+                        <div className="max-h-40">
                             {extensions.audio.map((elt, i) => (
                                 <div key={i} className="col-span-1 text-center">
-                                    <SelectItem value={elt} className="mx-auto cursor-pointer">
+                                    <SelectItem value={elt} className="uppercase cursor-pointer">
                                         {elt}
                                     </SelectItem>
                                 </div>
@@ -207,12 +207,12 @@ const AudioSelect = ({
                 />
             </SelectTrigger>
             <SelectContent>
-                <SelectGroup className="grid grid-cols-3 h-fit w-52">
+                <SelectGroup className="max-h-40">
                     {extensions.audio.map((elt, i) => (
                         <SelectItem
                             key={i}
                             value={elt}
-                            className="!flex !justify-between !items-center uppercase cursor-pointer"
+                            className="uppercase cursor-pointer"
                         >
                             {elt}
                         </SelectItem>
