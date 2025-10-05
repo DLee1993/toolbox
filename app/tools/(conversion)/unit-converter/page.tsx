@@ -6,7 +6,7 @@ import CurrencyConverter from "@/app/tools/(conversion)/unit-converter/CurrencyC
 
 export default function UnitConverter() {
     return (
-        <section className="flex justify-between items-start gap-10 flex-wrap">
+        <section className="padding flex justify-between items-start gap-10 flex-wrap">
             <article className="flex-1 min-w-96 space-y-10 text-sm">
                 <div className="space-y-2.5">
                     <h1 className="font-semibold text-2xl">Convert Currency and Measurements.</h1>

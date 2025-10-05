@@ -6,7 +6,7 @@ import Pin from "@/components/credentials-generator/Pin";
 
 export default function CredentialsGenerator() {
     return (
-        <section className="flex justify-between items-start flex-wrap gap-10">
+        <section className="padding flex justify-between items-start flex-wrap gap-10">
             <article className="flex-1 min-w-80 sm:min-w-96 space-y-10">
                 <div className="space-y-2.5">
                     <h1 className="font-semibold text-3xl">Strong. Secure. Fast.</h1>

@@ -18,7 +18,7 @@ export default function Home() {
     const extendedArray = [...currentArray, ...Array(missingElements).fill(null)];
 
     return (
-        <section className="height flex flex-col justify-between">
+        <section className="height flex flex-col justify-between pt-4 md:pt-9">
             <div className="mx-auto max-w-2xl space-y-8">
                 <div className="flex justify-center">
                     <div className="relative rounded-full px-5 py-1 text-sm/6 text-muted-foreground ring-1 ring-ring/25">

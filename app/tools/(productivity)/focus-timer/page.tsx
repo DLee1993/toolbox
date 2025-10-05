@@ -131,7 +131,7 @@ export default function FocusTimer() {
     ];
 
     return (
-        <section className="height relative flex justify-center items-center gap-8">
+        <section className="padding height relative flex justify-center items-center gap-8">
             <div className="height w-10/12 flex flex-col justify-center space-y-2">
                 <section className="w-full flex justify-between items-center gap-1 min-h-14 border-b border-border">
                     <Button

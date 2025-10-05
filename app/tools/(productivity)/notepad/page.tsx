@@ -14,7 +14,7 @@ export default function Notepad() {
     }, []);
 
     return (
-        <section>
+        <section className="padding">
             <NotepadTable
                 data={currentNotes ? currentNotes : []}
                 setCurrentNotes={setCurrentNotes}

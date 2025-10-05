@@ -86,7 +86,7 @@ export default function LinkInBio() {
     };
 
     return (
-        <section className="w-full py-10">
+        <section className="padding w-full py-10">
             <FeatureWarning />
             <section className="space-y-4 max-w-xl">
                 <article className="space-y-4">
