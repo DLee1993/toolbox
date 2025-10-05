@@ -7,14 +7,24 @@ import BreadCrumbNav from "@/components/global/navigation/BreadCrumbNav";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import HelpProvider from "@/components/global/HelpProvider";
 
+type Greeting = {
+    message: string;
+    icon: React.ReactNode;
+};
+
 export default function Header() {
     const pathname = usePathname();
-    const [greeting, setGreeting] = useState("");
+
+    const [greeting, setGreeting] = useState<Greeting>({
+        message: "",
+        icon: undefined, // default icon
+    });
 
     useEffect(() => {
         const locale = navigator.language;
         const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        setGreeting(getLocalizedGreeting(locale, timeZone));
+        const greeting = getLocalizedGreeting(locale, timeZone);
+        setGreeting({ message: greeting.message, icon: greeting.icon });
     }, []);
 
     return (
@@ -24,7 +34,12 @@ export default function Header() {
                 <div className="hidden min-[520px]:block">
                     {pathname !== "/" && pathname !== "/settings" && <BreadCrumbNav />}
                 </div>
-                {(pathname === "/" || pathname === "/settings") && <h3>{greeting}</h3>}
+                {(pathname === "/" || pathname === "/settings") && (
+                    <h3 className="flex items-center gap-2">
+                        {greeting.message}
+                        <span>{greeting.icon}</span>
+                    </h3>
+                )}
             </div>
             {pathname !== "/" && pathname !== "/settings" && <HelpProvider />}
         </header>
