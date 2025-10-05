@@ -17,29 +17,45 @@ export default function HelpProvider() {
                     Help <MessageCircleQuestionIcon />
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-screen max-w-lg bg-popover/95 backdrop-blur-sm space-y-5">
+            <PopoverContent className="w-screen max-w-md max-h-96 overflow-scroll bg-accent/95 backdrop-blur-sm space-y-10 mr-2">
                 <section>
-                    {HelpProviderContentList.filter((item) => pathname === item.title).map(
+                    {HelpProviderContentList.filter((item) => pathname === item.url).map(
                         (item, i) => (
-                            <article key={i} className="flex-1 space-y-10">
+                            <article key={i} className="flex-1 space-y-5">
+                                <h2 className="text-accent-foreground">{item.question}</h2>
                                 <div className="space-y-2.5">
                                     <p className="text-sm w-11/12">{item.description}</p>
+                                    <ul className="list-disc list-inside space-y-1 text-sm">
+                                        {item.points.map((p, i) => (
+                                            <li key={i}>
+                                                {p.text}{" "}
+                                                <span className="text-xs">{p.subText}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
-                                <ul className="list-disc list-inside space-y-1 text-sm">
-                                    {item.points.map((p, i) => (
-                                        <li key={i}>
-                                            {p.text}{" "}
-                                            <span className="text-xs">{p.subText}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-
+                                <h2 className="text-accent-foreground">{item.guide!.question}</h2>
+                                <div className="space-y-2.5">
+                                    <ul className="list-disc list-inside space-y-1 text-sm">
+                                        {item.guide!.points.map((p, i) => (
+                                            <li key={i}>
+                                                {p.text}{" "}
+                                                <span className="text-xs">{p.subText}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
                             </article>
                         )
                     )}
                 </section>
-                <section className="flex justify-center items-center border-t border-border pt-4 text-sm">
-                    <h4>Is there a problem? <Link href="/settings#report" className="underline">Report it here</Link></h4>
+                <section className="flex justify-center items-center text-sm">
+                    <h4>
+                        Is there a problem?{" "}
+                        <Link href="/settings#report" className="underline text-accent-foreground">
+                            Report it here
+                        </Link>
+                    </h4>
                 </section>
             </PopoverContent>
         </Popover>
