@@ -56,7 +56,7 @@ export default function TimezoneSelect({
                         <ChevronDown className={`${open ? "rotate-180" : "rotate-0"}`} />
                     </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-[30rem] h-60 p-0" align="start">
+                <PopoverContent className="w-screen max-w-xl h-60 p-0" align="start">
                     <TimezoneList
                         setOpen={setOpen}
                         options={options}
