@@ -50,7 +50,7 @@ export default function TimezoneSelect({
                 <PopoverTrigger asChild>
                     <Button
                         variant="outline"
-                        className="w-[30rem] flex justify-between items-center"
+                        className="w-screen max-w-xl flex justify-between items-center"
                     >
                         <p className="overflow-hidden">{tz ? tz.label : "Select a timezone"}</p>
                         <ChevronDown className={`${open ? "rotate-180" : "rotate-0"}`} />
@@ -74,7 +74,7 @@ export default function TimezoneSelect({
                 <DrawerTrigger asChild>
                     <Button
                         variant="outline"
-                        className="w-[30rem] flex justify-between items-center"
+                        className="w-screen max-w-xl flex justify-between items-center"
                     >
                         <p className="overflow-hidden">{tz ? tz.label : "Select a timezone"}</p>
                         <ChevronDown className={`${open ? "rotate-180" : "rotate-0"}`} />

@@ -26,7 +26,6 @@ export default function TimeZones() {
         name: "",
     });
 
-
     useEffect(() => {
         if (!currentTz) return;
         const label = currentTz?.value;
@@ -61,22 +60,22 @@ export default function TimeZones() {
     }, [tz]);
 
     return (
-        <section className="padding flex flex-col justify-start items-center space-y-14">
-            <h1 className="text-2xl md:text-3xl font-semibold max-w-2xl text-center">
-                Never lose track of time — anywhere, any zone, any moment.{" "}
-            </h1>
+        <section className="padding height flex flex-col justify-center items-center space-y-14">
             <TimezoneSelect tz={tz} setTz={setTz} setCurrentTz={setCurrentTz} />
-            <section className="flex flex-col gap-10">
+            <section className="flex flex-col gap-10 w-full max-w-xl">
                 {tz ? (
-                    <section className="space-y-10">
+                    <section className="space-y-5">
                         <article className="space-y-2">
-                            <h2 className="text-2xl font-bold">{selectedTimezone.location}</h2>
-                            <span className="flex space-x-5 text-sm">
-                                <p>{selectedTimezone.date}</p>
-                                <p>{selectedTimezone.time}</p>
-                            </span>
+                            <div className="flex justify-between items-baseline flex-wrap gap-2.5">
+                                <h2 className="text-2xl font-bold">{selectedTimezone.location}</h2>
+                                <span className="flex space-x-5 text-sm">
+                                    <p>{selectedTimezone.date}</p>
+                                    <p>{selectedTimezone.time}</p>
+                                </span>
+                            </div>
                         </article>
-                        <ul className="flex gap-10 flex-wrap">
+                        <div className="bg-accent w-full h-[1px]"></div>
+                        <ul className="w-full flex justify-between gap-10 flex-wrap">
                             {selectedTimezone.name && (
                                 <li className="space-y-2">
                                     <h3 className="text-sm text-muted-foreground">
@@ -102,16 +101,19 @@ export default function TimeZones() {
                         </ul>
                     </section>
                 ) : (
-                    <section className="space-y-10">
+                    <section className="space-y-5">
                         <article className="space-y-2">
                             <sup className="font-semibold">Current timezone</sup>
-                            <h2 className="text-2xl font-bold">{currentTimezone.location}</h2>
-                            <span className="flex space-x-5 text-sm">
-                                <p>{currentTimezone.date}</p>
-                                <p>{currentTimezone.time}</p>
-                            </span>
+                            <div className="flex justify-between items-baseline flex-wrap gap-2.5">
+                                <h2 className="text-2xl font-bold">{currentTimezone.location}</h2>
+                                <span className="flex space-x-5 text-sm">
+                                    <p>{currentTimezone.date}</p>
+                                    <p>{currentTimezone.time}</p>
+                                </span>
+                            </div>
                         </article>
-                        <ul className="flex gap-10">
+                        <div className="bg-accent w-full h-[1px]"></div>
+                        <ul className="w-full flex justify-between gap-10 flex-wrap">
                             {currentTimezone.name && (
                                 <li className="space-y-2">
                                     <h3 className="text-sm text-muted-foreground">
