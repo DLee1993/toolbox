@@ -17,16 +17,16 @@ export default function HelpProvider() {
                     Help <MessageCircleQuestionIcon />
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-screen max-w-md max-h-96 overflow-scroll bg-accent/95 backdrop-blur-sm space-y-10 mr-2">
+            <PopoverContent className="overflow-y-auto w-screen max-w-md max-h-96 bg-accent/95 backdrop-blur-sm space-y-10 mr-2">
                 <section>
                     {HelpProviderContentList.filter((item) => pathname === item.url).map(
                         (item, i) => (
                             <article key={i} className="flex-1 space-y-5">
-                                <h2 className="text-accent-foreground">{item.question}</h2>
+                                <h2 className="text-accent-foreground">What is it?</h2>
                                 <div className="space-y-2.5">
                                     <p className="text-sm w-11/12">{item.description}</p>
                                     <ul className="list-disc list-inside space-y-1 text-sm">
-                                        {item.points.map((p, i) => (
+                                        {item.points?.map((p, i) => (
                                             <li key={i}>
                                                 {p.text}{" "}
                                                 <span className="text-xs">{p.subText}</span>
@@ -34,7 +34,7 @@ export default function HelpProvider() {
                                         ))}
                                     </ul>
                                 </div>
-                                <h2 className="text-accent-foreground">{item.guide!.question}</h2>
+                                <h2 className="text-accent-foreground">How do I use it?</h2>
                                 <div className="space-y-2.5">
                                     <ul className="list-disc list-inside space-y-1 text-sm">
                                         {item.guide!.points.map((p, i) => (
