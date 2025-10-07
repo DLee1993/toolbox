@@ -1,138 +1,126 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { NotifyUser } from "@/lib/global/NotifyUser";
-import { BellRing, Play, Pause, RotateCcw, Settings2 } from "lucide-react";
+// import React, { useState, useEffect } from "react";
 
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
+import Timer from "@/components/focus-timer/timer";
+import Options from "@/components/focus-timer/options";
+import Alarm from "@/components/focus-timer/alarm";
 
 export default function FocusTimer() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [time, setTime] = useState(300);
-    const [remainingTime, setRemainingTime] = useState(time);
-    const [isRunning, setIsRunning] = useState(false);
-    const [isFinished, setIsFinished] = useState(false);
-    const [shortBreak, setShortBreak] = useState("");
-    const [mediumBreak, setMediumBreak] = useState("");
-    const [longBreak, setLongBreak] = useState("");
+    // const [isOpen, setIsOpen] = useState(false);
+    // const [time, setTime] = useState(300);
+    // const [remainingTime, setRemainingTime] = useState(time);
+    // const [isRunning, setIsRunning] = useState(false);
+    // const [isFinished, setIsFinished] = useState(false);
+    // const [shortBreak, setShortBreak] = useState("");
+    // const [mediumBreak, setMediumBreak] = useState("");
+    // const [longBreak, setLongBreak] = useState("");
 
-    useEffect(() => {
-        setShortBreak(getStoredOrDefault("short", "1"));
-        setMediumBreak(getStoredOrDefault("medium", "5"));
-        setLongBreak(getStoredOrDefault("long", "30"));
-    }, []);
+    // useEffect(() => {
+    //     setShortBreak(getStoredOrDefault("short", "1"));
+    //     setMediumBreak(getStoredOrDefault("medium", "5"));
+    //     setLongBreak(getStoredOrDefault("long", "30"));
+    // }, []);
 
-    useEffect(() => {
-        let timer: string | number | NodeJS.Timeout | undefined;
+    // useEffect(() => {
+    //     let timer: string | number | NodeJS.Timeout | undefined;
 
-        if (isRunning) {
-            timer = setInterval(() => {
-                setRemainingTime((prevTime) => {
-                    if (prevTime <= 1) {
-                        clearInterval(timer);
-                        return 0;
-                    }
-                    return prevTime - 1;
-                });
-            }, 1000);
-        }
-        return () => clearInterval(timer); // Cleanup on component unmount or when paused
-    }, [isRunning]);
+    //     if (isRunning) {
+    //         timer = setInterval(() => {
+    //             setRemainingTime((prevTime) => {
+    //                 if (prevTime <= 1) {
+    //                     clearInterval(timer);
+    //                     return 0;
+    //                 }
+    //                 return prevTime - 1;
+    //             });
+    //         }, 1000);
+    //     }
+    //     return () => clearInterval(timer); // Cleanup on component unmount or when paused
+    // }, [isRunning]);
 
-    useEffect(() => {
-        if (remainingTime === 0 && isRunning) {
-            setTimeout(() => {
-                setIsRunning(false); // Pause the timer
-                // Example: Restart with initial time
-                setRemainingTime(time);
-                NotifyUser({
-                    message: time / 60 >= 60 ? "You should take a break." : "Don't lose focus.",
-                    type: "Time's up",
-                    duration: 5000,
-                });
-                setIsFinished(true); // Set finished state
+    // useEffect(() => {
+    //     if (remainingTime === 0 && isRunning) {
+    //         setTimeout(() => {
+    //             setIsRunning(false); // Pause the timer
+    //             // Example: Restart with initial time
+    //             setRemainingTime(time);
+    //             setIsFinished(true); // Set finished state
 
-                setTimeout(() => {
-                    setIsFinished(false); // Reset finished state after 5 seconds
-                }, 5500);
-                // You can also add a sound notification here
-            }, 1000);
-        }
-    }, [remainingTime, isRunning, time]);
+    //             setTimeout(() => {
+    //                 setIsFinished(false); // Reset finished state after 5 seconds
+    //             }, 5500);
+    //             // You can also add a sound notification here
+    //         }, 1000);
+    //     }
+    // }, [remainingTime, isRunning, time]);
 
-    const getStoredOrDefault = (key: string, fallback: string) =>
-        localStorage.getItem(key) || fallback;
+    // const getStoredOrDefault = (key: string, fallback: string) =>
+    //     localStorage.getItem(key) || fallback;
 
-    const startTimer = () => {
-        setIsRunning(true);
-        setIsFinished(false); // Reset finished state when starting
-    };
+    // const startTimer = () => {
+    //     setIsRunning(true);
+    //     setIsFinished(false); // Reset finished state when starting
+    // };
 
-    const pauseTimer = () => {
-        setIsRunning(false);
-    };
+    // const pauseTimer = () => {
+    //     setIsRunning(false);
+    // };
 
-    const resetTimer = () => {
-        setRemainingTime(time);
-        setIsRunning(false);
-    };
+    // const resetTimer = () => {
+    //     setRemainingTime(time);
+    //     setIsRunning(false);
+    // };
 
-    const calculateTime = (newTime: number, isPreset = false) => {
-        if (!isPreset) {
-            setIsRunning(false);
-            setTime(newTime);
-            setRemainingTime(newTime);
-        } else {
-            setIsRunning(false);
-            setTime(newTime * 60);
-            setRemainingTime(newTime * 60);
-        }
-    };
+    // const calculateTime = (newTime: number, isPreset = false) => {
+    //     if (!isPreset) {
+    //         setIsRunning(false);
+    //         setTime(newTime);
+    //         setRemainingTime(newTime);
+    //     } else {
+    //         setIsRunning(false);
+    //         setTime(newTime * 60);
+    //         setRemainingTime(newTime * 60);
+    //     }
+    // };
 
-    const handlePresetClick = (newTime: number) => {
-        if (!newTime) return;
-        calculateTime(newTime, true);
-        setIsOpen(false);
-    };
+    // const handlePresetClick = (newTime: number) => {
+    //     if (!newTime) return;
+    //     calculateTime(newTime, true);
+    //     setIsOpen(false);
+    // };
 
-    const handleBreakTimeChange = (e: React.ChangeEvent<HTMLInputElement>, breakName: string) => {
-        const value = e.target.value;
-        localStorage.setItem(breakName, value);
+    // const handleBreakTimeChange = (e: React.ChangeEvent<HTMLInputElement>, breakName: string) => {
+    //     const value = e.target.value;
+    //     localStorage.setItem(breakName, value);
 
-        if (breakName === "short") {
-            setShortBreak(value);
-        } else if (breakName === "medium") {
-            setMediumBreak(value);
-        } else {
-            setLongBreak(value);
-        }
-    };
+    //     if (breakName === "short") {
+    //         setShortBreak(value);
+    //     } else if (breakName === "medium") {
+    //         setMediumBreak(value);
+    //     } else {
+    //         setLongBreak(value);
+    //     }
+    // };
 
-    const presets = [
-        { label: "5 minutes", value: 5 },
-        { label: "10 minutes", value: 10 },
-        { label: "15 minutes", value: 15 },
-        { label: "20 minutes", value: 20 },
-        { label: "25 minutes", value: 25 },
-        { label: "30 minutes", value: 30 },
-        { label: "45 minutes", value: 45 },
-        { label: "60 minutes", value: 60 },
-        { label: "90 minutes", value: 90 },
-    ];
+    // const presets = [
+    //     { label: "5 minutes", value: 5 },
+    //     { label: "10 minutes", value: 10 },
+    //     { label: "15 minutes", value: 15 },
+    //     { label: "20 minutes", value: 20 },
+    //     { label: "25 minutes", value: 25 },
+    //     { label: "30 minutes", value: 30 },
+    //     { label: "45 minutes", value: 45 },
+    //     { label: "60 minutes", value: 60 },
+    //     { label: "90 minutes", value: 90 },
+    // ];
 
     return (
         <section className="padding height relative flex justify-center items-center gap-8">
-            <div className="height w-10/12 flex flex-col justify-center space-y-2">
+            <Timer />
+            <Options />
+            <Alarm />
+            {/* <div className="w-10/12 flex flex-col justify-center">
                 <section className="w-full flex justify-between items-center gap-1 min-h-14 border-b border-border">
                     <Button
                         onClick={() => handlePresetClick(parseInt(shortBreak))}
@@ -280,7 +268,7 @@ export default function FocusTimer() {
                         </DialogContent>
                     </Dialog>
                 </section>
-            </div>
+            </div> */}
         </section>
     );
 }
