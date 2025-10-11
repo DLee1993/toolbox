@@ -4,22 +4,20 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { deleteNote, getAllNotes, updateNote } from "@/lib/notepad/crud";
 import { NotifyUser } from "@/lib/global/NotifyUser";
 import SelectCategory from "@/components/notepad/SelectCategory";
-import { Edit } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
+    Sheet,
+    SheetContent,
+    SheetDescription,
+    SheetFooter,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+} from "@/components/ui/sheet";
 
 export default function UpdateNote({
     setCurrentNotes,
@@ -67,23 +65,18 @@ export default function UpdateNote({
     }
 
     return (
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogTrigger asChild>
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    aria-label="edit note"
-                    className="hover:bg-foreground hover:text-background"
-                >
-                    <Edit />
+        <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" aria-label="edit note">
+                    ...
                 </Button>
-            </DialogTrigger>
-            <DialogContent>
-                <DialogHeader>
-                    <DialogTitle>Update note</DialogTitle>
-                    <DialogDescription className="sr-only">Create a new note</DialogDescription>
-                </DialogHeader>
-                <div className="my-5">
+            </SheetTrigger>
+            <SheetContent className="sm:max-w-[425px] flex flex-col justify-between">
+                <SheetHeader>
+                    <SheetTitle>Update note</SheetTitle>
+                    <SheetDescription className="sr-only">Create a new note</SheetDescription>
+                </SheetHeader>
+                <div className="my-5 flex-1">
                     <form className="space-y-4">
                         <fieldset className="relative">
                             <Input
@@ -118,57 +111,44 @@ export default function UpdateNote({
                                 Content
                             </Label>
                         </fieldset>
-                        <fieldset className="flex justify-between items-center gap-2">
-                            <div className="flex items-center space-x-2">
-                                <Checkbox
-                                    name="completed"
-                                    id="completed"
-                                    checked={data.completed}
-                                    value={JSON.stringify(data.completed)}
-                                    onCheckedChange={() =>
-                                        setData({ ...data, completed: !data.completed })
-                                    }
-                                />
-                                <label
-                                    htmlFor="completed"
-                                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                >
-                                    Completed
-                                </label>
-                            </div>
+                        <fieldset>
                             <SelectCategory
                                 setSelectedCategory={setSelectedCategory}
                                 defaultValue={note.category}
                             />
                         </fieldset>
+                        <fieldset>select a date goes here</fieldset>
+                        <fieldset className="flex items-center gap-2">
+                            <Checkbox
+                                name="completed"
+                                id="completed"
+                                checked={data.completed}
+                                value={JSON.stringify(data.completed)}
+                                onCheckedChange={() =>
+                                    setData({ ...data, completed: !data.completed })
+                                }
+                            />
+                            <Label
+                                htmlFor="completed"
+                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                                Mark as complete
+                            </Label>
+                        </fieldset>
                     </form>
                 </div>
-                <DialogFooter className="flex flex-row place-content-end gap-2">
-                    <DialogClose
-                        onClick={() => {
-                            setError(false);
-                            setData({
-                                title: note.title,
-                                content: note.content,
-                                id: note.id,
-                                createdAt: note.createdAt,
-                                completed: note.completed,
-                            });
-                        }}
-                        className="hidden sm:block"
-                    >
-                        Cancel
-                    </DialogClose>
+                <SheetFooter className="w-full min-h-14 border-t border-border flex flex-row !justify-between items-center">
                     <Button
                         variant="destructive"
                         aria-label="delete note"
-                        className="sm:hidden hover:bg-foreground hover:text-background"
                         onClick={() => deleteData(note.id)}
                     >
-                        Delete note
+                        Delete
                     </Button>
+
                     <Button
                         type="submit"
+                        variant="secondary"
                         disabled={!data.title || !data.content ? true : false}
                         onClick={() =>
                             UpdateData({
@@ -181,10 +161,10 @@ export default function UpdateNote({
                             })
                         }
                     >
-                        Save changes
+                        Save
                     </Button>
-                </DialogFooter>
-            </DialogContent>
-        </Dialog>
+                </SheetFooter>
+            </SheetContent>
+        </Sheet>
     );
 }

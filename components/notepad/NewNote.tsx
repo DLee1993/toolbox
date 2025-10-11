@@ -11,15 +11,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
+    Sheet,
+    SheetClose,
+    SheetContent,
+    SheetDescription,
+    SheetFooter,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+} from "@/components/ui/sheet";
 
 export default function NewNote({
     setCurrentNotes,
@@ -59,18 +59,18 @@ export default function NewNote({
     }
 
     return (
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogTrigger asChild>
-                <Button className="w-fit hover:bg-foreground hover:text-background">
+        <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger asChild>
+                <Button variant="outline" className="w-fit">
                     <span className="hidden sm:block">New Note</span> <PlusIcon />
                 </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-                <DialogHeader>
-                    <DialogTitle>Create new note</DialogTitle>
-                    <DialogDescription className="sr-only">Create a new note</DialogDescription>
-                </DialogHeader>
-                <div className="my-5">
+            </SheetTrigger>
+            <SheetContent className="sm:max-w-[425px] flex flex-col justify-between overflow-y-auto">
+                <SheetHeader>
+                    <SheetTitle className="text-base">Create new note</SheetTitle>
+                    <SheetDescription className="sr-only">Create a new note</SheetDescription>
+                </SheetHeader>
+                <div className="my-5 flex-1">
                     <form className="space-y-2">
                         <fieldset className="relative">
                             <Input
@@ -105,9 +105,11 @@ export default function NewNote({
                         <fieldset>
                             <SelectCategory setSelectedCategory={setSelectedCategory} />
                         </fieldset>
+                        <fieldset>select a date goes here</fieldset>
                     </form>
                 </div>
-                <DialogFooter className="gap-5">
+                <SheetFooter className="w-full min-h-14 border-t border-border flex flex-row !justify-between items-center">
+                    <SheetClose onClick={() => setError(false)}>Cancel</SheetClose>
                     <Button
                         type="submit"
                         disabled={!data.title || !data.content ? true : false}
@@ -122,11 +124,10 @@ export default function NewNote({
                             })
                         }
                     >
-                        Save changes
+                        Save
                     </Button>
-                    <DialogClose onClick={() => setError(false)}>Cancel</DialogClose>
-                </DialogFooter>
-            </DialogContent>
-        </Dialog>
+                </SheetFooter>
+            </SheetContent>
+        </Sheet>
     );
 }
