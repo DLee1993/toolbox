@@ -80,7 +80,7 @@ export function NotepadTable({
                     {row.getValue("category") === "" ? (
                         <p>-</p>
                     ) : (
-                        <Badge className="rounded-full">{row.getValue("category")}</Badge>
+                        <Badge className="rounded-full" variant="secondary">{row.getValue("category")}</Badge>
                     )}
                 </div>
             ),
@@ -113,15 +113,6 @@ export function NotepadTable({
                 return (
                     <div className="space-x-4 flex justify-end">
                         <UpdateNote setCurrentNotes={setCurrentNotes} id={note.id} />
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            aria-label="delete note"
-                            className="hover:bg-foreground hover:text-background"
-                            onClick={() => deleteData(note.id)}
-                        >
-                            <Trash />
-                        </Button>
                     </div>
                 );
             },
@@ -238,7 +229,15 @@ export function NotepadTable({
                 <TableBody>
                     {table.getRowModel().rows?.length ? (
                         table.getRowModel().rows.map((row) => (
-                            <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                            <TableRow
+                                className={
+                                    row.getValue("completed") === true
+                                        ? "opacity-50"
+                                        : "opacity-100"
+                                }
+                                key={row.id}
+                                data-state={row.getIsSelected() && "selected"}
+                            >
                                 {row.getVisibleCells().map((cell) => (
                                     <TableCell
                                         key={cell.id}
