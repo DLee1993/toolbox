@@ -25,12 +25,12 @@ export default function SelectCategory({
             defaultValue={defaultValue}
             name="select category"
         >
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger>
                 <SelectValue placeholder="Select a Category" />
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
-                    <SelectLabel>Categories</SelectLabel>
+                    <SelectLabel className="border-b border-border">Categories</SelectLabel>
                     {categories.map((cat: NotepadCategoryValues) => (
                         <SelectItem key={cat.categoryName} value={cat.categoryName}>
                             {cat.categoryName}
