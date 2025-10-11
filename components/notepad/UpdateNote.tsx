@@ -70,7 +70,7 @@ export default function UpdateNote({
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
                 <Button
-                    variant="secondary"
+                    variant="ghost"
                     size="icon"
                     aria-label="edit note"
                     className="hover:bg-foreground hover:text-background"

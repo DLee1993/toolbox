@@ -114,7 +114,7 @@ export function NotepadTable({
                     <div className="space-x-4 flex justify-end">
                         <UpdateNote setCurrentNotes={setCurrentNotes} id={note.id} />
                         <Button
-                            variant="destructive"
+                            variant="ghost"
                             size="icon"
                             aria-label="delete note"
                             className="hover:bg-foreground hover:text-background"
