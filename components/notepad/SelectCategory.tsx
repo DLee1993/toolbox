@@ -32,7 +32,7 @@ export default function SelectCategory({
                 <SelectGroup>
                     <SelectLabel>Categories</SelectLabel>
                     {categories.map((cat: NotepadCategoryValues) => (
-                        <SelectItem key={cat.categoryName} value={cat.categoryName} className="hover:bg-primary-foreground cursor-pointer">
+                        <SelectItem key={cat.categoryName} value={cat.categoryName}>
                             {cat.categoryName}
                         </SelectItem>
                     ))}
