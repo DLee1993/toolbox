@@ -42,13 +42,13 @@ export default function Password() {
                         id="password"
                         onClick={() => GenerateCredentials(pwLength)}
                         aria-label="click to generate password"
-                        className="clickAnim w-full"
+                        className="clickAnim flex-1 min-w-40"
                         type="button"
                     >
                         Generate Credential
                     </Button>
                     <Button
-                        className="clickAnim w-full text-foreground"
+                        className="clickAnim text-foreground flex-1 min-w-40"
                         variant="outline"
                         onClick={() => Copy({ input: passwordInput || "" })}
                         aria-label="click to copy password"

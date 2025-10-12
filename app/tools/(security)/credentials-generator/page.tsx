@@ -6,7 +6,7 @@ import Pin from "@/components/credentials-generator/Pin";
 
 export default function CredentialsGenerator() {
     return (
-            <section className="padding space-y-5 text-accent-foreground w-full max-w-2xl mx-auto">
+            <section className="padding space-y-5 w-full max-w-2xl mx-auto">
                 <h2>Choose password type</h2>
                 <Tabs defaultValue="password" className="relative flex flex-col space-y-10">
                     <TabsList className="relative h-10 justify-start gap-2 bg-background/10">
