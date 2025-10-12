@@ -109,7 +109,6 @@ export default function NewNote({
                     </form>
                 </div>
                 <SheetFooter className="w-full min-h-14 border-t border-border flex flex-row !justify-between items-center">
-                    <SheetClose onClick={() => setError(false)}>Cancel</SheetClose>
                     <Button
                         type="submit"
                         disabled={!data.title || !data.content ? true : false}
@@ -126,6 +125,7 @@ export default function NewNote({
                     >
                         Save
                     </Button>
+                    <SheetClose onClick={() => setError(false)} className="text-sm">Cancel</SheetClose>
                 </SheetFooter>
             </SheetContent>
         </Sheet>

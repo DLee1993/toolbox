@@ -139,16 +139,7 @@ export default function UpdateNote({
                 </div>
                 <SheetFooter className="w-full min-h-14 border-t border-border flex flex-row !justify-between items-center">
                     <Button
-                        variant="destructive"
-                        aria-label="delete note"
-                        onClick={() => deleteData(note.id)}
-                    >
-                        Delete
-                    </Button>
-
-                    <Button
                         type="submit"
-                        variant="secondary"
                         disabled={!data.title || !data.content ? true : false}
                         onClick={() =>
                             UpdateData({
@@ -162,6 +153,13 @@ export default function UpdateNote({
                         }
                     >
                         Save
+                    </Button>
+                    <Button
+                        variant="destructive"
+                        aria-label="delete note"
+                        onClick={() => deleteData(note.id)}
+                    >
+                        Delete
                     </Button>
                 </SheetFooter>
             </SheetContent>
