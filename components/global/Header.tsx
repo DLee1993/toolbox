@@ -35,10 +35,10 @@ export default function Header() {
                     {pathname !== "/" && pathname !== "/settings" && <BreadCrumbNav />}
                 </div>
                 {(pathname === "/" || pathname === "/settings") && (
-                    <h3 className="flex items-center gap-2">
+                    <p className="flex items-center gap-2 text-sm">
                         {greeting.message}
                         <span>{greeting.icon}</span>
-                    </h3>
+                    </p>
                 )}
             </div>
             {pathname !== "/" && pathname !== "/settings" && <HelpProvider />}
