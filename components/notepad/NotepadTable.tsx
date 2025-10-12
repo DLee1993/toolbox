@@ -56,13 +56,21 @@ export function NotepadTable({
         {
             accessorKey: "title",
             header: "Title",
-            cell: ({ row }) => <div className="font-semibold">{row.getValue("title")}</div>,
+            cell: ({ row }) => (
+                <div
+                    className={`font-semibold ${
+                        row.getValue("completed") === true ? "line-through" : ""
+                    }`}
+                >
+                    {row.getValue("title")}
+                </div>
+            ),
         },
         {
             accessorKey: "content",
             header: "Content",
             cell: ({ row }) => (
-                <div>
+                <div className={row.getValue("completed") === true ? "line-through" : ""}>
                     {(row.getValue("content") as string)?.length > 30
                         ? `${(row.getValue("content") as string).slice(0, 30)}...`
                         : row.getValue("content")}
@@ -80,7 +88,9 @@ export function NotepadTable({
                     {row.getValue("category") === "" ? (
                         <p>-</p>
                     ) : (
-                        <Badge className="rounded-full" variant="secondary">{row.getValue("category")}</Badge>
+                        <Badge className="rounded-full" variant="secondary">
+                            {row.getValue("category")}
+                        </Badge>
                     )}
                 </div>
             ),
@@ -118,6 +128,7 @@ export function NotepadTable({
             },
         },
     ];
+
     const table = useReactTable({
         data: data.sort(
             (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
@@ -151,11 +162,6 @@ export function NotepadTable({
             {i + 1}
         </Button>
     ));
-
-    function deleteData(id: string) {
-        const updatedNotes = deleteNote(id);
-        setCurrentNotes(updatedNotes);
-    }
 
     return (
         <section className="space-y-5">
@@ -230,13 +236,13 @@ export function NotepadTable({
                     {table.getRowModel().rows?.length ? (
                         table.getRowModel().rows.map((row) => (
                             <TableRow
+                                key={row.id}
+                                data-state={row.getIsSelected() && "selected"}
                                 className={
                                     row.getValue("completed") === true
                                         ? "opacity-50"
                                         : "opacity-100"
                                 }
-                                key={row.id}
-                                data-state={row.getIsSelected() && "selected"}
                             >
                                 {row.getVisibleCells().map((cell) => (
                                     <TableCell
