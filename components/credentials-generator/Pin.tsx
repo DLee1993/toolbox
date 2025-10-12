@@ -37,7 +37,7 @@ export default function Pin() {
                 ></Input>
 
                 {/* Password Controls */}
-                <div className="flex gap-4 w-full">
+                <div className="flex gap-4 w-full flex-wrap">
                     <Button
                         id="password"
                         onClick={() => GenerateCredentials(pcLength)}
