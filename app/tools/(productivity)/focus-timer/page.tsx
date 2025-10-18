@@ -1,274 +1,209 @@
 "use client";
 
-// import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Dispatch, SetStateAction, useRef, useCallback } from "react";
 
 import Timer from "@/components/focus-timer/timer";
 import Options from "@/components/focus-timer/options";
 import Alarm from "@/components/focus-timer/alarm";
 
 export default function FocusTimer() {
-    // const [isOpen, setIsOpen] = useState(false);
-    // const [time, setTime] = useState(300);
-    // const [remainingTime, setRemainingTime] = useState(time);
-    // const [isRunning, setIsRunning] = useState(false);
-    // const [isFinished, setIsFinished] = useState(false);
-    // const [shortBreak, setShortBreak] = useState("");
-    // const [mediumBreak, setMediumBreak] = useState("");
-    // const [longBreak, setLongBreak] = useState("");
+    const [time, setTime] = useState(() => {
+        const stored = localStorage.getItem("time");
+        return stored ? parseInt(stored) : 300;
+    });
+    const [remainingTime, setRemainingTime] = useState(time);
+    const [isRunning, setIsRunning] = useState(false);
+    const [isBreak, setIsBreak] = useState(false);
+    const [breakTime, setBreakTime] = useState(() => {
+        const stored = localStorage.getItem("break");
+        return stored ? parseInt(stored) : 300;
+    });
+    const [remainingBreakTime, setRemainingBreakTime] = useState(breakTime);
+    const timerSound = useRef<HTMLAudioElement | null>(null);
+    const [alarm, setAlarm] = useState(() => {
+        const stored = localStorage.getItem("alarm");
+        return stored ? JSON.parse(stored) : true;
+    });
+    const [sound, setSound] = useState(() => {
+        const stored = localStorage.getItem("sound");
+        return stored ? JSON.parse(stored) : true;
+    });
+    const [short, setShort] = useState(() => {
+        const stored = localStorage.getItem("short");
+        return stored ? JSON.parse(stored) : 1;
+    });
+    const [medium, setMedium] = useState(() => {
+        const stored = localStorage.getItem("medium");
+        return stored ? JSON.parse(stored) : 5;
+    });
+    const [long, setLong] = useState(() => {
+        const stored = localStorage.getItem("long");
+        return stored ? JSON.parse(stored) : 30;
+    });
 
-    // useEffect(() => {
-    //     setShortBreak(getStoredOrDefault("short", "1"));
-    //     setMediumBreak(getStoredOrDefault("medium", "5"));
-    //     setLongBreak(getStoredOrDefault("long", "30"));
-    // }, []);
+    // Utility function to update localStorage and state
+    const updateSettings = (
+        key: string,
+        value: boolean,
+        setter: Dispatch<SetStateAction<boolean>>
+    ) => {
+        localStorage.setItem(key, JSON.stringify(value));
+        setter(value);
+    };
 
-    // useEffect(() => {
-    //     let timer: string | number | NodeJS.Timeout | undefined;
+    const updateSessionTime = (
+        key: string,
+        value: string,
+        setter: Dispatch<SetStateAction<string>>
+    ) => {
+        localStorage.setItem(key, value);
+        setter(value);
+    };
 
-    //     if (isRunning) {
-    //         timer = setInterval(() => {
-    //             setRemainingTime((prevTime) => {
-    //                 if (prevTime <= 1) {
-    //                     clearInterval(timer);
-    //                     return 0;
-    //                 }
-    //                 return prevTime - 1;
-    //             });
-    //         }, 1000);
-    //     }
-    //     return () => clearInterval(timer); // Cleanup on component unmount or when paused
-    // }, [isRunning]);
+    const startTimer = () => {
+        setIsRunning(true);
+        setIsBreak(false)
+    };
 
-    // useEffect(() => {
-    //     if (remainingTime === 0 && isRunning) {
-    //         setTimeout(() => {
-    //             setIsRunning(false); // Pause the timer
-    //             // Example: Restart with initial time
-    //             setRemainingTime(time);
-    //             setIsFinished(true); // Set finished state
+    const pauseTimer = () => {
+        setIsRunning(false);
+    };
 
-    //             setTimeout(() => {
-    //                 setIsFinished(false); // Reset finished state after 5 seconds
-    //             }, 5500);
-    //             // You can also add a sound notification here
-    //         }, 1000);
-    //     }
-    // }, [remainingTime, isRunning, time]);
+    const resetTimer = () => {
+        setRemainingTime(time);
+        setIsRunning(false);
+        setIsBreak(false)
+    };
 
-    // const getStoredOrDefault = (key: string, fallback: string) =>
-    //     localStorage.getItem(key) || fallback;
+    const toggleAlarm = () => updateSettings("alarm", !alarm, setAlarm);
+    const toggleSound = () => updateSettings("sound", !sound, setSound);
 
-    // const startTimer = () => {
-    //     setIsRunning(true);
-    //     setIsFinished(false); // Reset finished state when starting
-    // };
+    const calculateTime = (newTime: number) => {
+        const time = newTime * 60;
+        setIsRunning(false);
+        setTime(time);
+        localStorage.setItem("time", JSON.stringify(time));
+        setRemainingTime(time);
+    };
 
-    // const pauseTimer = () => {
-    //     setIsRunning(false);
-    // };
+    const handleBreakTimeClick = (time: number) => {
+        const breakTime = time * 60;
 
-    // const resetTimer = () => {
-    //     setRemainingTime(time);
-    //     setIsRunning(false);
-    // };
+        localStorage.setItem("break", JSON.stringify(breakTime));
+        setBreakTime(breakTime);
+    };
 
-    // const calculateTime = (newTime: number, isPreset = false) => {
-    //     if (!isPreset) {
-    //         setIsRunning(false);
-    //         setTime(newTime);
-    //         setRemainingTime(newTime);
-    //     } else {
-    //         setIsRunning(false);
-    //         setTime(newTime * 60);
-    //         setRemainingTime(newTime * 60);
-    //     }
-    // };
+    const cancelBreak = useCallback(() => {
+        setRemainingTime(time);
+        setIsBreak(false);
 
-    // const handlePresetClick = (newTime: number) => {
-    //     if (!newTime) return;
-    //     calculateTime(newTime, true);
-    //     setIsOpen(false);
-    // };
+        setTimeout(() => {
+            setRemainingBreakTime(breakTime);
+        }, 1000);
+    }, [time, breakTime]);
 
-    // const handleBreakTimeChange = (e: React.ChangeEvent<HTMLInputElement>, breakName: string) => {
-    //     const value = e.target.value;
-    //     localStorage.setItem(breakName, value);
+    useEffect(() => {
+        let timer: NodeJS.Timeout | undefined;
 
-    //     if (breakName === "short") {
-    //         setShortBreak(value);
-    //     } else if (breakName === "medium") {
-    //         setMediumBreak(value);
-    //     } else {
-    //         setLongBreak(value);
-    //     }
-    // };
+        if (isRunning) {
+            timer = setInterval(() => {
+                setRemainingTime((prevTime) => {
+                    if (prevTime <= 1) {
+                        clearInterval(timer);
+                        return 0;
+                    }
+                    return prevTime - 1;
+                });
+            }, 1000);
+        }
 
-    // const presets = [
-    //     { label: "5 minutes", value: 5 },
-    //     { label: "10 minutes", value: 10 },
-    //     { label: "15 minutes", value: 15 },
-    //     { label: "20 minutes", value: 20 },
-    //     { label: "25 minutes", value: 25 },
-    //     { label: "30 minutes", value: 30 },
-    //     { label: "45 minutes", value: 45 },
-    //     { label: "60 minutes", value: 60 },
-    //     { label: "90 minutes", value: 90 },
-    // ];
+        return () => clearInterval(timer);
+    }, [isRunning]);
+
+    useEffect(() => {
+        if (remainingTime === 0 && isRunning) {
+            setIsRunning(false);
+            setRemainingTime(time);
+
+            if (alarm || sound) {
+                setIsBreak(true);
+            }
+        }
+    }, [remainingTime, isRunning, time, alarm, sound]);
+
+    useEffect(() => {
+        let timer: NodeJS.Timeout | undefined;
+
+        if (alarm) {
+            if (isBreak) {
+                timer = setInterval(() => {
+                    setRemainingBreakTime((prevTime) => {
+                        if (prevTime <= 1) {
+                            clearInterval(timer);
+                            return 0;
+                        }
+                        return prevTime - 1;
+                    });
+                }, 1000);
+            }
+        }
+
+        return () => clearInterval(timer);
+    }, [isBreak, alarm]);
+
+    useEffect(() => {
+        if (alarm) {
+            if (remainingBreakTime === 0 && isBreak) {
+                cancelBreak();
+            }
+        }
+    }, [alarm, remainingBreakTime, isBreak, cancelBreak]);
+
+    useEffect(() => {
+        timerSound.current = new Audio("/ding.mp3");
+    }, []);
 
     return (
-        <section className="padding height relative flex justify-center items-center gap-8">
-            <Timer />
-            <Options />
-            <Alarm />
-            {/* <div className="w-10/12 flex flex-col justify-center">
-                <section className="w-full flex justify-between items-center gap-1 min-h-14 border-b border-border">
-                    <Button
-                        onClick={() => handlePresetClick(parseInt(shortBreak))}
-                        size="sm"
-                        className="w-1/3 rounded-sm"
-                    >
-                        Short
-                    </Button>
-                    <Button
-                        onClick={() => handlePresetClick(parseInt(mediumBreak))}
-                        size="sm"
-                        className="w-1/3 rounded-sm"
-                    >
-                        Medium
-                    </Button>
-                    <Button
-                        onClick={() => handlePresetClick(parseInt(longBreak))}
-                        size="sm"
-                        className="w-1/3 rounded-sm"
-                    >
-                        Long
-                    </Button>
-                </section>
-                <div className="relative">
-                    <div
-                        id="progress-bar"
-                        className="absolute z-10 top-0 left-0 h-full rounded-md transition-all duration-300"
-                        style={{ width: `${(remainingTime / time) * 100}%` }}
-                    ></div>
+        <section className="padding height max-w-8xl mx-auto relative flex flex-col lg:flex-row justify-evenly items-center gap-10">
+            <div className="relative min-h-80 flex justify-center items-center">
+                {!alarm && isBreak && (
+                    <p className="text-accent-foreground bg-accent w-36 h-8 flex justify-center items-center rounded-md absolute top-0 lg:-top-10 left-1/2 -translate-x-1/2">
+                        Time&apos;s up!
+                    </p>
+                )}
 
-                    <div className="h-72 flex justify-center items-center rounded-md bg-secondary">
-                        <p className="relative z-10 text-9xl md:text-[150px] w-full text-center font-medium font-mono">
-                            {Math.floor(remainingTime / 60)
-                                .toString()
-                                .padStart(2, "0")}
-                            :{(remainingTime % 60).toString().padStart(2, "0")}
-                        </p>
-                        <p className="relative z-10 min-h-6">
-                            {isFinished && (
-                                <span className="flex items-center gap-2 text-sm">
-                                    Time&apos;s up!
-                                    <BellRing size={15} className="animate-wiggle" />
-                                </span>
-                            )}
-                        </p>
-                    </div>
-                </div>
-                <section className="w-full flex justify-between items-center min-h-14 border-t border-border gap-1">
-                    <Button
-                        onClick={startTimer}
-                        disabled={isRunning}
-                        size="sm"
-                        className="w-1/4 rounded-sm"
-                    >
-                        <span>Start</span>
-                        <Play size={15} />
-                    </Button>
-                    <Button
-                        onClick={pauseTimer}
-                        disabled={!isRunning}
-                        size="sm"
-                        className="w-1/4 rounded-sm"
-                    >
-                        <span>Pause</span>
-                        <Pause size={15} />
-                    </Button>
-                    <Button onClick={resetTimer} size="sm" className="w-1/4 rounded-sm">
-                        <span>Restart</span>
-                        <RotateCcw size={15} />
-                    </Button>
-                    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-                        <DialogTrigger asChild>
-                            <Button size="sm" className="w-1/4 rounded-sm">
-                                <span>Settings</span>
-                                <Settings2 className="!size-4" />
-                            </Button>
-                        </DialogTrigger>
-                        <DialogContent className="sm:max-w-[425px]">
-                            <DialogHeader>
-                                <DialogTitle>Settings</DialogTitle>
-                                <DialogDescription className="sr-only">
-                                    Make changes to the timer settings here.
-                                </DialogDescription>
-                            </DialogHeader>
-                            <section className="border-b border-border/50 space-y-2.5 py-5">
-                                <p className="text-sm font-semibold">Shortcuts</p>
-                                <section className=" grid grid-cols-3 gap-2">
-                                    <div>
-                                        <p className="text-xs">Short Break</p>
-                                        <Input
-                                            type="number"
-                                            onChange={(e) => handleBreakTimeChange(e, "short")}
-                                            defaultValue={shortBreak}
-                                            placeholder="Add time in minutes"
-                                            min={1}
-                                            max={5}
-                                        />
-                                    </div>
-                                    <div>
-                                        <p className="text-xs">Medium Break</p>
-                                        <Input
-                                            type="number"
-                                            onChange={(e) => handleBreakTimeChange(e, "medium")}
-                                            defaultValue={mediumBreak}
-                                            placeholder="Add time in minutes"
-                                            min={5}
-                                            max={30}
-                                        />
-                                    </div>
-                                    <div>
-                                        <p className="text-xs">Long Break</p>
-                                        <Input
-                                            type="number"
-                                            onChange={(e) => handleBreakTimeChange(e, "long")}
-                                            defaultValue={longBreak}
-                                            placeholder="Add time in minutes"
-                                            min={30}
-                                            max={90}
-                                        />
-                                    </div>
-                                </section>
-                            </section>
-                            <section className="space-y-2.5">
-                                <p className="text-sm font-semibold">Presets</p>
-                                <ul className="grid grid-cols-3 gap-2">
-                                    {presets.map((preset) => (
-                                        <li key={preset.value}>
-                                            <Button
-                                                variant="outline"
-                                                className="border border-border w-full"
-                                                onClick={() => handlePresetClick(preset.value)}
-                                                disabled={time / 60 === preset.value}
-                                            >
-                                                {preset.label}
-                                            </Button>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </section>
-                            <DialogFooter>
-                                <Button type="button" onClick={() => setIsOpen(false)}>
-                                    close
-                                </Button>
-                            </DialogFooter>
-                        </DialogContent>
-                    </Dialog>
-                </section>
-            </div> */}
+                <Timer
+                    start={startTimer}
+                    pause={pauseTimer}
+                    reset={resetTimer}
+                    remaining={remainingTime}
+                    running={isRunning}
+                />
+            </div>
+            <Options
+                short={short}
+                medium={medium}
+                long={long}
+                setShort={setShort}
+                setMedium={setMedium}
+                setLong={setLong}
+                updateSessionTime={updateSessionTime}
+                alarm={alarm}
+                toggleAlarm={toggleAlarm}
+                sound={sound}
+                toggleSound={toggleSound}
+                calculateTime={calculateTime}
+                handleBreakTimeClick={handleBreakTimeClick}
+                breakTime={breakTime}
+                time={time}
+            />
+            <Alarm
+                isBreak={isBreak}
+                breakTime={remainingBreakTime}
+                cancelBreak={cancelBreak}
+                sound={sound}
+                alarm={alarm}
+            />
         </section>
     );
 }
