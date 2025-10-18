@@ -1,9 +1,23 @@
+//* - Notes for re-design - ref: linktree
+
+//? - Offer multiple layout designs:
+
+//? -- Different size photos / background images
+//? -- Different styled icons
+
+
+//? Re-design form and preview, desktops should have two colum layout and switch to tabs on mobile
+
+//NOTE - Possibly use sub tabs to keep things seperate, i.e. socials, styles etc: Ref - QR Code generator
+
+
+
+
 "use client";
 
 import Link from "next/link";
 import { useState } from "react";
 import { publish } from "@/lib/link-in-bio/publish";
-import { useToast } from "@/lib/global/use-toast";
 
 import PublishedLink from "@/components/link-in-bio/PublishedLink";
 import FeatureWarning from "@/components/global/FeatureWarning";
@@ -22,9 +36,9 @@ import {
     FaTelegram,
     FaGithub,
 } from "react-icons/fa6";
+import { NotifyUser } from "@/lib/global/NotifyUser";
 
 export default function LinkInBio() {
-    const { toast } = useToast();
     const [formValues, setFormValues] = useState<LinkInBioValues>({
         name: "",
         email: "",
@@ -63,10 +77,13 @@ export default function LinkInBio() {
     };
 
     const handleClearForm = () => {
-        Object.keys(formValues).forEach((key) => {
-            formValues[key] = "";
-        });
-        toast({ title: "FYI", description: "Form cleared", duration: 1350 });
+        const clearedValues = Object.keys(formValues).reduce((acc, key) => {
+            acc[key as keyof LinkInBioValues] = "";
+            return acc;
+        }, {} as LinkInBioValues);
+        setFormValues(clearedValues);
+
+        NotifyUser({ type: "FYI", message: "Form cleared" });
     };
 
     const Publish = (e: { preventDefault: () => void }) => {
@@ -75,31 +92,19 @@ export default function LinkInBio() {
         const publishResult = publish(formValues);
 
         if (publishResult) {
-            toast({ title: "Success", description: "Copied to clipboard", duration: 1350 });
+            NotifyUser({ type: "Success", message: "Copied to clipboard" });
         } else {
-            toast({
-                title: "Error",
-                description: "Unable to copy to clipboard, please try again later",
-                duration: 1350,
+            NotifyUser({
+                type: "Error",
+                message: "Unable to copy to clipboard, please try again later",
             });
         }
     };
 
     return (
-        <section className="padding w-full py-10">
+        <section className="padding w-full">
             <FeatureWarning />
-            <section className="space-y-4 max-w-xl">
-                <article className="space-y-4">
-                    <h1 className="text-2xl md:text-3xl font-semibold">Consolidate Your Links.</h1>
-                    <p>
-                        Seamlessly manage and showcase all your important links in one place.
-                        Perfect for <span className="text-primary">social media profiles</span>,{" "}
-                        <span className="text-primary">bios</span> and more. Get started by
-                        completing the form.
-                    </p>
-                </article>
-            </section>
-            <section className="mt-14">
+            <section>
                 <Tabs defaultValue="PersonalInformation">
                     <TabsList className=" max-w-md grid grid-cols-2 gap-2">
                         <TabsTrigger value="PersonalInformation" className="cursor-pointer">
