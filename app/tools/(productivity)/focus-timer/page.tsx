@@ -1,45 +1,25 @@
 "use client";
 
-import React, { useState, useEffect, Dispatch, SetStateAction, useRef, useCallback } from "react";
+import React, { useState, useEffect, Dispatch, SetStateAction, useCallback } from "react";
+import usePersistentState from "@/lib/focus-timer/usePersistentState";
 
 import Timer from "@/components/focus-timer/timer";
 import Options from "@/components/focus-timer/options";
 import Alarm from "@/components/focus-timer/alarm";
 
 export default function FocusTimer() {
-    const [time, setTime] = useState(() => {
-        const stored = localStorage.getItem("time");
-        return stored ? parseInt(stored) : 300;
-    });
+    const [time, setTime] = usePersistentState<number>("time", 300);
+    const [breakTime, setBreakTime] = usePersistentState<number>("break", 300);
+    const [alarm, setAlarm] = usePersistentState<boolean>("alarm", true);
+    const [sound, setSound] = usePersistentState<boolean>("sound", true);
+    const [short, setShort] = usePersistentState<string>("short", "1");
+    const [medium, setMedium] = usePersistentState<string>("medium", "5");
+    const [long, setLong] = usePersistentState<string>("long", "30");
+
     const [remainingTime, setRemainingTime] = useState(time);
     const [isRunning, setIsRunning] = useState(false);
     const [isBreak, setIsBreak] = useState(false);
-    const [breakTime, setBreakTime] = useState(() => {
-        const stored = localStorage.getItem("break");
-        return stored ? parseInt(stored) : 300;
-    });
     const [remainingBreakTime, setRemainingBreakTime] = useState(breakTime);
-    const timerSound = useRef<HTMLAudioElement | null>(null);
-    const [alarm, setAlarm] = useState(() => {
-        const stored = localStorage.getItem("alarm");
-        return stored ? JSON.parse(stored) : true;
-    });
-    const [sound, setSound] = useState(() => {
-        const stored = localStorage.getItem("sound");
-        return stored ? JSON.parse(stored) : true;
-    });
-    const [short, setShort] = useState(() => {
-        const stored = localStorage.getItem("short");
-        return stored ? JSON.parse(stored) : 1;
-    });
-    const [medium, setMedium] = useState(() => {
-        const stored = localStorage.getItem("medium");
-        return stored ? JSON.parse(stored) : 5;
-    });
-    const [long, setLong] = useState(() => {
-        const stored = localStorage.getItem("long");
-        return stored ? JSON.parse(stored) : 30;
-    });
 
     // Utility function to update localStorage and state
     const updateSettings = (
@@ -62,7 +42,7 @@ export default function FocusTimer() {
 
     const startTimer = () => {
         setIsRunning(true);
-        setIsBreak(false)
+        setIsBreak(false);
     };
 
     const pauseTimer = () => {
@@ -72,7 +52,7 @@ export default function FocusTimer() {
     const resetTimer = () => {
         setRemainingTime(time);
         setIsRunning(false);
-        setIsBreak(false)
+        setIsBreak(false);
     };
 
     const toggleAlarm = () => updateSettings("alarm", !alarm, setAlarm);
@@ -159,12 +139,8 @@ export default function FocusTimer() {
         }
     }, [alarm, remainingBreakTime, isBreak, cancelBreak]);
 
-    useEffect(() => {
-        timerSound.current = new Audio("/ding.mp3");
-    }, []);
-
     return (
-        <section className="padding height max-w-8xl mx-auto relative flex flex-col lg:flex-row justify-evenly items-center gap-10">
+        <section className="height max-w-8xl mx-auto relative flex flex-col lg:flex-row justify-evenly items-center gap-10">
             <div className="relative min-h-80 flex justify-center items-center">
                 {!alarm && isBreak && (
                     <p className="text-accent-foreground bg-accent w-36 h-8 flex justify-center items-center rounded-md absolute top-0 lg:-top-10 left-1/2 -translate-x-1/2">

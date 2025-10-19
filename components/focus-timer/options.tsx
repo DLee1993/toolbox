@@ -1,9 +1,4 @@
-// import { Button } from "@/components/ui/button";
-// import { BellRing, Play, Pause, RotateCcw, Settings2 } from "lucide-react";
-// import { Input } from "@/components/ui/input";
-
-//! NEED - Function for alarm to sound and reset timer and start break timer
-//! NEED - Function for sound to start when timer finished and when break timer finishes
+"use client"
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -14,11 +9,11 @@ import { Dispatch, SetStateAction } from "react";
 type Props = {
     alarm: boolean;
     sound: boolean;
-    short: number;
+    short: string;
     setShort: Dispatch<SetStateAction<string>>;
-    medium: number;
+    medium: string;
     setMedium: Dispatch<SetStateAction<string>>;
-    long: number;
+    long: string;
     setLong: Dispatch<SetStateAction<string>>;
     toggleAlarm: () => void;
     toggleSound: () => void;
@@ -132,21 +127,21 @@ export default function Options({
             <div className="w-full flex justify-between items-center gap-2 border-b border-border">
                 <Button
                     className="w-1/3"
-                    onClick={() => calculateTime(short)}
+                    onClick={() => calculateTime(parseInt(short))}
                     disabled={time / 60 === Number(short) ? true : false}
                 >
                     Short
                 </Button>
                 <Button
                     className="w-1/3"
-                    onClick={() => calculateTime(medium)}
+                    onClick={() => calculateTime(parseInt(medium))}
                     disabled={time / 60 === Number(medium) ? true : false}
                 >
                     Medium
                 </Button>
                 <Button
                     className="w-1/3"
-                    onClick={() => calculateTime(long)}
+                    onClick={() => calculateTime(parseInt(long))}
                     disabled={time / 60 === Number(long) ? true : false}
                 >
                     Long
