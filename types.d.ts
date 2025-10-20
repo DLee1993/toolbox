@@ -19,13 +19,10 @@ type NotepadNoteValues = {
     title: string;
     content?: string;
     category?: string;
+    completedBy: Date | undefined;
     id: string;
     createdAt: string;
     completed: boolean;
-};
-
-type NotepadCategoryValues = {
-    categoryName: string;
 };
 
 type Action = {
