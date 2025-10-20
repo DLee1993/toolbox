@@ -22,7 +22,25 @@ function checkIfExists(title: string, id: string) {
 export const getAllCategories = () => {
     if (isWindowDefined()) {
         const storedCategories = localStorage.getItem("notepad-categories");
-        return storedCategories ? JSON.parse(storedCategories) : [];
+        return storedCategories
+            ? JSON.parse(storedCategories)
+            : [
+                  "Homework",
+                  "Work",
+                  "Personal",
+                  "Ideas",
+                  "Reminders",
+                  "Shopping",
+                  "Fitness",
+                  "Travel",
+                  "Finance",
+                  "Health",
+                  "Events",
+                  "Books",
+                  "Movies",
+                  "Recipes",
+                  "Goals",
+              ];
     }
     return [];
 };
@@ -48,6 +66,7 @@ export const addNote = (note: NotepadNoteValues) => {
             title: note.title,
             content: note.content,
             category: note.category,
+            completedBy: note.completedBy,
             createdAt: note.createdAt,
             completed: note.completed,
         };
