@@ -20,6 +20,7 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet";
+import SelectDate from "@/components/notepad/SelectDate";
 
 export default function NewNote({
     setCurrentNotes,
@@ -28,6 +29,7 @@ export default function NewNote({
 }) {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState("");
+    const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
     const [error, setError] = useState(false);
     const [data, setData] = useState<NotepadNoteValues>({
         title: "",
@@ -35,6 +37,7 @@ export default function NewNote({
         id: "",
         createdAt: "",
         category: "",
+        completedBy: undefined,
         completed: false,
     });
 
@@ -103,9 +106,14 @@ export default function NewNote({
                             </Label>
                         </fieldset>
                         <fieldset>
+                            <SelectDate
+                                selectedDate={selectedDate}
+                                setSelectedDate={setSelectedDate}
+                            />
+                        </fieldset>
+                        <fieldset>
                             <SelectCategory setSelectedCategory={setSelectedCategory} />
                         </fieldset>
-                        <fieldset>select a date goes here</fieldset>
                     </form>
                 </div>
                 <SheetFooter className="w-full min-h-14 border-t border-border flex flex-row !justify-between items-center">
@@ -117,6 +125,7 @@ export default function NewNote({
                                 title: data.title,
                                 content: data.content,
                                 category: selectedCategory,
+                                completedBy: selectedDate,
                                 id: GetRandomID(),
                                 createdAt: new Date().toISOString(),
                                 completed: data.completed,
@@ -125,7 +134,9 @@ export default function NewNote({
                     >
                         Save
                     </Button>
-                    <SheetClose onClick={() => setError(false)} className="text-sm">Cancel</SheetClose>
+                    <SheetClose onClick={() => setError(false)} className="text-sm">
+                        Cancel
+                    </SheetClose>
                 </SheetFooter>
             </SheetContent>
         </Sheet>
