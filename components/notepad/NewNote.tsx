@@ -28,8 +28,7 @@ export default function NewNote({
     setCurrentNotes: Dispatch<SetStateAction<NotepadNoteValues[] | null>>;
 }) {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState("");
-    const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
+    const [selectedDate, setSelectedDate] = useState<Date | undefined>();
     const [error, setError] = useState(false);
     const [data, setData] = useState<NotepadNoteValues>({
         title: "",
@@ -41,8 +40,24 @@ export default function NewNote({
         completed: false,
     });
 
+    const clearData = () => {
+        setData({
+            title: "",
+            content: "",
+            id: "",
+            createdAt: "",
+            category: "",
+            completedBy: undefined,
+            completed: false,
+        });
+        setSelectedDate(new Date());
+
+        NotifyUser({ type: "FYI", message: "Form cleared" });
+    };
+
     function HandleInputChange(e: { target: { name: string; value: string } }) {
         const { name, value } = e.target;
+        console.log(name, value)
 
         setData((prevState) => ({ ...prevState, [name]: value }));
     }
@@ -68,54 +83,47 @@ export default function NewNote({
                     <span className="hidden sm:block">New Note</span> <PlusIcon />
                 </Button>
             </SheetTrigger>
-            <SheetContent className="sm:max-w-[425px] flex flex-col justify-between overflow-y-auto">
+            <SheetContent className="flex flex-col justify-between overflow-y-auto">
                 <SheetHeader>
                     <SheetTitle className="text-base">Create new note</SheetTitle>
                     <SheetDescription className="sr-only">Create a new note</SheetDescription>
                 </SheetHeader>
-                <div className="my-5 flex-1">
-                    <form className="space-y-2">
-                        <fieldset className="relative">
-                            <Input
-                                name="title"
-                                id="title"
-                                placeholder=" "
-                                className={`formField peer ${error && "border-red-600"}`}
-                                onChange={HandleInputChange}
-                            />
-                            <Label
-                                htmlFor="title"
-                                className="pointer-events-none absolute text-sm duration-300 bg-background transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:text-blue-600 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1 capitalize"
-                            >
-                                Title
-                            </Label>
-                        </fieldset>
-                        <fieldset className="relative">
-                            <Textarea
-                                name="content"
-                                id="content"
-                                placeholder=" "
-                                className="resize-none min-h-36 formField peer"
-                                onChange={HandleInputChange}
-                            />
-                            <Label
-                                htmlFor="content"
-                                className="pointer-events-none absolute text-sm duration-300 bg-background transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2  peer-placeholder-shown:top-6 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:text-blue-600 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1 capitalize"
-                            >
-                                Content
-                            </Label>
-                        </fieldset>
-                        <fieldset>
-                            <SelectDate
-                                selectedDate={selectedDate}
-                                setSelectedDate={setSelectedDate}
-                            />
-                        </fieldset>
-                        <fieldset>
-                            <SelectCategory setSelectedCategory={setSelectedCategory} />
-                        </fieldset>
-                    </form>
-                </div>
+                <form className="space-y-5">
+                    <fieldset className="relative">
+                        <Input
+                            name="title"
+                            id="title"
+                            placeholder=" "
+                            className={`formField peer ${error && "border-red-600"}`}
+                            onChange={HandleInputChange}
+                        />
+                        <Label
+                            htmlFor="title"
+                            className="pointer-events-none absolute text-sm duration-300 bg-background transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:text-blue-600 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1 capitalize"
+                        >
+                            Title
+                        </Label>
+                    </fieldset>
+                    <fieldset className="relative">
+                        <Textarea
+                            name="content"
+                            id="content"
+                            placeholder=" "
+                            className="resize-none min-h-36 formField peer"
+                            onChange={HandleInputChange}
+                        />
+                        <Label
+                            htmlFor="content"
+                            className="pointer-events-none absolute text-sm duration-300 bg-background transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2  peer-placeholder-shown:top-6 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:text-blue-600 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1 capitalize"
+                        >
+                            Content
+                        </Label>
+                    </fieldset>
+                    <fieldset>
+                        <SelectCategory HandleInputChange={HandleInputChange} />
+                    </fieldset>
+                    <SelectDate HandleInputChange={HandleInputChange} />
+                </form>
                 <SheetFooter className="w-full min-h-14 border-t border-border flex flex-row !justify-between items-center">
                     <Button
                         type="submit"
@@ -124,7 +132,7 @@ export default function NewNote({
                             SubmitData({
                                 title: data.title,
                                 content: data.content,
-                                category: selectedCategory,
+                                category: data.category,
                                 completedBy: selectedDate,
                                 id: GetRandomID(),
                                 createdAt: new Date().toISOString(),
@@ -134,7 +142,13 @@ export default function NewNote({
                     >
                         Save
                     </Button>
-                    <SheetClose onClick={() => setError(false)} className="text-sm">
+                    <SheetClose
+                        onClick={() => {
+                            setError(false);
+                            clearData();
+                        }}
+                        className="text-sm"
+                    >
                         Cancel
                     </SheetClose>
                 </SheetFooter>

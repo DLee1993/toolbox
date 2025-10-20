@@ -18,6 +18,7 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet";
+import SelectDate from "@/components/notepad/SelectDate";
 
 export default function UpdateNote({
     setCurrentNotes,
@@ -27,7 +28,6 @@ export default function UpdateNote({
     id: string;
 }) {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState("");
     const [error, setError] = useState(false);
     const note = getAllNotes().filter((n: NotepadNoteValues) => n.id === id)[0];
     const [data, setData] = useState<NotepadNoteValues>({
@@ -35,6 +35,7 @@ export default function UpdateNote({
         content: note.content,
         id: note.id,
         category: note.category,
+        completedBy: note.completedBy,
         createdAt: note.createdAt,
         completed: note.completed,
     });
@@ -47,6 +48,8 @@ export default function UpdateNote({
 
     function UpdateData(data: NotepadNoteValues) {
         const updatedNotes = updateNote(data);
+
+        console.log(updatedNotes)
 
         if (updatedNotes.duplicate) {
             NotifyUser({ type: "Error", message: "Title already exists" });
@@ -71,7 +74,7 @@ export default function UpdateNote({
                     ...
                 </Button>
             </SheetTrigger>
-            <SheetContent className="sm:max-w-[425px] flex flex-col justify-between">
+            <SheetContent className="sm:max-w-[425px] flex flex-col justify-between overflow-y-auto">
                 <SheetHeader>
                     <SheetTitle>Update note</SheetTitle>
                     <SheetDescription className="sr-only">Create a new note</SheetDescription>
@@ -113,11 +116,11 @@ export default function UpdateNote({
                         </fieldset>
                         <fieldset>
                             <SelectCategory
-                                setSelectedCategory={setSelectedCategory}
-                                defaultValue={note.category}
+                                defaultValue={data.category}
+                                HandleInputChange={HandleInputChange}
                             />
                         </fieldset>
-                        <fieldset>select a date goes here</fieldset>
+                        <SelectDate defaultValue={data?.completedBy} HandleInputChange={HandleInputChange} />
                         <fieldset className="flex items-center gap-2">
                             <Checkbox
                                 name="completed"
@@ -145,7 +148,8 @@ export default function UpdateNote({
                             UpdateData({
                                 title: data.title,
                                 content: data.content,
-                                category: selectedCategory ? selectedCategory : data.category,
+                                category: data.category,
+                                completedBy: data.completedBy,
                                 id: data.id,
                                 createdAt: data.createdAt,
                                 completed: data.completed,
