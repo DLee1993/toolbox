@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils";
 import NewNote from "@/components/notepad/NewNote";
 import UpdateNote from "@/components/notepad/UpdateNote";
 import FilterCategory from "@/components/notepad/FilterCategory";
-import { deleteNote } from "@/lib/notepad/crud";
 import { CheckCheck, ChevronsLeft, ChevronsRight, CircleX, Trash } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
