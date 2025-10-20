@@ -16,7 +16,7 @@ import {
 
 export default function FilterCategory({ table }: { table: Table<NotepadNoteValues> }) {
     const categories = getAllCategories();
-    const cats = [{ categoryName: "All" }, ...categories];
+    const cats = ["All", ...categories];
 
     function handleFilter(value: string) {
         if (value === "All") {
@@ -39,9 +39,13 @@ export default function FilterCategory({ table }: { table: Table<NotepadNoteValu
                 <SelectContent>
                     <SelectGroup>
                         <SelectLabel>Categories</SelectLabel>
-                        {cats.map((cat: NotepadCategoryValues) => (
-                            <SelectItem key={cat.categoryName} value={cat.categoryName} className="hover:bg-muted-foreground cursor-pointer">
-                                {cat.categoryName}
+                        {cats.map((cat: string, i: number) => (
+                            <SelectItem
+                                key={i}
+                                value={cat}
+                                className="hover:bg-muted-foreground cursor-pointer"
+                            >
+                                {cat}
                             </SelectItem>
                         ))}
                     </SelectGroup>
