@@ -31,9 +31,9 @@ export default function SelectCategory({
             <SelectContent>
                 <SelectGroup>
                     <SelectLabel className="border-b border-border">Categories</SelectLabel>
-                    {categories.map((cat: NotepadCategoryValues) => (
-                        <SelectItem key={cat.categoryName} value={cat.categoryName}>
-                            {cat.categoryName}
+                    {categories.map((cat: string, i: number) => (
+                        <SelectItem key={i} value={cat}>
+                            {cat}
                         </SelectItem>
                     ))}
                 </SelectGroup>
