@@ -572,7 +572,7 @@ export default function FileConverterDropzone() {
                     {({ getRootProps, getInputProps }) => (
                         <div
                             {...getRootProps()}
-                            className="w-full h-40 flex justify-center items-center cursor-pointer border border-dashed border-accent-foreground rounded-sm bg-accent"
+                            className="w-full h-40 flex justify-center items-center cursor-pointer border-[1.5px] border-dashed border-border rounded-sm text-accent-foreground"
                         >
                             <input {...getInputProps()} />
 
