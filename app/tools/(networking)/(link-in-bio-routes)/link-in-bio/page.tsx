@@ -5,13 +5,9 @@
 //? -- Different size photos / background images
 //? -- Different styled icons
 
-
 //? Re-design form and preview, desktops should have two colum layout and switch to tabs on mobile
 
 //NOTE - Possibly use sub tabs to keep things seperate, i.e. socials, styles etc: Ref - QR Code generator
-
-
-
 
 "use client";
 
@@ -37,6 +33,8 @@ import {
     FaGithub,
 } from "react-icons/fa6";
 import { NotifyUser } from "@/lib/global/NotifyUser";
+
+// - add the following socials - snapchat, bluesky, tiktok, discord, reddit, pinterest, twitch, kick, noplace, substack, medium, threads
 
 export default function LinkInBio() {
     const [formValues, setFormValues] = useState<LinkInBioValues>({
