@@ -34,7 +34,7 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <body className={`${inter.className} ${azeretMono.variable} antialiased`}>
-                <ThemeProvider>
+                <ThemeProvider storageKey="toolbox-theme">
                     <SidebarProvider defaultOpen={false}>
                         <TooltipProvider>
                             <AppSidebar />
