@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Azeret_Mono } from "next/font/google";
+import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { ThemeProvider } from "next-themes";
@@ -8,14 +8,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppSidebar } from "@/components/global/navigation/app-sidebar";
 import Header from "@/components/global/Header";
 
-const inter = Inter({
-    weight: ["300", "400", "600", "700", "800"],
+const dmSans = DM_Sans({
+    weight: ["300", "400", "500", "700"],
     subsets: ["latin"],
-});
-const azeretMono = Azeret_Mono({
-    weight: ["300", "400", "600", "700", "800"],
-    subsets: ["latin"],
-    variable: "--font-azeret-mono",
 });
 
 export const metadata: Metadata = {
@@ -33,11 +28,12 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className={`${inter.className} ${azeretMono.variable} antialiased`}>
+            <body className={`${dmSans.className} antialiased`}>
                 <ThemeProvider storageKey="toolbox-theme">
                     <SidebarProvider defaultOpen={false}>
                         <TooltipProvider>
                             <AppSidebar />
+                            <div className="gradient-glow"></div>
                             <div className="w-full relative">
                                 <Header />
                                 <main>{children}</main>

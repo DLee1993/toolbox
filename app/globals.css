@@ -218,4 +218,41 @@
     .padding {
         @apply p-4 md:p-9;
     }
+
+    .gradient-glow {
+        backface-visibility: hidden;
+        content: "";
+        filter: blur(50px);
+        height: 90%;
+        position: absolute;
+        left: 0;
+        top: 10;
+        transform: translate(0);
+        width: 100%;
+        z-index: -1;
+    }
+
+    [data-theme="light"] .gradient-glow {
+        background: radial-gradient(transparent, transparent, hsl(0 0% 100%)),
+            linear-gradient(90deg, #48c2ff 18.75%, #5d9eff, #d860e2, #fa6664, #fea808 81.17%),
+            linear-gradient(hsl(0 0% 100%), transparent);
+        opacity: 0.2;
+    }
+    [data-theme="dark"] .gradient-glow {
+        background: radial-gradient(transparent, transparent, hsl(0 0% 9.0196%)),
+            linear-gradient(90deg, #48c2ff 18.75%, #5d9eff, #d860e2, #fa6664, #fea808 81.17%),
+            linear-gradient(hsl(0 0% 9.0196%), transparent);
+        opacity: 0.1;
+    }
+}
+
+gradient-glow:after {
+    background: linear-gradient(90deg, #48c2ff 18.75%, #5d9eff, #d860e2, #fa6664, #fea808 81.17%);
+    border-radius: 100%;
+    height: calc(var(--header-height) * 2);
+    left: 50%;
+    max-width: 230px;
+    opacity: 0.4;
+    transform: translate(-50%, -25%);
+    width: 100%;
 }

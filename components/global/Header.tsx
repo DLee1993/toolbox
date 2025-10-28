@@ -28,7 +28,7 @@ export default function Header() {
     }, []);
 
     return (
-        <header className="sticky top-0 z-50 flex justify-between items-center border-b border-border bg-background px-2 md:px-5">
+        <header className="flex justify-between items-center px-2 md:px-5">
             <div className="flex justify-start items-center gap-2">
                 <SidebarTrigger className="min-w-9 min-h-9 md:hidden" />
                 <div className="hidden min-[520px]:block">

@@ -26,7 +26,7 @@ const ChangeTheme = ({ open, isMobile }: { open: boolean; isMobile: boolean }) =
             <SidebarMenuButton
                 asChild
                 tooltip="Change theme"
-                className="min-h-9 min-w-9 hover:bg-muted cursor-pointer group-data-[collapsible=icon]:!p-0"
+                className="min-h-9 min-w-9 hover:bg-foreground/10 hover:text-foreground cursor-pointer group-data-[collapsible=icon]:!p-0"
             >
                 {hasMounted ? (
                     <div className="w-full min-w-32 px-0">
