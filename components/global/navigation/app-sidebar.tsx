@@ -30,7 +30,7 @@ export function AppSidebar() {
     };
 
     return (
-        <Sidebar collapsible="icon">
+        <Sidebar collapsible="icon" variant="floating">
             <SidebarHeader className="overflow-hidden px-3 py-[11.5px] hidden md:block">
                 <div className="relative hidden md:block">
                     <SidebarTrigger className="absolute top-1/2 -translate-y-1/2 -right-1.5 min-w-9 min-h-9 z-50 cursor-pointer" />
@@ -61,12 +61,12 @@ export function AppSidebar() {
                                 asChild
                                 tooltip="Home"
                                 isActive={pathname === "/" ? true : false}
-                                className="min-h-9 min-w-9 hover:bg-muted"
+                                className="min-h-9 min-w-9 hover:bg-foreground/10 hover:text-foreground"
                                 onClick={() => toggleMenu(false)}
                             >
                                 <Link
                                     href="/"
-                                    className="data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
+                                    className="data-[active=true]:bg-foreground data-[active=true]:text-background"
                                 >
                                     <Home size={15} className="ml-0.5" />
                                     <p
@@ -85,7 +85,7 @@ export function AppSidebar() {
                             <SidebarMenuButton
                                 asChild
                                 tooltip="Request a tool"
-                                className="min-h-9 min-w-9 hover:bg-muted"
+                                className="min-h-9 min-w-9 hover:bg-foreground/10 hover:text-foreground"
                                 onClick={() => toggleMenu(false)}
                             >
                                 <Link href="https://github.com/DLee1993/toolbox" target="_blank">
@@ -116,12 +116,12 @@ export function AppSidebar() {
                                         asChild
                                         tooltip={item.title}
                                         isActive={pathname === item.url ? true : false}
-                                        className="min-h-9 min-w-9 hover:bg-muted"
+                                        className="min-h-9 min-w-9 hover:bg-foreground/10 hover:text-foreground"
                                         onClick={() => toggleMenu(false)}
                                     >
                                         <Link
                                             href={item.url}
-                                            className="data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
+                                            className="data-[active=true]:bg-foreground data-[active=true]:text-background"
                                         >
                                             {item.icon && <item.icon className="ml-0.5" />}
                                             <p
