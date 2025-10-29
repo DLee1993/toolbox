@@ -31,11 +31,12 @@ export default function CurrencyConverter() {
         ConvertCurrency({
             amount: amount,
             to: selectedValue.to,
+            from: selectedValue.from,
             rates: countryCodes,
             setResult,
             setError,
         });
-    }, [amount, selectedValue.to, countryCodes, setResult, setError]);
+    }, [amount, selectedValue.to, selectedValue.from, countryCodes, setResult, setError]);
 
     useEffect(() => {
         async function fetchCurrency() {
